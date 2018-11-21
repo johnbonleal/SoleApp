@@ -1,15 +1,15 @@
 // import { networkEventsListenerSaga } from 'react-native-offline';
+import { all, takeLatest } from 'redux-saga/effects';
 
 // ActionTypes
-import LoginActionTypes from '../actions/loginActions';
+import { LoginTypes } from '../actions/loginActions';
 
 // Sagas
-import { handleLogin } from './LoginSaga';
-
+import { handleLogin } from './login_saga';
 
 export function* rootSaga() {
     yield all([
-        takeLatest(LoginActionTypes.REQUEST, handleLogin),
+        takeLatest(LoginTypes.REQUEST, handleLogin),
         // fork(networkEventsListenerSaga, { timeout: 8000, checkConnectionInterval: 15000, }),
     ]);
 }

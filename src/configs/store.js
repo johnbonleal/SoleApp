@@ -28,7 +28,9 @@ export default () => {
     const store = compose(applyMiddleware(...middlewares))(createStore)(persistedReducer);
     const persistor = persistStore(store);
 
-    sagaMiddleware.run(rootSaga);
+    store.runSagaTask = () => {
+        store.sagaTask = sagaMiddleware.run(rootSaga);
+    };
 
     return { store, persistor };
 };
