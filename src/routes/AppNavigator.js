@@ -21,6 +21,13 @@ const HomeTabNav = createBottomTabNavigator(
         defaultNavigationOptions: ({ navigation }) => ({
             tabBarIcon: ({ focused, horizontal, tintColor }) => {
                 const { routeName } = navigation.state;
+
+                let iconName;
+                if (routeName === 'Shoes') {
+                    iconName = "md-qr-scanner";
+                } else if (routeName === 'Nearby') {
+                    iconName = "md-person";
+                }
                 return <Ionicons name={"md-qr-scanner"} size={horizontal ? 20 : 25} color={tintColor} />;
             },
         }),
