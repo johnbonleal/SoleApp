@@ -1,31 +1,60 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Dimensions, StyleSheet } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker, Circle } from 'react-native-maps';
 
-const LATITUDE_DELTA = 0.8;
-const LONGITUDE_DELTA = 0.8;
+const { width, height } = Dimensions.get('window');
+
+const ASPECT_RATIO = width / height;
+const LATITUDE = 14.6091;
+const LONGITUDE = 121.0223;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 export default class Nearby extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            latitude: "",
-            longitude: "",
             region: {
-                latitude: 14.6091,
-                longitude: 121.0223,
+                latitude: LATITUDE,
+                longitude: LONGITUDE,
                 latitudeDelta: LATITUDE_DELTA,
                 longitudeDelta: LONGITUDE_DELTA,
             }
-        }
+        };
     }
     componentDidMount() {
-        this.watchId = navigator.geolocation.watchPosition(position => {
-            const { latitude, longitude } = position.coords;
-            this.setState({ latitude, longitude });
-        }, error => console.log(error),
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 });
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const { latitude, longitude } = position.coords;
+                this.setState({
+                    region: {
+                        latitude,
+                        longitude,
+                        latitudeDelta: LATITUDE_DELTA,
+                        longitudeDelta: LONGITUDE_DELTA,
+                    }
+                });
+            },
+            (error) => console.log(error.message),
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+        );
+        this.watchID = navigator.geolocation.watchPosition(
+            position => {
+                const { latitude, longitude } = position.coords;
+                this.setState({
+                    region: {
+                        latitude,
+                        longitude,
+                        latitudeDelta: LATITUDE_DELTA,
+                        longitudeDelta: LONGITUDE_DELTA,
+                    }
+                });
+            }
+        );
+    }
+    componentWillUnmount() {
+        navigator.geolocation.clearWatch(this.watchID);
     }
     onRegionChange = (region) => {
         if (region) {
@@ -36,9 +65,9 @@ export default class Nearby extends Component {
         }
     }
     render() {
-        const { region, latitude, longitude } = this.state;
+        const { region } = this.state;
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ ...StyleSheet.absoluteFillObject, flex: 1 }}>
                 <MapView
                     region={region}
                     initialRegion={region}
@@ -46,24 +75,18 @@ export default class Nearby extends Component {
                     showUserLocation
                     followUserLocation
                     loadingEnabled
-                    style={{ flex: 1 }}
-                    onRegionChange={this.onRegionChange}
+                    style={{ ...StyleSheet.absoluteFillObject }}
+                    onRegionChange={() => this.onRegionChange.bind(this)}
                 >
                     <Circle
-                        center={{
-                            latitude,
-                            longitude
-                        }}
+                        center={region}
                         radius={3000}
                         strokeWidth={1}
                         strokeColor={'#f2a65a'}
                         fillColor={'rgba(239,184,129,0.3)'}
                     />
                     <Marker
-                        coordinate={{
-                            latitude,
-                            longitude
-                        }}
+                        coordinate={region}
                         title='You are here!'
                     />
                 </MapView>
