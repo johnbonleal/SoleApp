@@ -19,16 +19,26 @@ const HomeTabNav = createBottomTabNavigator(
     {
         initialRouteName: "Shoes",
         defaultNavigationOptions: ({ navigation }) => ({
-            tabBarIcon: ({ focused, horizontal, tintColor }) => {
+            tabBarIcon: ({ horizontal, tintColor }) => {
                 const { routeName } = navigation.state;
-
                 let iconName;
-                if (routeName === 'Shoes') {
-                    iconName = "md-qr-scanner";
-                } else if (routeName === 'Nearby') {
-                    iconName = "md-person";
+                switch (routeName) {
+                    case "Shoes":
+                        iconName = "ios-cart";
+                        break;
+                    case "Nearby":
+                        iconName = "ios-compass";
+                        break;
+                    case "Profile":
+                        iconName = "ios-person";
+                        break;
+                    case "ScanQR":
+                        iconName = "ios-qr-scanner";
+                        break;
+                    default:
+                        break;
                 }
-                return <Ionicons name={"md-qr-scanner"} size={horizontal ? 20 : 25} color={tintColor} />;
+                return <Ionicons name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
             },
         }),
         tabBarOptions: {
