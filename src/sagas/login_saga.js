@@ -1,5 +1,5 @@
 import { NavigationActions } from 'react-navigation';
-import { call, put } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import * as loginActions from '../actions/loginActions';
 import api from '../services/api';
 
@@ -26,4 +26,9 @@ export function* handleLogin(action) {
         yield put(loginActions.failureLogin(errorMessage));
     }
 }
+
+// Watcher Saga
+// export default [
+//     takeLatest(loginActions.LoginTypes.REQUEST, handleLogin),
+// ];
 
