@@ -1,5 +1,5 @@
 import React from 'react';
-import { createBottomTabNavigator, createStackNavigator, createNavigationContainer } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import ShoeScreen from '../screens/Home/shoes';
@@ -39,7 +39,7 @@ const HomeTabNav = createBottomTabNavigator(
                         break;
                 }
                 return <Ionicons name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
-            },
+            }
         }),
         tabBarOptions: {
             activeTintColor: 'tomato',
@@ -51,9 +51,10 @@ const HomeTabNav = createBottomTabNavigator(
 const AppNavigator = createStackNavigator(
     {
         Home: {
-            screen: HomeTabNav
+            screen: HomeTabNav,
+            navigationOptions: noHeaderNavOptions
         }
     }
 );
 
-export default createNavigationContainer(AppNavigator);
+export default createAppContainer(AppNavigator);

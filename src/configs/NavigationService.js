@@ -26,11 +26,17 @@ function popToTop(immediate = true) {
     });
 }
 
-function reset({ actions, index }) {
+function reset(routeName, params) {
     _navigator.dispatch({
         type: NavigationActions.RESET,
-        index,
-        actions
+        index: 0,
+        key: null,
+        actions: [
+            NavigationActions.navigate({
+                routeName,
+                params
+            })
+        ]
     });
 }
 
