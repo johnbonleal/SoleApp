@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import { NavigationEvents } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { images } from '../resources';
+
+// TODO: Fix camera border to center
 
 export default class Camera extends Component {
     constructor(props) {
@@ -21,6 +24,9 @@ export default class Camera extends Component {
                     onDidFocus={() => this.setState({ shouldRenderCamera: true })}
                 />
                 {shouldRenderCamera && <View style={{ flex: 1 }}>
+                    <TouchableOpacity style={{ flex: 0, backgroundColor: '#FFF', zIndex: 2, right: 20, top: 30, width: 30, height: 30, borderRadius: 15, position: 'absolute', justifyContent: 'center', alignItems: 'center' }}>
+                        <Ionicons name={"ios-close"} size={30} color={"#000"} />
+                    </TouchableOpacity>
                     <RNCamera
                         ref={ref => this.camera = ref}
                         style={styles.preview}
@@ -30,10 +36,25 @@ export default class Camera extends Component {
                         permissionDialogMessage={'We need your permission to use your camera phone'}
                         onBarCodeRead={(qrCodeData) => this.props.onQrCodeDetected(qrCodeData)}
                     />
-                    <TouchableOpacity style={{flex: 0, right: 0, top: 0, width: 100, height: 100, position: 'absolute', justifyContent: 'center', alignItems: 'center'}}>
-                        <Ionicons name={"ios-close"} size={50} color={"gray"} />
-                    </TouchableOpacity>
-
+                    <View style={{
+                        flex: 0,
+                        position: 'absolute',
+                        }}>
+                        <Image 
+                            source={images.camera_border} 
+                            style={{
+                                height: 100, 
+                                width: 100, 
+                                tintColor: '#FFF', 
+                                top: 0,
+                                bottom: 0,
+                                left: 0,
+                                right: 0, 
+                                backgroundColor: 'red', 
+                                justifyContent: 'center'
+                            }} 
+                        />
+                    </View>
                 </View>}
             </View>
         );
