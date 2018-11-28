@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { Camera } from '../../components'; 
 import { toggleCamera } from '../../actions/cameraActions';
@@ -12,7 +12,7 @@ class ScanQR extends Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <Camera onQrCodeDetected={this._onQrCodeDetected} />
+                <Camera onQrCodeDetected={this._onQrCodeDetected} isQrEnabled />
             </View>
         )
     }
