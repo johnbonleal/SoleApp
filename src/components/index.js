@@ -1,3 +1,5 @@
-import Camera from './camera';
+import Camera from './Camera';
+import List from './List';
+import VerticalSpacer from './VerticalSpacer';
 
-export { Camera };
+export { Camera, List, VerticalSpacer };

@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import ShoeScreen from '../screens/Home/shoes';
+import HomeRoute from './homeRoutes';
 import NearbyScreen from '../screens/Nearby/nearby';
 import ProfileScreen from '../screens/Profile/profile';
 import ScanQRScreen from '../screens/ScanQR/scanqr';
@@ -11,20 +11,20 @@ const noHeaderNavOptions = () => ({ header: null });
 
 const HomeTabNav = createBottomTabNavigator(
     {
-        Shoes: ShoeScreen,
+        Home: HomeRoute,
         Nearby: NearbyScreen,
         Profile: ProfileScreen,
         ScanQR: ScanQRScreen
     },
     {
-        initialRouteName: "Shoes",
+        initialRouteName: "Home",
         defaultNavigationOptions: ({ navigation }) => ({
             tabBarIcon: ({ horizontal, tintColor }) => {
                 const { routeName } = navigation.state;
                 let iconName;
                 switch (routeName) {
-                    case "Shoes":
-                        iconName = "ios-cart";
+                    case "Home":
+                        iconName = "ios-home";
                         break;
                     case "Nearby":
                         iconName = "ios-compass";

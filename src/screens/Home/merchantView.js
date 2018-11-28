@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-class Shoes extends Component {
+export default class MerchantView extends Component {
     render() {
         return (
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <Text>Shoes</Text>
+                <Text>MerchantView</Text>
             </View>
         )
     }
 }
-
-export default Shoes;
