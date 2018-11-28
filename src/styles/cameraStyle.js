@@ -22,6 +22,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    instructions: {
+        color: '#FFF', 
+        fontSize: 18, 
+        marginBottom: 12
+    },
     cameraBorderContainer: {
         width: 200, 
         height: 200

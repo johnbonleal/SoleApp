@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import { NavigationEvents } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -37,6 +37,7 @@ export default class Camera extends Component {
                         onBarCodeRead={(qrCodeData) => this.props.onQrCodeDetected(qrCodeData)}
                     />
                     <View style={CameraStyles.cameraContainer}>
+                        {isQrEnabled && <Text style={CameraStyles.instructions}>Align QR code to scan</Text>}
                         <View style={CameraStyles.cameraBorderContainer} >
                             <Image
                                 style={CameraStyles.cameraBorder}
