@@ -2,10 +2,10 @@ import React from 'react';
 import { createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import HomeRoute from './homeRoutes';
-import NearbyScreen from '../screens/Nearby/nearby';
-import ProfileScreen from '../screens/Profile/profile';
-import ScanQRScreen from '../screens/ScanQR/scanqr';
+import HomeRoute from './HomeRoutes';
+import NearbyScreen from '../screens/Nearby/Nearby';
+import ProfileScreen from '../screens/Profile/Profile';
+import ScanQRScreen from '../screens/ScanQR/Scanqr';
 
 const noHeaderNavOptions = () => ({ header: null });
 
@@ -39,6 +39,10 @@ const HomeTabNav = createBottomTabNavigator(
                         break;
                 }
                 return <Ionicons name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
+            },
+            tabBarOnPress: ({ navigation, defaultHandler }) => {
+                navigation.popToTop();
+                defaultHandler();
             }
         }),
         tabBarOptions: {

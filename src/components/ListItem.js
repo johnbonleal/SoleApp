@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, View, Text, Image } from 'react-native';
 import { images } from '../resources';
-import ListItemStyles from '../styles/listItemStyle';
+import ListItemStyles from '../styles/ListItemStyle';
 
 const ListItem = props => (
     <TouchableOpacity id={props.item.id} key={props.index} style={ListItemStyles.container} onPress={props.onPressItem} >

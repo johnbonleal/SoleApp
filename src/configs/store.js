@@ -6,7 +6,7 @@ import createSagaMiddleware from 'redux-saga';
 import storage from 'redux-persist/lib/storage';
 import rootReducers from '../reducers/RootReducer';
 import rootSaga from '../sagas/RootSaga';
-import { axios } from '../services/api';
+import { axios } from '../services/Api';
 
 const sagaMiddleware = createSagaMiddleware();
 

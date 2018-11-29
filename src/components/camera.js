@@ -4,7 +4,7 @@ import { RNCamera } from 'react-native-camera';
 import { NavigationEvents } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { images } from '../resources';
-import CameraStyles from '../styles/cameraStyle';
+import CameraStyles from '../styles/CameraStyle';
 
 export default class Camera extends Component {
     constructor(props) {

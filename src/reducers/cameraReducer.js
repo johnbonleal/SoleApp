@@ -1,4 +1,4 @@
-import { CAMERA_TOGGLE } from '../actions/cameraActions';
+import { CAMERA_TOGGLE } from '../actions/CameraActions';
 
 const INITIAL_STATE = {
     isCameraOn: false

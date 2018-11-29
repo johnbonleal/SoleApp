@@ -1,8 +1,8 @@
 import { createStackNavigator } from 'react-navigation';
 
-import ShoeScreen from '../screens/Home/home';
-import MerchantViewScreen from '../screens/Home/merchantView';
-import MerchantListScreen from '../screens/Home/merchantList';
+import ShoeScreen from '../screens/Home/Home';
+import MerchantViewScreen from '../screens/Home/MerchantView';
+import MerchantListScreen from '../screens/Home/MerchantList';
 
 const MerchantRoute = createStackNavigator(
     {

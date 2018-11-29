@@ -1,7 +1,7 @@
 import { NavigationActions } from 'react-navigation';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import * as loginActions from '../actions/loginActions';
-import api from '../services/api';
+import * as loginActions from '../actions/LoginActions';
+import api from '../services/Api';
 
 export function* handleLogin(action) {
     try {

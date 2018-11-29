@@ -1,4 +1,4 @@
-import { LoginTypes } from '../actions/loginActions';
+import { LoginTypes } from '../actions/LoginActions';
 
 const INITIAL_STATE = {
     isLoading: false,
