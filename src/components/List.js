@@ -10,8 +10,8 @@ const List = props => (
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 16 }}>
             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{props.title}</Text>
             <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }} onPress={props.onPressAllItems} >
-                <Text style={{ color: 'gray', fontSize: 16, marginRight: 8 }}>See all</Text>
-                <Ionicons name={"ios-arrow-forward"} size={18} color={"gray"} />
+                <Text style={{ color: '#000', fontSize: 16, fontWeight: 'bold', color: 'tomato', marginRight: 8 }}>See all</Text>
+                <Ionicons name={"ios-arrow-forward"} size={18} color={"tomato"} />
             </TouchableOpacity>
         </View>
         <FlatList

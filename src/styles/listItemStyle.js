@@ -1,9 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
         flex: 5, 
-        width: 250
+        width: width * 0.7
     },
     thumbnailContainer: {
         flex: 4, 

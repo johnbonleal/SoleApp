@@ -8,7 +8,7 @@ const MerchantRoute = createStackNavigator(
     {
         Home: {
             screen: ShoeScreen,
-            navigationOptions: { headerTitle: 'Home'}
+            navigationOptions: { header: null }
         },
         MerchantView: {
             screen: MerchantViewScreen,
