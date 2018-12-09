@@ -1,13 +1,13 @@
 import { createStackNavigator } from 'react-navigation';
 
-import ShoeScreen from '../screens/Home/Home';
+import HomeScreen from '../screens/Home/Home';
 import MerchantViewScreen from '../screens/Home/MerchantView';
 import MerchantListScreen from '../screens/Home/MerchantList';
 
 const MerchantRoute = createStackNavigator(
     {
         Home: {
-            screen: ShoeScreen,
+            screen: HomeScreen,
             navigationOptions: { header: null }
         },
         MerchantView: {

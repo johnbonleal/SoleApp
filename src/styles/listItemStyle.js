@@ -5,32 +5,20 @@ const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
         flex: 5, 
-        width: width * 0.7
+        width: width * 0.6
     },
     thumbnailContainer: {
         flex: 4, 
-        marginRight: 8, 
+        marginHorizontal: 8, 
         marginVertical: 8, 
         borderRadius: 8, 
+        justifyContent: 'flex-end',
         overflow: 'hidden'
     },
-    thumbnail: {
-        flex: 1, 
-        height: undefined, 
-        width: undefined, 
-        resizeMode: 'cover'
-    },
     bottomContainer: {
-        flex: 1, 
-        flexDirection: 'row'
+        flex: 1,
+        marginHorizontal: 8
     },
-    roundedIcon: {
-        height: 30, 
-        width: 30, 
-        borderRadius: 15, 
-        overflow: 'hidden', 
-        marginRight: 8
-    }
 });
 
 export default styles;

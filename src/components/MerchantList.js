@@ -1,12 +1,12 @@
 import React from 'react';
 import { Dimensions, View, Text, TouchableOpacity, FlatList } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import ListItem from './ListItem';
+import MerchantListItem from './MerchantListItem';
 
 const { width, height } = Dimensions.get('window');
 
-const List = props => (
-    <View style={{ height: 240, marginVertical: 16 }} >
+const MerchantList = props => (
+    <View style={{ height: 180, marginVertical: 16 }} >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 16 }}>
             <Text style={{ fontSize: 20 }}>{props.title}</Text>
             <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }} onPress={props.onPressAllItems} >
@@ -15,13 +15,13 @@ const List = props => (
             </TouchableOpacity>
         </View>
         <FlatList
-            style={{ marginLeft: 8 }}
+            style={{ marginLeft: 8,  marginTop: 8 }}
             horizontal
             data={props.data}
             keyExtractor={(item, index) => item.id}
-            renderItem={({item, index}) => <ListItem key={index} {...props} />}
+            renderItem={({ item, index }) => <MerchantListItem item={item} index={index} {...props} />}
         />
     </View>
 );
 
-export default List;
+export default MerchantList;
