@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet, View, Text, ScrollView, Image, ImageBackground,
 
 import { CategoryList, List, MerchantList } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
-import { images } from '../../resources';
+import { images, fonts } from '../../resources';
 import Dashboard from './Dashboard';
 
 const { width, height } = Dimensions.get('window');
@@ -32,6 +32,9 @@ class Home extends Component {
     _onPressMerchantItem = item => {
 
     }
+    _onPressProfileImage = () => {
+        NavigationService.toggleDrawer();
+    }
     render() {
         const { initHeaderBgColor } = this.state;
         const headerBgColor = initHeaderBgColor.interpolate({
@@ -41,10 +44,11 @@ class Home extends Component {
         });
         return (
             <View style={{ flex: 1, backgroundColor: 'white' }}>
-                <Animated.View style={{ height: APP_HEADER_HEIGHT, position: 'absolute', top: 0, left: 0, right: 0, justifyContent: 'center', alignItems: 'flex-end', backgroundColor: headerBgColor, paddingHorizontal: 16, elevation: 1 }}>
-                    <TouchableOpacity style={{ height: 36, width: 36, borderRadius: 18, backgroundColor: 'white' }}></TouchableOpacity>
+                <Animated.View style={{ height: APP_HEADER_HEIGHT, position: 'absolute', top: 0, width: '100%', justifyContent: 'center', alignItems: 'flex-end', backgroundColor: headerBgColor, paddingHorizontal: 16, elevation: 1, zIndex: 99 }}>
+                    <TouchableOpacity onPress={this._onPressProfileImage} style={{ height: 36, width: 36, borderRadius: 18, backgroundColor: 'white', overflow: 'hidden'}} >
+                        <Image style={{flex: 1, height: null, width: null}} source={images.profile} />
+                    </TouchableOpacity>
                 </Animated.View>
-
                 <ScrollView
                     contentContainerStyle={{ flexGrow: 1 }}
                     onScroll={Animated.event(
@@ -59,25 +63,24 @@ class Home extends Component {
                         </View>
                         <View style={{ flex: 1 }} ></View>
                     </ImageBackground>
-
                     <View style={{ height: DASHBOARD_MAX_HEIGHT, marginTop: TOP_CONTAINER_MAX_HEIGHT - (DASHBOARD_MAX_HEIGHT / 2), marginBottom: 16, paddingHorizontal: 16, backgroundColor: 'transparent' }}>
                         <Dashboard />
                     </View>
                     <View style={{ paddingHorizontal: 16, marginVertical: 16 }}>
-                        <Text style={{ fontSize: 20, marginBottom: 12 }}>Venteny Services</Text>
+                        <Text style={{ fontSize: fonts.MEDIUM, marginBottom: 12 }}>Venteny Services</Text>
                         <View style={{ height: DASHBOARD_MAX_HEIGHT, flexDirection: 'row' }}>
-                            <View style={{ flex: 1, backgroundColor: 'white', elevation: 3, borderRadius: 10, justifyContent: 'center', alignItems: 'center', marginRight: 8 }}>
+                            <TouchableOpacity style={{ flex: 1, backgroundColor: 'white', elevation: 3, borderRadius: 10, justifyContent: 'center', alignItems: 'center', marginRight: 8 }}>
                                 <View style={{ height: 120, width: 120 }}>
                                     <Image style={{ flex: 1, height: null, width: null, resizeMode: 'contain' }} source={images.merchant} />
                                 </View>
-                                <Text style={{ fontSize: 13 }}>MERCHANTS</Text>
-                            </View>
-                            <View style={{ flex: 1, backgroundColor: 'white', elevation: 3, borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ fontSize: fonts.EXTRA_SMALL }}>MERCHANTS</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{ flex: 1, backgroundColor: 'white', elevation: 3, borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
                                 <View style={{ height: 120, width: 120 }}>
                                     <Image style={{ flex: 1, height: null, width: null, resizeMode: 'contain' }} source={images.loan} />
                                 </View>
-                                <Text style={{ fontSize: 13 }}>LOAN CASH</Text>
-                            </View>
+                                <Text style={{ fontSize: fonts.EXTRA_SMALL }}>LOAN CASH</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <List data={sampleData} title={"New Merchants"} onPressItem={this._onPressItem} onPressAllItems={this._onPressAllItems} />

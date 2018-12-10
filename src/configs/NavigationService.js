@@ -1,4 +1,4 @@
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions, DrawerActions } from 'react-navigation';
 
 let _navigator;
 
@@ -40,11 +40,18 @@ function reset(routeName, params) {
     });
 }
 
+function toggleDrawer() {
+    _navigator.dispatch(
+        DrawerActions.toggleDrawer()
+    );
+}
+
 export const NavigationService = {
     setTopLevelNavigator,
     navigate,
     back,
     popToTop,
     reset,
+    toggleDrawer,
     navigator: _navigator
 };

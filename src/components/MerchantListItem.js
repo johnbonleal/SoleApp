@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View, Text, Image } from 'react-native';
-import { images } from '../resources';
+import { images, fonts } from '../resources';
 import ListItemStyles from '../styles/ListItemStyle';
 
 const MerchantListItem = props => (
@@ -21,9 +21,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     imageContainer: {
-        height: 96, 
-        width: 96, 
-        borderRadius: 48, 
+        height: 70, 
+        width: 70, 
+        borderRadius: 35, 
         overflow: 'hidden'
     },
     image: {
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         width: null
     },
     merchantName: {
-        fontSize: 13,
+        fontSize: fonts.SMALL,
         marginVertical: 8, 
         color: '#4A4A4A'
     }

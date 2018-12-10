@@ -1,5 +1,6 @@
 import React from 'react';
-import { Dimensions, View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { Dimensions, View, Text, FlatList } from 'react-native';
+import { fonts } from '../resources';
 import CategoryListItem from './CategoryListItem';
 
 const { width, height } = Dimensions.get('window');
@@ -7,7 +8,7 @@ const { width, height } = Dimensions.get('window');
 const CategoryList = props => (
     <View style={{ flexGrow: 1, marginVertical: 16 }} >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 16 }}>
-            <Text style={{ fontSize: 20 }}>{props.title}</Text>
+            <Text style={{ fontSize: fonts.MEDIUM }}>{props.title}</Text>
         </View>
         <FlatList
             style={{ marginLeft: 8,  marginTop: 8 }}
