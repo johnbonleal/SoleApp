@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, View, Text, ScrollView, Image, ImageBackground, TouchableOpacity, Animated } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, Image, ImageBackground, TouchableOpacity, Animated } from 'react-native';
 
-import { CategoryList, List, MerchantList } from '../../components';
+import { Header, CategoryList, List, MerchantList } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
 import { images, fonts } from '../../resources';
 import Dashboard from './Dashboard';
 
-const { width, height } = Dimensions.get('window');
 const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
 
 const TOP_CONTAINER_MAX_HEIGHT = 200;
-const APP_HEADER_HEIGHT = 56;
 const DASHBOARD_MAX_HEIGHT = 157;
 
 class Home extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             initHeaderBgColor: new Animated.Value(0)
         };
@@ -36,23 +35,18 @@ class Home extends Component {
         NavigationService.toggleDrawer();
     }
     render() {
-        const { initHeaderBgColor } = this.state;
-        const headerBgColor = initHeaderBgColor.interpolate({
+        const headerBgColor = this.state.initHeaderBgColor.interpolate({
             inputRange: [0, 200],
-            outputRange: ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.7)'],
+            outputRange: ['rgba(0, 0, 0, 0)', 'rgba(255, 255, 255, 0.7)'],
             extrapolate: 'clamp',
         });
         return (
             <View style={{ flex: 1, backgroundColor: 'white' }}>
-                <Animated.View style={{ height: APP_HEADER_HEIGHT, position: 'absolute', top: 0, width: '100%', justifyContent: 'center', alignItems: 'flex-end', backgroundColor: headerBgColor, paddingHorizontal: 16, elevation: 1, zIndex: 99 }}>
-                    <TouchableOpacity onPress={this._onPressProfileImage} style={{ height: 36, width: 36, borderRadius: 18, backgroundColor: 'white', overflow: 'hidden'}} >
-                        <Image style={{flex: 1, height: null, width: null}} source={images.profile} />
-                    </TouchableOpacity>
-                </Animated.View>
+                <Header onPress={this._onPressProfileImage} headerBgColor={headerBgColor} />
                 <ScrollView
                     contentContainerStyle={{ flexGrow: 1 }}
                     onScroll={Animated.event(
-                        [{ nativeEvent: { contentOffset: { y: initHeaderBgColor } } }],
+                        [{ nativeEvent: { contentOffset: { y: this.state.initHeaderBgColor } } }],
                     )}
                     scrollEventThrottle={16}
                 >
@@ -70,16 +64,16 @@ class Home extends Component {
                         <Text style={{ fontSize: fonts.MEDIUM, marginBottom: 12 }}>Venteny Services</Text>
                         <View style={{ height: DASHBOARD_MAX_HEIGHT, flexDirection: 'row' }}>
                             <TouchableOpacity style={{ flex: 1, backgroundColor: 'white', elevation: 3, borderRadius: 10, justifyContent: 'center', alignItems: 'center', marginRight: 8 }}>
-                                <View style={{ height: 120, width: 120 }}>
-                                    <Image style={{ flex: 1, height: null, width: null, resizeMode: 'contain' }} source={images.merchant} />
+                                <View style={{ height: 120, width: 120, overflow: 'hidden' }}>
+                                    <Image style={{ flex: 1, height: null, width: null, resizeMode: 'cover' }} source={images.merchant} />
                                 </View>
-                                <Text style={{ fontSize: fonts.EXTRA_SMALL }}>MERCHANTS</Text>
+                                <Text style={{ fontSize: fonts.EXTRA_SMALL, marginTop: 5 }}>MERCHANTS</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={{ flex: 1, backgroundColor: 'white', elevation: 3, borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
-                                <View style={{ height: 120, width: 120 }}>
-                                    <Image style={{ flex: 1, height: null, width: null, resizeMode: 'contain' }} source={images.loan} />
+                                <View style={{ height: 120, width: 120, overflow: 'hidden' }}>
+                                    <Image style={{ flex: 1, height: null, width: null, resizeMode: 'cover' }} source={images.loan} />
                                 </View>
-                                <Text style={{ fontSize: fonts.EXTRA_SMALL }}>LOAN CASH</Text>
+                                <Text style={{ fontSize: fonts.EXTRA_SMALL, marginTop: 5 }}>LOAN CASH</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

@@ -1,7 +1,11 @@
 const images = {
+    add: require('../assets/images/add.png'),
     app_icon: require('../assets/images/app_icon.png'),
+    back: require('../assets/images/left-arrow.png'),
     camera_border: require('../assets/images/camera_border.png'),
     card: require('../assets/images/card.png'),
+    close: require('../assets/images/close.png'),
+    header_bg: require('../assets/images/bg.png'),
     help_center: require('../assets/images/call-centre.png'),
     history: require('../assets/images/history.png'),
     image2: require('../assets/images/image2.png'),

@@ -3,6 +3,7 @@ import { createStackNavigator } from 'react-navigation';
 import HomeScreen from '../screens/Home/Home';
 import MerchantViewScreen from '../screens/Home/MerchantView';
 import MerchantListScreen from '../screens/Home/MerchantList';
+import PointsScreen from '../screens/Home/Points';
 
 const MerchantRoute = createStackNavigator(
     {
@@ -17,6 +18,10 @@ const MerchantRoute = createStackNavigator(
         MerchantList: {
             screen: MerchantListScreen,
             navigationOptions: { headerTitle: 'MerchantList'}
+        },
+        Points: {
+            screen: PointsScreen,
+            navigationOptions: { header: null }
         }
     },
     {

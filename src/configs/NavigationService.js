@@ -40,6 +40,12 @@ function reset(routeName, params) {
     });
 }
 
+function closeDrawer() {
+    _navigator.dispatch(
+        DrawerActions.closeDrawer()
+    );
+}
+
 function toggleDrawer() {
     _navigator.dispatch(
         DrawerActions.toggleDrawer()
@@ -52,6 +58,7 @@ export const NavigationService = {
     back,
     popToTop,
     reset,
+    closeDrawer,
     toggleDrawer,
     navigator: _navigator
 };

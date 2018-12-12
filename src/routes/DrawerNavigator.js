@@ -1,56 +1,81 @@
 import React from 'react';
 import { Image } from 'react-native';
-import { createDrawerNavigator } from 'react-navigation';
+import { createDrawerNavigator, createStackNavigator } from 'react-navigation';
+import SideMenu from './SideMenu';
 
-import HomeScreen from '../screens/Home/Home';
+import HomeRoutes from './HomeRoutes';
 import MyCardScreen from '../screens/Home/MyCard';
-import NearbyScreen from '../screens/Nearby/Nearby';
-import ProfileScreen from '../screens/Profile/Profile';
-import ScanQRScreen from '../screens/ScanQR/Scanqr';
+import RewardsScreen from '../screens/Rewards/Rewards';
+import HistoryScreen from '../screens/History/History';
+import NotificationScreen from '../screens/Notification/Notification';
+import TermsScreen from '../screens/Terms/Terms';
+import HelpCenterScreen from '../screens/Help Center/HelpCenter';
 
 import { images } from '../resources';
 
-const AppDrawer = createDrawerNavigator(
+const MainDrawer = createDrawerNavigator(
     {
+        Home: {
+            screen: HomeRoutes,
+            navigationOptions: {
+                drawerLabel: "Home",
+                drawerIcon: ({ tintColor }) => <Image style={{ width: 20, height: 20, resizeMode: 'contain', tintColor }} source={images.card} />
+            }
+        },
         MyCard: {
             screen: MyCardScreen,
             navigationOptions: {
-                header: null,
-                drawerIcon: ({ tintColor }) => {
-                    <Image style={{ width: 20, height: 20, resizeMode: 'contain' }} source={images.card} />
-                }
+                drawerLabel: "Virtual Card",
+                drawerIcon: ({ tintColor }) => <Image style={{ width: 20, height: 20, resizeMode: 'contain', tintColor }} source={images.card} />
             }
         },
-        Nearby: {
-            screen: NearbyScreen,
+        Rewards: {
+            screen: RewardsScreen,
             navigationOptions: {
-                drawerIcon: ({ tintColor }) => {
-                    <Image style={{ width: 20, height: 20, resizeMode: 'contain' }} source={images.card} />
-                }
+                drawerLabel: "Venteny Rewards",
+                drawerIcon: ({ tintColor }) => <Image style={{ width: 20, height: 20, resizeMode: 'contain', tintColor }} source={images.rewards} />
             }
         },
-        Profile: {
-            screen: ProfileScreen,
+        History: {
+            screen: HistoryScreen,
             navigationOptions: {
-                drawerIcon: ({ tintColor }) => {
-                    <Image style={{ width: 20, height: 20, resizeMode: 'contain' }} source={images.card} />
-                }
+                drawerLabel: "History",
+                drawerIcon: ({ tintColor }) => <Image style={{ width: 20, height: 20, resizeMode: 'contain', tintColor }} source={images.history} />
+
             }
         },
-        ScanQR: {
-            screen: ScanQRScreen,
+        Notification: {
+            screen: NotificationScreen,
             navigationOptions: {
-                drawerIcon: ({ tintColor }) => {
-                    <Image style={{ width: 20, height: 20, resizeMode: 'contain' }} source={images.card} />
-                }
+                drawerLabel: "Notifications",
+                drawerIcon: ({ tintColor }) => <Image style={{ width: 20, height: 20, resizeMode: 'contain' }} source={images.notification} />
+            }
+        },
+        Terms: {
+            screen: TermsScreen,
+            navigationOptions: {
+                drawerLabel: "Terms & Conditions",
+                drawerIcon: ({ tintColor }) => <Image style={{ width: 20, height: 20, resizeMode: 'contain' }} source={images.terms} />
+            }
+        },
+        HelpCenter: {
+            screen: HelpCenterScreen,
+            navigationOptions: {
+                drawerLabel: "Help Center",
+                drawerIcon: ({ tintColor }) => <Image style={{ width: 20, height: 20, resizeMode: 'contain' }} source={images.help_center} />
             }
         }
     },
     {
-        initialRouteName: 'MyCard',
+        initialRouteName: 'Home',
         drawerPosition: 'right',
-        drawerType: 'slide'
+        drawerType: 'slide',
+        contentComponent: props => <SideMenu {...props} />,
+        contentOptions: {
+            activeTintColor: 'tomato',
+            labelStyle: { fontWeight: 'normal' }
+        }
     }
 )
 
-export default AppDrawer;
+export default MainDrawer;
