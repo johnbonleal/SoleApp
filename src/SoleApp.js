@@ -7,6 +7,7 @@ import configureStore from './configs/Store';
 import { NavigationService } from './configs/NavigationService';
 
 const { store, persistor } = configureStore();
+console.disableYellowBox = true;
 
 export default class SoleApp extends Component {
     componentDidMount() {

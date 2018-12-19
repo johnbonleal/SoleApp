@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, ImageBackground, TouchableOpacity, FlatList, ScrollView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Header } from '../../components';
 
 import ProfileInfo from './ProfileInfo';
 import EditProfile from './EditProfile';
@@ -42,14 +43,12 @@ class Profile extends Component {
         const { current, action } = this.state;
         return (
             <View style={{ flex: 1, backgroundColor: 'white' }}>
-                <View style={{ height: 56, position: 'absolute', width: '100%', backgroundColor: 'transparent', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 16, zIndex: 99 }}>
-                    <TouchableOpacity style={{ height: 24, width: 24 }} onPress={this._onPressBack}>
-                        <Image style={{ flex: 1, height: null, width: null, tintColor: 'white' }} source={images.back} />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={this._updateAccount}>
-                        <Text style={{ fontSize: fonts.SMALL, color: 'white' }}>{action}</Text>
-                    </TouchableOpacity>
-                </View>
+                <Header
+                    headerLeft={images.back}
+                    headerRight={action}
+                    onPressHeaderLeft={this._onPressBack}
+                    onPressHeaderRight={this._updateAccount}
+                />
                 <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                     <ImageBackground style={{ height: HEADER_MAX_HEIGHT, position: 'absolute', top: 0, left: 0, right: 0 }} source={images.header_bg}>
                         <View style={{ flex: 1, justifyContent: 'flex-end', padding: 24 }}>
@@ -60,7 +59,7 @@ class Profile extends Component {
                             </View>
                         </View>
                     </ImageBackground>
-                    <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
                         <View style={{ height: IMAGE_HEIGHT, width: IMAGE_HEIGHT, borderRadius: IMAGE_HEIGHT / 2, marginTop: HEADER_MAX_HEIGHT - (IMAGE_HEIGHT / 1.25), marginRight: 16, alignSelf: 'flex-end', overflow: 'hidden' }} >
                             <Image style={{ height: null, width: null, flex: 1 }} source={images.profile} />
                         </View>

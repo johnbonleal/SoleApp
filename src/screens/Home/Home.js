@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, ScrollView, Image, ImageBackground, TouchableOpacity, Animated } from 'react-native';
 
-import { Header, CategoryList, List, MerchantList } from '../../components';
+import { Header, RectangleList, SquareList, CircleList } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
 import { images, fonts } from '../../resources';
 import Dashboard from './Dashboard';
@@ -42,7 +42,12 @@ class Home extends Component {
         });
         return (
             <View style={{ flex: 1, backgroundColor: 'white' }}>
-                <Header onPress={this._onPressProfileImage} headerBgColor={headerBgColor} />
+                <Header
+                    onPressHeaderRight={this._onPressProfileImage}
+                    headerStyle={{ alignItems: 'flex-end', backgroundColor: headerBgColor }}
+                    headerRight={images.profile}
+                    headerRightStyle={{ borderRadius: 18, backgroundColor: 'white', overflow: 'hidden' }}
+                />
                 <ScrollView
                     contentContainerStyle={{ flexGrow: 1 }}
                     onScroll={Animated.event(
@@ -53,7 +58,6 @@ class Home extends Component {
                     <ImageBackground style={{ height: TOP_CONTAINER_MAX_HEIGHT, position: 'absolute', top: 0, left: 0, right: 0 }} source={images.image2} >
                         <View style={{ flex: 1, justifyContent: 'flex-end' }} >
                             <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginLeft: 16 }}>Hi, John</Text>
-                            {/* <Text style={{ fontSize: 26, color: 'white', marginLeft: 16 }}>Good morning, <Text style={{ fontWeight: 'bold', fontStyle: 'italic' }}>John Leal!</Text></Text> */}
                         </View>
                         <View style={{ flex: 1 }} ></View>
                     </ImageBackground>
@@ -77,10 +81,30 @@ class Home extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <List data={sampleData} title={"New Merchants"} onPressItem={this._onPressItem} onPressAllItems={this._onPressAllItems} />
-                    <CategoryList data={sampleData} title={"Recommended Deals"} onPressCategoryItem={this._onPressCategoryItem} />
-                    <List data={sampleData} title={"Top Deals"} onPressItem={this._onPressItem} onPressAllItems={this._onPressAllItems} />
-                    <MerchantList data={sampleData} title={"Merchant Partners"} onPressMerchantItem={this._onPressMerchantItem} />
+                    <RectangleList
+                        data={sampleData}
+                        title={"New Merchants"}
+                        isCollapsible
+                        onPressItem={this._onPressItem}
+                        onPressAll={this._onPressAllItems}
+                    />
+                    <SquareList
+                        data={sampleData}
+                        title={"Recommended Deals"}
+                        onPressCategoryItem={this._onPressCategoryItem}
+                    />
+                    <RectangleList
+                        data={sampleData}
+                        title={"Top Deals"}
+                        isCollapsible
+                        onPressItem={this._onPressItem}
+                        onPressAll={this._onPressAllItems}
+                    />
+                    <CircleList 
+                        data={sampleData} 
+                        title={"Merchant Partners"} 
+                        onPressItem={this._onPressMerchantItem} 
+                    />
                 </ScrollView>
             </View>
         )
@@ -91,7 +115,7 @@ export default Home;
 
 const styles = StyleSheet.create({
     container: {
-        padding: 16
+        flex: 1
     },
     searchContainer: {
         backgroundColor: '#f2f2f2',

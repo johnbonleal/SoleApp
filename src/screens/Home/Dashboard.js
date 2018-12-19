@@ -9,6 +9,12 @@ export default class Dashboard extends Component {
     _onPressEarnedPoints = () => {
         NavigationService.navigate('Points');
     }
+    _onPressMyCard = () => {
+        NavigationService.navigate('MyCard');
+    }
+    _onPressScanQR = () => {
+        NavigationService.navigate('ScanQR');
+    }
     render() {
         return (
             <View style={{ flex: 1, backgroundColor: 'white', elevation: 2, padding: 16, borderRadius: 10 }}>
@@ -21,13 +27,13 @@ export default class Dashboard extends Component {
                 </View>
                 <View style={{ width: '100%', height: 1, backgroundColor: '#D8D8D8', alignSelf: 'center', marginVertical: 12 }} />
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                    <TouchableOpacity style={{ alignItems: 'center' }}>
+                    <TouchableOpacity style={{ alignItems: 'center' }} onPress={this._onPressMyCard} >
                         <View style={{ height: 54, width: 54, marginBottom: 8 }}>
                             <Image style={{ flex: 1, height: null, width: null }} source={images.card} />
                         </View>
                         <Text style={{fontSize: fonts.EXTRA_SMALL}}>CARD</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={{ alignItems: 'center' }}>
+                    <TouchableOpacity style={{ alignItems: 'center' }} onPress={this._onPressScanQR}>
                         <View style={{ height: 54, width: 54, marginBottom: 8 }}>
                             <Image style={{ flex: 1, height: null, width: null }} source={images.scan_qr} />
                         </View>

@@ -1,15 +1,18 @@
 import React from 'react';
-import { TouchableOpacity, View, Text, ImageBackground } from 'react-native';
+import { TouchableOpacity, View, Text, Image, ImageBackground } from 'react-native';
 import { images, fonts } from '../resources';
 import StarRating from './StarRating';
 import ListItemStyles from '../styles/ListItemStyle';
 
 const ratingObj = { ratings: 3 };
 
-const ListItem = props => (
-    <TouchableOpacity style={ListItemStyles.container} onPress={props.onPressItem} >
+const RectangleListItem = ({withIcon, onPressItem}) => (
+    <TouchableOpacity style={ListItemStyles.container} onPress={onPressItem} >
         <ImageBackground style={ListItemStyles.thumbnailContainer} source={images.sample}>
-            <View style={{ backgroundColor: 'rgba(0,0,0,0.3)', padding: 8 }}>
+            <View style={{ backgroundColor: 'rgba(0,0,0,0.3)', flexDirection: 'row', alignItems: 'center', padding: 8 }}>
+                {withIcon && <View style={{height: 27, width: 27, borderRadius: 27 / 2, overflow: 'hidden', marginRight: fonts.SMALL}}>
+                    <Image source={images.image2} style={{flex: 1, height: null, width: null}} />
+                </View>}
                 <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>10% OFF</Text>
             </View>
         </ImageBackground>
@@ -23,4 +26,4 @@ const ListItem = props => (
     </TouchableOpacity>
 )
 
-export default ListItem;
+export default RectangleListItem;

@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, View, Text, Image } from 'react-native';
 import { images, fonts } from '../resources';
 import ListItemStyles from '../styles/ListItemStyle';
 
-const MerchantListItem = props => (
+const CircleListItem = props => (
     <TouchableOpacity id={props.item.id} key={props.index} style={styles.container} onPress={props.onPressItem} >
         <View style={styles.imageContainer}>
             <Image style={styles.image} source={images.image2} />
@@ -12,7 +12,7 @@ const MerchantListItem = props => (
     </TouchableOpacity>
 );
 
-export default MerchantListItem;
+export default CircleListItem;
 
 const styles = StyleSheet.create({
     container: {

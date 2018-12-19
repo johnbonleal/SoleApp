@@ -1,9 +1,9 @@
 import Camera from './Camera';
 import Header from './Header';
-import List from './List';
-import CategoryList from './CategoryList';
-import MerchantList from './MerchantList';
 import VerticalSpacer from './VerticalSpacer';
 import StarRating from './StarRating';
+import RectangleList from './RectangleList';
+import SquareList from './SquareList';
+import CircleList from './CircleList';
 
-export { Header, Camera, List, MerchantList, CategoryList, StarRating, VerticalSpacer };
+export { Header, Camera, RectangleList, SquareList, CircleList, StarRating, VerticalSpacer };
