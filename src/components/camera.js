@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import { NavigationEvents } from 'react-navigation';
+import { NavigationService } from '../configs/NavigationService';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { images } from '../resources';
 import CameraStyles from '../styles/CameraStyle';
@@ -14,6 +15,9 @@ export default class Camera extends Component {
             shouldRenderCamera: false
         };
     }
+    _onPressClose = () => {
+        NavigationService.back();
+    }
     render() {
         const { shouldRenderCamera } = this.state;
         const { isQrEnabled } = this.props;
@@ -24,9 +28,9 @@ export default class Camera extends Component {
                     onDidFocus={() => this.setState({ shouldRenderCamera: true })}
                 />
                 {shouldRenderCamera && <View style={CameraStyles.container}>
-                    {!isQrEnabled && <TouchableOpacity style={CameraStyles.close}>
+                    <TouchableOpacity style={CameraStyles.close} onPress={this._onPressClose}>
                         <Ionicons name={"ios-close"} size={30} color={"#000"} />
-                    </TouchableOpacity>}
+                    </TouchableOpacity>
                     <RNCamera
                         ref={ref => { this.camera = ref }}
                         style={CameraStyles.container}
