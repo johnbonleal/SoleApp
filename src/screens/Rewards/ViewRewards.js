@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, View, Text, ScrollView, Image, ImageBackground, TouchableOpacity, FlatList, StatusBar } from 'react-native';
+import { View, Text, ScrollView, Image, ImageBackground, TouchableOpacity, FlatList } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Header } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
@@ -7,8 +7,7 @@ import CategoryModal from './CategoryModal';
 
 import { images, fonts } from '../../resources';
 
-const { width, height } = Dimensions.get('window');
-const HEADER_MAX_HEIGHT = 150;
+const HEADER_MAX_HEIGHT = 120;
 const IMAGE_HEIGHT = 190;
 
 const FullListItem = props => (
@@ -26,13 +25,12 @@ const FullListItem = props => (
                 <Text style={{ fontWeight: 'bold' }}>Free Bamboo</Text>
                 <Text style={{ fontWeight: 'bold' }}>1000<Text style={{ fontWeight: 'normal' }}>Points</Text></Text>
             </View>
-
         </TouchableOpacity>
 
     </View>
-)
+);
 
-export default class ViewRewards extends Component {
+class ViewRewards extends Component {
     state = {
         isCategoryModalVisible: false,
         category: 'All'
@@ -55,20 +53,19 @@ export default class ViewRewards extends Component {
             <View style={{ flex: 1, backgroundColor: '#F3F2F2' }}>
                 <Header
                     headerLeft={images.back}
-                    headerTitle={"Merchants"}
+                    headerTitle={"Rewards"}
                     onPressHeaderLeft={this._onPressBack}
                 />
+                <ImageBackground style={{ height: HEADER_MAX_HEIGHT, width: '100%' }} source={images.header_bg} >
+                    <View style={{ marginTop: HEADER_MAX_HEIGHT / 3, padding: 16 }}>
+                        <TouchableOpacity style={{ backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderRadius: 8, padding: 8 }} onPress={this._toggleCategoryModal}>
+                            <Text style={{ color: "#F5A623", fontSize: fonts.LARGE, fontWeight: 'bold' }}>{category}</Text>
+                            <Ionicons name={"ios-arrow-down"} size={25} color={"#F5A623"} />
+                        </TouchableOpacity>
+                    </View>
+                </ImageBackground>
                 <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                    <ImageBackground style={{ height: HEADER_MAX_HEIGHT, position: 'absolute', top: 0, left: 0, right: 0 }} source={images.header_bg} >
-                        <View style={{ marginTop: HEADER_MAX_HEIGHT / 3, padding: 16 }}>
-                            <TouchableOpacity style={{ backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', borderRadius: 8, padding: 8 }} onPress={this._toggleCategoryModal}>
-                                <Text style={{ color: "#F5A623", fontSize: fonts.LARGE, fontWeight: 'bold' }}>{category}</Text>
-                                <Ionicons name={"ios-arrow-down"} size={25} color={"#F5A623"} />
-                            </TouchableOpacity>
-                        </View>
-                    </ImageBackground>
                     <FlatList
-                        style={{ marginTop: HEADER_MAX_HEIGHT + 16 }}
                         data={["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"]}
                         keyExtractor={(item, index) => item.id}
                         renderItem={({ item, index }) => <FullListItem item={item} index={index} onPressItem={this._onPressItem} />}
@@ -86,3 +83,5 @@ export default class ViewRewards extends Component {
         )
     }
 }
+
+export default ViewRewards;

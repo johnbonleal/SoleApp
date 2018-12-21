@@ -40,10 +40,10 @@ class CategoryModal extends Component {
                         headerTitle={"Category"}
                         onPressHeaderLeft={this.props.onPressModalClose}
                     />
+                    <ImageBackground style={{ height: APP_HEADER_HEIGHT, width: '100%'}} source={images.header_bg} />
                     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                        <ImageBackground style={{ height: APP_HEADER_HEIGHT, position: 'absolute', top: 0, left: 0, right: 0 }} source={images.header_bg} />
                         <TabularList
-                            style={{ marginTop: APP_HEADER_HEIGHT + 16 }}
+                            style={{ marginTop: 16 }}
                             data={categories}
                             withIcons
                             onPressItem={this._onPressItem}

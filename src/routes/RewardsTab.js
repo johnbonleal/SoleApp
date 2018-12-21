@@ -25,7 +25,7 @@ const RewardsTabNavigator = createMaterialTopTabNavigator(
     },
     {
         animationEnabled: false,
-        swipeEnabled: true,
+        swipeEnabled: false,
         tabBarOptions: {
             activeTintColor: 'rgb(12,157,197)',
             inactiveTintColor: 'black',
@@ -40,13 +40,13 @@ const RewardsTabNavigator = createMaterialTopTabNavigator(
                 marginBottom: 18
             },
             tabStyle: {
-                height: 48,
+                flex: 1,
                 alignItems: 'center',
-                justifyContent: 'center',
+                justifyContent: 'center'
             },
             style: {
                 backgroundColor: 'transparent',
-                // marginTop: HEADER_MAX_HEIGHT - 25
+                marginTop: HEADER_MAX_HEIGHT - (Platform.OS === "ios" ? 16 : 25)
             },
             statusBarStyle: 'light-content',
             upperCaseLabel: false

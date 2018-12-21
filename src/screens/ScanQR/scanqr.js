@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { Camera } from '../../components'; 
+import { Camera } from '../../components';
 import { toggleCamera } from '../../actions/CameraActions';
-import { NavigationService } from '../../configs/NavigationService';
 
 class ScanQR extends Component {
     _onQrCodeDetected = (qrCodeData) => {
-        console.log("QR Code Data: ", qrCodeData)
+        console.log("QR Code Data: ", qrCodeData);
     }
     render() {
         return (

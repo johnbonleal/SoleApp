@@ -10,13 +10,12 @@ class ExploreRewards extends Component {
 
     }
     _onPressViewRewards = () => {
-        console.log("On press item: ");
         NavigationService.navigate('ViewRewards');
     }
     render() {
         return (
             <View style={{ flex: 1, alignItems: 'center' }}>
-                <ScrollView>
+                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                     <View style={{ flexDirection: 'row', backgroundColor: 'white', marginTop: 16 }}>
                         <CircleList
                             data={["1", "1", "1", "1", "1"]}
