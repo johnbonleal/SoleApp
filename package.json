@@ -11,6 +11,7 @@
     "ios-5": "react-native run-ios --simulator 'iPhone 5s'",
     "ios-8": "react-native run-ios --simulator 'iPhone 8 Plus'",
     "ios-x": "react-native run-ios --simulator 'iPhone X'",
+    "ios-device": "react-native run-ios --device 'John Leal'",
     "android": "react-native run-android",
     "clean-android": "cd android && ./gradlew clean && cd .."
   },
