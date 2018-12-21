@@ -5,5 +5,6 @@ import StarRating from './StarRating';
 import RectangleList from './RectangleList';
 import SquareList from './SquareList';
 import CircleList from './CircleList';
+import TabularList from './TabularList';
 
-export { Header, Camera, RectangleList, SquareList, CircleList, StarRating, VerticalSpacer };
+export { Header, Camera, RectangleList, SquareList, CircleList, TabularList, StarRating, VerticalSpacer };
