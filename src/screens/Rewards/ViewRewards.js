@@ -74,6 +74,9 @@ export default class ViewRewards extends Component {
                         renderItem={({ item, index }) => <FullListItem item={item} index={index} onPressItem={this._onPressItem} />}
                     />
                 </ScrollView>
+                <View style={{ backgroundColor: 'white', justifyContent: 'center', position: 'absolute', bottom: 0, left: 0, right: 0, elevation: 10, padding: 16 }}>
+                    <Text>1,800 Available Points</Text>
+                </View>
                 <CategoryModal
                     isVisible={this.state.isCategoryModalVisible}
                     onPressItem={this._onPressItem}

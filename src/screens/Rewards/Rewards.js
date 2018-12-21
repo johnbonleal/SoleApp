@@ -11,7 +11,7 @@ const HEADER_MAX_HEIGHT = 142;
 class Rewards extends Component {
     static router = RewardsTabNavigator.router;
     _onPressBack = () => {
-        NavigationService.back();
+        NavigationService.navigate("Points");
     }
     render() {
         return (

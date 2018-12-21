@@ -46,7 +46,7 @@ const RewardsTabNavigator = createMaterialTopTabNavigator(
             },
             style: {
                 backgroundColor: 'transparent',
-                marginTop: HEADER_MAX_HEIGHT - 25
+                // marginTop: HEADER_MAX_HEIGHT - 25
             },
             statusBarStyle: 'light-content',
             upperCaseLabel: false
