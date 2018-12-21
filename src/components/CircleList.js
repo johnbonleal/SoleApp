@@ -4,17 +4,17 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import CircleListItem from './CircleListItem';
 import { fonts } from '../resources';
 
-const CircleList = ({title, onPressItem, isCollapsible, data}) => (
-    <View style={{ marginVertical: 16 }} >
+const CircleList = ({title, onPressItem, isCollapsible, data, listStyle, titleStyle, style}) => (
+    <View style={style} >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 16 }}>
-            {title && <Text style={{ fontSize: fonts.MEDIUM }}>{title}</Text>}
+            {title && <Text style={[{ fontSize: fonts.MEDIUM }, titleStyle]}>{title}</Text>}
             {isCollapsible && <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }} onPress={onPressItem} >
                 <Text style={{ color: '#000', fontSize: fonts.TINY, color: 'gray', marginRight: 8 }}>SEE ALL</Text>
                 <Ionicons name={"ios-arrow-forward"} size={10} color={"#D8D8D8"} />
             </TouchableOpacity>}
         </View>
         <FlatList
-            style={{ marginLeft: 8,  marginTop: 8 }}
+            style={listStyle}
             horizontal
             data={data}
             showsHorizontalScrollIndicator={false}

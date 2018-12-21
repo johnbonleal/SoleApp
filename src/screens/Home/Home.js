@@ -100,10 +100,12 @@ class Home extends Component {
                         onPressItem={this._onPressItem}
                         onPressAll={this._onPressAllItems}
                     />
-                    <CircleList 
-                        data={sampleData} 
-                        title={"Merchant Partners"} 
-                        onPressItem={this._onPressMerchantItem} 
+                    <CircleList
+                        style={{marginVertical: 16}}
+                        listStyle={{ marginLeft: 8, marginTop: 8 }}
+                        data={sampleData}
+                        title={"Merchant Partners"}
+                        onPressItem={this._onPressMerchantItem}
                     />
                 </ScrollView>
             </View>
