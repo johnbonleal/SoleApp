@@ -23,7 +23,7 @@ class Points extends Component {
                 routeName = "";
                 break;
             case "Venteny Rewards":
-                routeName = "Rewards";
+                routeName = "VRewards";
                 break;
             default:
                 break;

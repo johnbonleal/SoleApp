@@ -10,7 +10,7 @@ class ExploreRewards extends Component {
 
     }
     _onPressViewRewards = () => {
-        NavigationService.navigate('ViewRewards');
+        NavigationService.navigate('AllRewards');
     }
     render() {
         return (

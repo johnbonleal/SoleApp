@@ -5,7 +5,7 @@ import SideMenu from './SideMenu';
 
 import HomeRoutes from './HomeRoutes';
 import MyCardScreen from '../screens/Home/MyCard';
-import RewardsScreen from '../screens/Rewards/Rewards';
+import VRewardsScreen from '../screens/Rewards/VRewards';
 import HistoryScreen from '../screens/History/History';
 import NotificationScreen from '../screens/Notification/Notification';
 import TermsScreen from '../screens/Terms/Terms';
@@ -29,8 +29,8 @@ const MainDrawer = createDrawerNavigator(
                 drawerIcon: ({ tintColor }) => <Image style={{ width: 20, height: 20, resizeMode: 'contain', tintColor }} source={images.card} />
             }
         },
-        Rewards: {
-            screen: RewardsScreen,
+        VRewards: {
+            screen: VRewardsScreen,
             navigationOptions: {
                 drawerLabel: "Venteny Rewards",
                 drawerIcon: ({ tintColor }) => <Image style={{ width: 20, height: 20, resizeMode: 'contain', tintColor }} source={images.rewards} />

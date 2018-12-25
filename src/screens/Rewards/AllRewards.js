@@ -10,9 +10,9 @@ import { images, fonts } from '../../resources';
 const HEADER_MAX_HEIGHT = 120;
 const IMAGE_HEIGHT = 190;
 
-const FullListItem = props => (
+const FullListItem = ({onPressItem}) => (
     <View style={{ padding: 16 }}>
-        <TouchableOpacity style={{ paddingHorizontal: 8 }}>
+        <TouchableOpacity style={{ paddingHorizontal: 8 }} onPress={onPressItem}>
             <ImageBackground source={images.image2} style={{ height: IMAGE_HEIGHT, width: '100%', justifyContent: 'flex-end', borderRadius: 8, overflow: 'hidden' }} >
                 <View style={{ height: IMAGE_HEIGHT / 4, backgroundColor: 'rgba(0,0,0,0.3)', flexDirection: 'row', alignItems: 'center', padding: 8 }}>
                     <View style={{ height: 27, width: 27, borderRadius: 27 / 2, overflow: 'hidden', marginRight: fonts.SMALL }}>
@@ -41,8 +41,11 @@ class ViewRewards extends Component {
     _onPressBack = () => {
         NavigationService.back();
     }
-    _onPressItem = (item) => {
+    _onPressCategoryItem = (item) => {
         this.setState({ category: item });
+    }
+    _onPressItem = item => {
+        NavigationService.navigate('ViewReward');
     }
     _onPressModalClose = () => {
         this._toggleCategoryModal();
@@ -76,7 +79,7 @@ class ViewRewards extends Component {
                 </View>
                 <CategoryModal
                     isVisible={this.state.isCategoryModalVisible}
-                    onPressItem={this._onPressItem}
+                    onPressItem={this._onPressCategoryItem}
                     onPressModalClose={this._onPressModalClose}
                 />
             </View>
