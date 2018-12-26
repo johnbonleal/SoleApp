@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { View, ImageBackground, ScrollView, StatusBar } from 'react-native';
-import RewardsTabNavigator from '../../routes/RewardsTab';
+import { StatusBar, View, ImageBackground } from 'react-native';
+import PointHistoryTab from '../../routes/PointHistoryTab';
 import { Header } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
-import { images } from '../../resources';
+import { images, fonts } from '../../resources';
 
 const HEADER_MAX_HEIGHT = 142;
-
-class VRewards extends Component {
-    static router = RewardsTabNavigator.router;
+class PointHistory extends Component {
+    static router = PointHistoryTab.router;
     _onPressBack = () => {
         NavigationService.back();
     }
@@ -21,14 +20,14 @@ class VRewards extends Component {
                 />
                 <Header
                     headerLeft={images.back}
-                    headerTitle={"V-Rewards"}
+                    headerTitle={"Point History"}
                     onPressHeaderLeft={this._onPressBack}
                 />
                 <ImageBackground style={{ height: HEADER_MAX_HEIGHT, position: 'absolute', top: 0, left: 0, right: 0 }} source={images.header_bg} />
-                <RewardsTabNavigator navigation={this.props.navigation} />
+                <PointHistoryTab navigation={this.props.navigation} />
             </View>
         )
     }
 }
 
-export default VRewards;
+export default PointHistory;

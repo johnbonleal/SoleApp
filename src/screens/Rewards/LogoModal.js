@@ -16,7 +16,7 @@ const LogoModal = ({isLogoModalVisible, toggleLogoModal }) => (
         <View style={{ flex: 1, backgroundColor: '#000000' }}>
             <Header headerLeft={images.close} onPressHeaderLeft={toggleLogoModal} headerStyle={{ position: 'relative' }} />
             <Text style={{ fontSize: fonts.REGULAR, color: '#FFFFFF', textAlign: 'right', marginRight: 16 }}>Bamboo Logo</Text>
-            <View style={{ height: height * 0.7, backgroundColor: '#FFFFFF' }}>
+            <View style={{ height: height * 0.7, backgroundColor: '#FFFFFF', marginVertical: 8 }}>
                 <Image style={{flex: 1, height: null, width: null}} source={images.image2} />
             </View>
         </View>

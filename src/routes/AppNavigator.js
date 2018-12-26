@@ -5,6 +5,7 @@ import ProfileRoutes from './ProfileRoutes';
 import MyCardScreen from '../screens/Home/MyCard';
 import ScanQRScreen from '../screens/ScanQR/Scanqr';
 import RewardsRoutes from './RewardsRoutes';
+import PointsRoutes from './PointsRoutes';
 import MainDrawer from './DrawerNavigator';
 
 const noHeaderNavOptions = () => ({ header: null });
@@ -16,7 +17,8 @@ const AppNavigator = createStackNavigator(
         Trash: { screen: TrashScreen },
         AppDrawer: { screen: MainDrawer },
         Profile: { screen: ProfileRoutes },
-        Rewards: { screen: RewardsRoutes }
+        Rewards: { screen: RewardsRoutes },
+        Points: { screen: PointsRoutes }
     },
     {
         mode: 'modal',

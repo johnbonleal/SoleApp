@@ -52,9 +52,11 @@ export default class Trash extends Component {
                             <View style={{ height: 50, width: 50 }}>
                                 <Image style={{ flex: 1, height: null, width: null }} source={images.image2} />
                             </View>
-                            <Text style={{textAlign: 'center'}}>Aircon & Fridge</Text>
+                            <Text style={{ textAlign: 'center' }}>Aircon & Fridge</Text>
                         </View>
-
+                        {/* <TouchableOpacity style={{ height: 24, width: 24, borderRadius: 12, overflow: 'hidden', marginTop: 16 }}>
+                                            <Image style={{ flex: 1, height: null, width: null, tintColor: '#FFFFFF' }} source={images.back} />
+                                        </TouchableOpacity> */}
                     </TouchableOpacity>
                     <TouchableOpacity style={{ paddingVertical: 12, backgroundColor: '#EAA339', borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
                     </TouchableOpacity>

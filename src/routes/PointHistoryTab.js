@@ -2,24 +2,24 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { createMaterialTopTabNavigator } from 'react-navigation';
 
-import ExploreRewardsScreen from '../screens/Rewards/ExploreRewards';
-import MyRewardsScreen from '../screens/Rewards/MyRewards';
+import EarnedPointsScreen from '../screens/Rewards/EarnedPoints';
+import SpentPointsScreen from '../screens/Rewards/SpentPoints';
 
 const STATUS_BAR_HEIGHT = Platform.OS === "ios" ? 20 : 0;
 const HEADER_MAX_HEIGHT = 120 - STATUS_BAR_HEIGHT;
 
 const RewardsTabNavigator = createMaterialTopTabNavigator(
     {
-        Explore: {
-            screen: ExploreRewardsScreen,
+        EarnedPoints: {
+            screen: EarnedPointsScreen,
             navigationOptions: {
-                tabBarLabel: 'Explore'
+                tabBarLabel: 'Earned Points'
             }
         },
-        MyRewards: {
-            screen: MyRewardsScreen,
+        SpentPoints: {
+            screen: SpentPointsScreen,
             navigationOptions: {
-                tabBarLabel: 'My Rewards'
+                tabBarLabel: 'Spent Points'
             }
         }
     },

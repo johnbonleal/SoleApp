@@ -1,13 +1,14 @@
 import React from 'react';
-import { View, Image, Animated, TouchableOpacity, Text } from 'react-native';
+import { Dimensions, View, Image, Animated, TouchableOpacity, Text } from 'react-native';
 import { fonts } from '../resources';
 
 var _ = require('lodash');
 
+const { width, height } = Dimensions.get('window');
 const APP_HEADER_HEIGHT = 56;
 
 const Header = ({ headerLeft, onPressHeaderLeft, onPressHeaderRight, headerRight, headerTitle, headerRightStyle, headerLeftStyle, headerStyle }) => (
-    <Animated.View style={[{ height: APP_HEADER_HEIGHT, position: 'absolute', top: 0, left: 0, right: 0, zIndex: 99 }, headerStyle]}>
+    <Animated.View style={[{ height: APP_HEADER_HEIGHT, position: 'absolute', top: height / 35, left: 0, right: 0, zIndex: 99 }, headerStyle]}>
         <View style={{marginTop: 20, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingHorizontal: 16}}>
         <View style={{ flex: 1, alignItems: 'flex-start' }}>
             {headerLeft && <TouchableOpacity onPress={onPressHeaderLeft} style={[{ height: 24, width: 24 }, headerLeftStyle]} >

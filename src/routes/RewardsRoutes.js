@@ -1,7 +1,7 @@
 import { createStackNavigator } from 'react-navigation';
 
 import VRewardsScreen from '../screens/Rewards/VRewards';
-import AllRewardsScreen from '../screens/Rewards/AllRewards';
+import ViewAllRewardsScreen from '../screens/Rewards/ViewAllRewards';
 import ViewRewardScreen from '../screens/Rewards/ViewReward';
 
 const RewardsRoutes = createStackNavigator(
@@ -12,8 +12,8 @@ const RewardsRoutes = createStackNavigator(
                 header: null
             }
         },
-        AllRewards: {
-            screen: AllRewardsScreen,
+        ViewAllRewards: {
+            screen: ViewAllRewardsScreen,
             navigationOptions: {
                 header: null
             }
@@ -23,7 +23,8 @@ const RewardsRoutes = createStackNavigator(
             navigationOptions: {
                 header: null
             }
-        }
+        },
+        
     }
 );
 

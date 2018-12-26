@@ -16,6 +16,9 @@ export default class Dashboard extends Component {
     _onPressScanQR = () => {
         NavigationService.navigate('ScanQR');
     }
+    _onPressRewards = () => {
+        NavigationService.navigate('Rewards');
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -40,7 +43,7 @@ export default class Dashboard extends Component {
                         </View>
                         <Text style={styles.buttonTitle}>SCAN QR</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={this._onPressRewards}>
                         <View style={styles.imageContainer}>
                             <Image style={styles.image} source={images.rewards} />
                         </View>

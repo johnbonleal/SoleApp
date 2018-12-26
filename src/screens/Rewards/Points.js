@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Image, ImageBackground, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, StatusBar, ScrollView, Image, ImageBackground, TouchableOpacity, FlatList } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { NavigationService } from '../../configs/NavigationService';
 
 import { Header, CircleList, TabularList } from '../../components';
 import { images, fonts } from '../../resources';
 
-const HEADER_MAX_HEIGHT = 200;
+const HEADER_MAX_HEIGHT = 198;
 const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
 
 class Points extends Component {
@@ -17,13 +17,13 @@ class Points extends Component {
         let routeName;
         switch (item) {
             case "Point History":
-                routeName = "";
+                routeName = "PointHistory";
                 break;
             case "How do I earn points?":
                 routeName = "";
                 break;
             case "Venteny Rewards":
-                routeName = "VRewards";
+                routeName = "Rewards";
                 break;
             default:
                 break;
@@ -33,13 +33,17 @@ class Points extends Component {
     render() {
         return (
             <View style={{ flex: 1, backgroundColor: 'white' }}>
+                <StatusBar
+                    backgroundColor={'transparent'}
+                    translucent
+                />
                 <Header
                     headerLeft={images.close}
                     onPressHeaderLeft={this._onPressClose}
                 />
-                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                <ScrollView>
                     <ImageBackground style={{ height: HEADER_MAX_HEIGHT, width: '100%' }} source={images.header_bg}>
-                        <View style={{ flex: 1, alignItems: 'center', marginTop: 56 }}>
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 16 }}>
                             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
                                 <Text style={{ fontSize: fonts.REGULAR, color: 'white', marginRight: 8 }}>Earned Points</Text>
                                 <Ionicons name={"ios-information-circle-outline"} size={fonts.REGULAR} color={'white'} />
