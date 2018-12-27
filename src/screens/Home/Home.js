@@ -42,7 +42,7 @@ class Home extends Component {
             <View style={styles.container}>
                 <Header
                     onPressHeaderRight={this._onPressProfileImage}
-                    headerStyle={{ alignItems: 'flex-end', backgroundColor: headerBgColor }}
+                    headerStyle={{ alignItems: 'flex-end', backgroundColor: headerBgColor, top: 0 }}
                     headerRight={images.profile}
                     headerRightStyle={{ borderRadius: 18, backgroundColor: 'white', overflow: 'hidden' }}
                 />

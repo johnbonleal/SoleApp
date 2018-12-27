@@ -54,9 +54,40 @@ export default class Trash extends Component {
                             </View>
                             <Text style={{ textAlign: 'center' }}>Aircon & Fridge</Text>
                         </View>
-                        {/* <TouchableOpacity style={{ height: 24, width: 24, borderRadius: 12, overflow: 'hidden', marginTop: 16 }}>
-                                            <Image style={{ flex: 1, height: null, width: null, tintColor: '#FFFFFF' }} source={images.back} />
-                                        </TouchableOpacity> */}
+
+                        <Text style={{ fontSize: 25, color: '#FFFFFF', fontWeight: 'bold' }}>Prepaid Visa Card</Text>
+
+                        <View style={{ height: '70%', justifyContent: 'center', alignItems: 'center', backgroundColor: 'tomato' }}>
+                                <View style={{ height: 240, width: 240 }}>
+                                    <Image style={{ flex: 1, height: null, width: null }} source={images.mobile} resizeMode={'contain'} />
+                                </View>
+                                <Text style={{fontSize: 20, color: '#FFFFFF'}}>Scan QR at partner stores to view offers</Text>
+                                <View style={{paddingVertical: 8, backgroundColor: '#FFFFFF'}}>
+                                    <Text style={{fontSize: 16, color: '#FFAA00'}}>Continue</Text>
+                                </View>
+                            </View>
+
+
+                            <View style={{ height: '75%', width: '90%', marginTop: 16 }}>
+                            <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                                <Text style={{ fontSize: 13, color: '#FFFFFF', marginTop: 12 }}>Membership ID</Text>
+                                <Text style={{ fontSize: 23, color: '#FFFFFF' }}>123456</Text>
+                            </View>
+                            <View style={{ flex: 1, justifyContent: 'space-around', paddingHorizontal: 16 }}>
+                                <Text style={{ fontSize: 28, color: '#FFFFFF' }}>4162 0001 0045 9920</Text>
+                                <Text style={{ fontSize: 18, color: '#FFFFFF', fontWeight: 'bold' }}>JOHN BON JOVIRICK R LEAL</Text>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <View style={{marginRight: 8}}>
+                                        <Text style={{ fontSize: 7, color: '#FFFFFF' }}>VALID</Text>
+                                        <Text style={{ fontSize: 7, color: '#FFFFFF' }}>THRU</Text>
+                                    </View>
+                                    <Text style={{ fontSize: 19, color: '#FFFFFF' }}>11/23</Text>
+                                </View>
+                            </View>
+                        </View>
+
+                        
+
                     </TouchableOpacity>
                     <TouchableOpacity style={{ paddingVertical: 12, backgroundColor: '#EAA339', borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
                     </TouchableOpacity>

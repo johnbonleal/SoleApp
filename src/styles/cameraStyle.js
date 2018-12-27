@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
@@ -19,7 +21,6 @@ const styles = StyleSheet.create({
     cameraContainer: {
         ...StyleSheet.absoluteFill,
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center'
     },
     instructions: {
@@ -28,8 +29,8 @@ const styles = StyleSheet.create({
         marginBottom: 12
     },
     cameraBorderContainer: {
-        width: 200, 
-        height: 200
+        width: '100%', 
+        height: '65%'
     },
     cameraBorder: {
         flex: 1,

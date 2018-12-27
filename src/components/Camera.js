@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ImageBackground, Modal } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import { NavigationEvents } from 'react-navigation';
 import { NavigationService } from '../configs/NavigationService';
@@ -28,9 +28,6 @@ export default class Camera extends Component {
                     onDidFocus={() => this.setState({ shouldRenderCamera: true })}
                 />
                 {shouldRenderCamera && <View style={CameraStyles.container}>
-                    <TouchableOpacity style={CameraStyles.close} onPress={this._onPressClose}>
-                        <Ionicons name={"ios-close"} size={30} color={"#000"} />
-                    </TouchableOpacity>
                     <RNCamera
                         ref={ref => { this.camera = ref }}
                         style={CameraStyles.container}
@@ -41,12 +38,23 @@ export default class Camera extends Component {
                         onBarCodeRead={(qrCodeData) => this.props.onQrCodeDetected(qrCodeData)}
                     />
                     <View style={CameraStyles.cameraContainer}>
-                        {isQrEnabled && <Text style={CameraStyles.instructions}>Align QR code to scan</Text>}
-                        <View style={CameraStyles.cameraBorderContainer} >
-                            <Image
-                                style={CameraStyles.cameraBorder}
-                                source={images.camera_border}
-                            />
+                        <View style={{ flex: 1, width: '90%', justifyContent: 'center', alignItems: 'flex-end' }}>
+                            <TouchableOpacity style={{ width: 30, height: 30, borderRadius: 15, backgroundColor: '#FFFFFF', justifyContent: 'center', alignItems: 'center' }} onPress={this._onPressClose}>
+                                <Ionicons name={"ios-close"} size={30} color={"#000"} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ flex: 9, width: '80%', justifyContent: 'center' }}>
+                            <View style={{ height: '75%', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <View style={CameraStyles.cameraBorderContainer} >
+                                    <Image
+                                        style={CameraStyles.cameraBorder}
+                                        source={images.camera_border}
+                                    />
+                                </View>
+                                {isQrEnabled && <View style={{ height: 56, width: '90%', borderRadius: 28, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 16, fontStyle: "italic", color: '#FFFFFF' }}>Hold over a QR code</Text>
+                                </View>}
+                            </View>
                         </View>
                     </View>
                 </View>}

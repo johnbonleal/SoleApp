@@ -1,6 +1,6 @@
-export const CAMERA_TOGGLE = "CAMERA_TOGGLE";
+export const SCAN_QR_MODAL_TOGGLE = "SCAN_QR_MODAL_TOGGLE";
 
-export const toggleCamera = payload => ({
-    type: CAMERA_TOGGLE,
+export const toggleScanQrModal = payload => ({
+    type: SCAN_QR_MODAL_TOGGLE,
     payload
 });

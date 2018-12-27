@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import ScanQrModal from '../ScanQR/ScanqrModal';
 
 import { NavigationService } from '../../configs/NavigationService';
 import { images, fonts } from '../../resources';
+import { toggleScanQrModal } from '../../actions/CameraActions';
 import styles from '../../styles/DashboardStyle';
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
+    state = {
+        isScanQrVisible: false
+    }
     _onPressEarnedPoints = () => {
         NavigationService.navigate('Points');
     }
@@ -14,10 +20,22 @@ export default class Dashboard extends Component {
         NavigationService.navigate('MyCard');
     }
     _onPressScanQR = () => {
-        NavigationService.navigate('ScanQR');
+        if (this.props.camera.isScanQrVisible) {
+            NavigationService.navigate('ScanQR');
+        } else {
+            this._toggleCameraModal();
+        }
     }
     _onPressRewards = () => {
         NavigationService.navigate('Rewards');
+    }
+    _toggleCameraModal = () => {
+        this.setState({ isScanQrVisible: !this.state.isScanQrVisible });
+    }
+    _onPressScanQrProceed = () => {
+        this._toggleCameraModal();
+        this.props.toggleScanQrModal(true);
+        NavigationService.navigate('ScanQR');
     }
     render() {
         return (
@@ -50,7 +68,20 @@ export default class Dashboard extends Component {
                         <Text style={styles.buttonTitle}>REWARDS</Text>
                     </TouchableOpacity>
                 </View>
+                <ScanQrModal isScanQrVisible={this.state.isScanQrVisible} toggleScanQrModal={this._toggleCameraModal} onPressScanQrProceed={this._onPressScanQrProceed} />
             </View>
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        camera: state.camera
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    toggleScanQrModal: params => dispatch(toggleScanQrModal(params))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
