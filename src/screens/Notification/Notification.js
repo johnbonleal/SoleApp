@@ -75,8 +75,8 @@ class Notification extends Component {
                             onPressHeaderLeft={this._toggleNotificationModal}
                         />
                         <ImageBackground style={{ height: HEADER_BACKGROUND_HEIGHT, position: 'absolute', top: 0, left: 0, right: 0 }} source={images.image2} />
-                        <View style={{ height: IMAGE_CENTER_HEIGHT, width: IMAGE_CENTER_HEIGHT, backgroundColor: '#FFA701', borderRadius: IMAGE_CENTER_HEIGHT / 2, borderWidth: 3, borderColor: '#FFFFFF', alignSelf: 'center', marginTop: HEADER_BACKGROUND_HEIGHT - (IMAGE_CENTER_HEIGHT / 2) }}>
-                            <Image style={{ flex: 1, height: null, width: null }} source={images.close} />
+                        <View style={{ height: IMAGE_CENTER_HEIGHT, width: IMAGE_CENTER_HEIGHT, backgroundColor: '#FFA701', overflow: 'hidden', borderRadius: IMAGE_CENTER_HEIGHT / 2, borderWidth: 3, borderColor: '#FFFFFF', alignSelf: 'center', marginTop: HEADER_BACKGROUND_HEIGHT - (IMAGE_CENTER_HEIGHT / 2) }}>
+                            <Image style={{ flex: 1, height: null, width: null }} source={images.venteny} />
                         </View>
                         <View style={{ padding: 16 }}>
                             <Text style={{ fontSize: fonts.MEDIUM, textAlign: 'center' }}>Message from Venteny</Text>

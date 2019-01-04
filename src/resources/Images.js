@@ -34,6 +34,7 @@ const images = {
     scan_qr: require('../assets/images/qr.png'),
     terms: require('../assets/images/agreement.png'),
     trash: require('../assets/images/trash.png'),
+    venteny: require('../assets/images/venteny_new.png'),
 
     // light icons
     accessories_and_apparels_light: require('../assets/images/Accessories-&-Apparels-01.png'),
