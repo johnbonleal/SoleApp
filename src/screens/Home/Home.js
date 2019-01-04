@@ -8,13 +8,14 @@ import Dashboard from './Dashboard';
 import styles from '../../styles/HomeStyle';
 
 const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
+const TOP_CONTAINER_MAX_HEIGHT = 200;
 
 class Home extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            initHeaderBgColor: new Animated.Value(0)
+            scrollY: new Animated.Value(0)
         };
     }
     _onPressItem = item => {
@@ -32,8 +33,30 @@ class Home extends Component {
     _onPressProfileImage = () => {
         NavigationService.toggleDrawer();
     }
+    renderBackgroundImage() {
+        const { scrollY } = this.state;
+        return (
+            <Animated.View
+                style={[styles.backgroundImage, {
+                    transform: [{
+                        translateY: scrollY.interpolate({
+                            inputRange: [-TOP_CONTAINER_MAX_HEIGHT, 0, TOP_CONTAINER_MAX_HEIGHT],
+                            outputRange: [TOP_CONTAINER_MAX_HEIGHT / 2, 0, -TOP_CONTAINER_MAX_HEIGHT / 3]
+                        })
+                    }, {
+                        scale: scrollY.interpolate({
+                            inputRange: [-TOP_CONTAINER_MAX_HEIGHT, 0, TOP_CONTAINER_MAX_HEIGHT],
+                            outputRange: [2, 1, 1]
+                        })
+                    }]
+                }
+                ]}>
+                <Image style={{ flex: 1, height: null, width: null }} source={images.image2} />
+            </Animated.View>
+        );
+    }
     render() {
-        const headerBgColor = this.state.initHeaderBgColor.interpolate({
+        const headerBgColor = this.state.scrollY.interpolate({
             inputRange: [0, 150],
             outputRange: ['rgba(0, 0, 0, 0)', 'rgba(255, 255, 255, 1)'],
             extrapolate: 'clamp',
@@ -44,21 +67,17 @@ class Home extends Component {
                     onPressHeaderRight={this._onPressProfileImage}
                     headerStyle={{ alignItems: 'flex-end', backgroundColor: headerBgColor, top: 0 }}
                     headerRight={images.profile}
-                    headerRightStyle={{ borderRadius: 18, backgroundColor: 'white', overflow: 'hidden' }}
+                    headerRightStyle={{ height: 36, width: 36, borderRadius: 18, backgroundColor: 'white', overflow: 'hidden' }}
                 />
+                {this.renderBackgroundImage()}
                 <ScrollView
+                    ref={component => { this.scrollView = component }}
                     contentContainerStyle={{ flexGrow: 1 }}
                     onScroll={Animated.event(
-                        [{ nativeEvent: { contentOffset: { y: this.state.initHeaderBgColor } } }],
+                        [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
                     )}
                     scrollEventThrottle={16}
                 >
-                    <ImageBackground style={styles.backgroundImage} source={images.image2} >
-                        <View style={styles.greetingsContainer} >
-                            <Text style={styles.greetings}>Hi, John</Text>
-                        </View>
-                        <View style={{ flex: 1 }} ></View>
-                    </ImageBackground>
                     <View style={styles.dashboardContainer}>
                         <Dashboard />
                     </View>
@@ -99,7 +118,7 @@ class Home extends Component {
                         onPressAll={this._onPressAllItems}
                     />
                     <CircleList
-                        style={{marginVertical: 16}}
+                        style={{ marginVertical: 16 }}
                         listStyle={{ marginLeft: 8, marginTop: 8 }}
                         data={sampleData}
                         title={"Merchant Partners"}

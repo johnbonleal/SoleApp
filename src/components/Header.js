@@ -7,6 +7,7 @@ var _ = require('lodash');
 const { width, height } = Dimensions.get('window');
 const APP_HEADER_HEIGHT = 56;
 
+// TODO: Fix HeaderRight
 const Header = ({ headerLeft, onPressHeaderLeft, onPressHeaderRight, headerRight, headerTitle, headerRightStyle, headerLeftStyle, headerStyle }) => (
     <Animated.View style={[{ height: APP_HEADER_HEIGHT, position: 'absolute', top: height / 35, left: 0, right: 0, zIndex: 99 }, headerStyle]}>
         <View style={{marginTop: 20, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingHorizontal: 16}}>
@@ -19,11 +20,11 @@ const Header = ({ headerLeft, onPressHeaderLeft, onPressHeaderRight, headerRight
             {headerTitle && <Text style={{ fontSize: fonts.LARGE, fontWeight: 'bold', color: 'white' }}>{headerTitle}</Text>}
         </View>
         <View style={{ flex: 1, alignItems: 'flex-end' }}>
-            <TouchableOpacity onPress={onPressHeaderRight} style={[{ justifyContent: 'center' }, headerRightStyle]} >
+            <TouchableOpacity onPress={onPressHeaderRight} style={{ justifyContent: 'center' }} >
                 {_.isString(headerRight) ?
                     <Text style={{ color: 'white' }}>{headerRight}</Text>:
-                    <View style={{ height: 36, width: 36 }}>
-                        <Image style={{ flex: 1, height: null, width: null }} source={headerRight} />
+                    <View style={[{ height: 24, width: 24 }, !_.isString(headerRight) && headerRightStyle]}>
+                        <Image style={{ flex: 1, height: null, width: null, tintColor: '#FFFFFF' }} source={headerRight}/>
                     </View>
                 }
             </TouchableOpacity>
