@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dimensions, View, Image, Animated, TouchableOpacity, Text } from 'react-native';
+import ImageLoader from './ImageLoader';
 import { fonts } from '../resources';
 
 var _ = require('lodash');
@@ -13,7 +14,7 @@ const Header = ({ headerLeft, onPressHeaderLeft, onPressHeaderRight, headerRight
         <View style={{marginTop: 20, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingHorizontal: 16}}>
         <View style={{ flex: 1, alignItems: 'flex-start' }}>
             {headerLeft && <TouchableOpacity onPress={onPressHeaderLeft} style={[{ height: 24, width: 24 }, headerLeftStyle]} >
-                <Image style={{ flex: 1, height: null, width: null, tintColor: 'white' }} source={headerLeft} />
+                <ImageLoader style={{ flex: 1, height: null, width: null, tintColor: 'white' }} source={headerLeft} />
             </TouchableOpacity>}
         </View>
         <View style={{ flex: 1, alignItems: 'center' }}>
@@ -24,7 +25,7 @@ const Header = ({ headerLeft, onPressHeaderLeft, onPressHeaderRight, headerRight
                 {_.isString(headerRight) ?
                     <Text style={{ color: 'white' }}>{headerRight}</Text>:
                     <View style={[{ height: 24, width: 24 }, !_.isString(headerRight) && headerRightStyle]}>
-                        <Image style={{ flex: 1, height: null, width: null, tintColor: '#FFFFFF' }} source={headerRight}/>
+                        <ImageLoader style={{ flex: 1, height: null, width: null, tintColor: '#FFFFFF' }} source={headerRight}/>
                     </View>
                 }
             </TouchableOpacity>

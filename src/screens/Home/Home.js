@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Image, ImageBackground, TouchableOpacity, Animated } from 'react-native';
+import { Dimensions, View, Text, ScrollView, Image, ImageBackground, TouchableOpacity, Animated } from 'react-native';
 
-import { Header, RectangleList, SquareList, CircleList } from '../../components';
+import { Header, ImageLoader, RectangleList, SquareList, CircleList } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
 import { images } from '../../resources';
 import Dashboard from './Dashboard';
@@ -9,6 +9,8 @@ import styles from '../../styles/HomeStyle';
 
 const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
 const TOP_CONTAINER_MAX_HEIGHT = 200;
+
+const w = Dimensions.get('window');
 
 class Home extends Component {
     constructor(props) {
@@ -33,17 +35,31 @@ class Home extends Component {
     _onPressProfileImage = () => {
         NavigationService.toggleDrawer();
     }
+    renderHeader() {
+        const { scrollY } = this.state;
+        return (
+            <Header
+                onPressHeaderRight={this._onPressProfileImage}
+                headerStyle={{
+                    alignItems: 'flex-end',
+                    backgroundColor: scrollY.interpolate({
+                        inputRange: [0, 150],
+                        outputRange: ['rgba(0, 0, 0, 0)', 'rgba(255, 255, 255, 1)'],
+                        extrapolate: 'clamp',
+                    }),
+                    top: 0
+                }}
+                headerRight={images.profile}
+                headerRightStyle={{ height: 36, width: 36, borderRadius: 18, backgroundColor: 'white', overflow: 'hidden' }}
+            />
+        )
+    }
     renderBackgroundImage() {
         const { scrollY } = this.state;
         return (
             <Animated.View
                 style={[styles.backgroundImage, {
-                    transform: [{
-                        translateY: scrollY.interpolate({
-                            inputRange: [-TOP_CONTAINER_MAX_HEIGHT, 0, TOP_CONTAINER_MAX_HEIGHT],
-                            outputRange: [TOP_CONTAINER_MAX_HEIGHT / 2, 0, -TOP_CONTAINER_MAX_HEIGHT / 3]
-                        })
-                    }, {
+                    transform: [ {
                         scale: scrollY.interpolate({
                             inputRange: [-TOP_CONTAINER_MAX_HEIGHT, 0, TOP_CONTAINER_MAX_HEIGHT],
                             outputRange: [2, 1, 1]
@@ -51,24 +67,14 @@ class Home extends Component {
                     }]
                 }
                 ]}>
-                <Image style={{ flex: 1, height: null, width: null }} source={images.image2} />
+                <ImageLoader style={{ flex: 1, height: null, width: null }} thumbnailSource={images.image2} source={images.image2} />
             </Animated.View>
         );
     }
     render() {
-        const headerBgColor = this.state.scrollY.interpolate({
-            inputRange: [0, 150],
-            outputRange: ['rgba(0, 0, 0, 0)', 'rgba(255, 255, 255, 1)'],
-            extrapolate: 'clamp',
-        });
         return (
             <View style={styles.container}>
-                <Header
-                    onPressHeaderRight={this._onPressProfileImage}
-                    headerStyle={{ alignItems: 'flex-end', backgroundColor: headerBgColor, top: 0 }}
-                    headerRight={images.profile}
-                    headerRightStyle={{ height: 36, width: 36, borderRadius: 18, backgroundColor: 'white', overflow: 'hidden' }}
-                />
+                {this.renderHeader()}
                 {this.renderBackgroundImage()}
                 <ScrollView
                     ref={component => { this.scrollView = component }}
@@ -86,13 +92,13 @@ class Home extends Component {
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity style={[styles.button, { marginRight: 8 }]}>
                                 <View style={styles.imageContainer}>
-                                    <Image style={styles.image} source={images.merchant} />
+                                    <ImageLoader style={styles.image} source={images.merchant} />
                                 </View>
                                 <Text style={styles.buttonTitle}>MERCHANTS</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.button}>
                                 <View style={styles.imageContainer}>
-                                    <Image style={styles.image} source={images.loan} />
+                                    <ImageLoader style={styles.image} source={images.loan} />
                                 </View>
                                 <Text style={styles.buttonTitle}>LOAN CASH</Text>
                             </TouchableOpacity>

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ScanQrModal from '../ScanQR/ScanqrModal';
 
+import { ImageLoader } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
 import { images, fonts } from '../../resources';
 import { toggleScanQrModal } from '../../actions/CameraActions';
@@ -51,19 +52,19 @@ class Dashboard extends Component {
                 <View style={styles.bottomRowContainer}>
                     <TouchableOpacity style={styles.button} onPress={this._onPressMyCard} >
                         <View style={styles.imageContainer}>
-                            <Image style={styles.image} source={images.card} />
+                            <ImageLoader style={styles.image} source={images.card} />
                         </View>
                         <Text style={styles.buttonTitle}>CARD</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={this._onPressScanQR}>
                         <View style={styles.imageContainer}>
-                            <Image style={styles.image} source={images.scan_qr} />
+                            <ImageLoader style={styles.image} source={images.scan_qr} />
                         </View>
                         <Text style={styles.buttonTitle}>SCAN QR</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={this._onPressRewards}>
                         <View style={styles.imageContainer}>
-                            <Image style={styles.image} source={images.rewards} />
+                            <ImageLoader style={styles.image} source={images.rewards} />
                         </View>
                         <Text style={styles.buttonTitle}>REWARDS</Text>
                     </TouchableOpacity>

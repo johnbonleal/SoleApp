@@ -11,7 +11,7 @@ const RectangleListItem = ({withIcon, onPressItem}) => (
         <ImageBackground style={ListItemStyles.thumbnailContainer} source={images.sample}>
             <View style={{ backgroundColor: 'rgba(0,0,0,0.3)', flexDirection: 'row', alignItems: 'center', padding: 8 }}>
                 {withIcon && <View style={{height: 27, width: 27, borderRadius: 27 / 2, overflow: 'hidden', marginRight: fonts.SMALL}}>
-                    <Image source={images.image2} style={{flex: 1, height: null, width: null}} />
+                    <Image style={{flex: 1, height: null, width: null}} source={images.image2} />
                 </View>}
                 <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>10% OFF</Text>
             </View>
