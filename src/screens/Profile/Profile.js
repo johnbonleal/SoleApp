@@ -49,7 +49,10 @@ class Profile extends Component {
                     onPressHeaderLeft={this._onPressBack}
                     onPressHeaderRight={this._updateAccount}
                 />
-                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                <ScrollView
+                    contentContainerStyle={{ flexGrow: 1 }}
+                    scrollEventThrottle={16}
+                >
                     <ImageBackground style={{ height: HEADER_MAX_HEIGHT, position: 'absolute', top: 0, left: 0, right: 0 }} source={images.header_bg}>
                         <View style={{ flex: 1, justifyContent: 'flex-end', padding: 24 }}>
                             <Text style={{ fontSize: fonts.LARGE, fontWeight: 'bold', color: 'white' }}>John Leal</Text>

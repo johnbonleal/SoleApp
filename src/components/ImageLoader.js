@@ -19,14 +19,8 @@ class ImageLoader extends Component {
     render() {
         const { thumbnailSource, source, style, ...props } = this.props;
         return (
-            <Animated.View
-                style={{
-                    flex: 1, backgroundColor: this.imageAnimated.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: ['#e1e4e8', 'transparent'],
-                        extrapolate: 'clamp'    
-                    })
-                }}>
+            <View
+                style={styles.container}>
                 <Animated.Image
                     {...props}
                     source={thumbnailSource}
@@ -40,7 +34,7 @@ class ImageLoader extends Component {
                     style={[styles.imageOverlay, style, { opacity: this.imageAnimated }]}
                     onLoad={this.onImageLoad}
                 />
-            </Animated.View>
+            </View>
         )
     }
 }

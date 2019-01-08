@@ -59,7 +59,12 @@ class Home extends Component {
         return (
             <Animated.View
                 style={[styles.backgroundImage, {
-                    transform: [ {
+                    transform: [{
+                        translateY: scrollY.interpolate({
+                            inputRange: [0, TOP_CONTAINER_MAX_HEIGHT],
+                            outputRange: [0, -TOP_CONTAINER_MAX_HEIGHT/ 2]
+                        })
+                    },{
                         scale: scrollY.interpolate({
                             inputRange: [-TOP_CONTAINER_MAX_HEIGHT, 0, TOP_CONTAINER_MAX_HEIGHT],
                             outputRange: [2, 1, 1]
@@ -90,11 +95,14 @@ class Home extends Component {
                     <View style={styles.servicesContainer}>
                         <Text style={styles.serviceTitle}>Venteny Services</Text>
                         <View style={styles.buttonContainer}>
-                            <TouchableOpacity style={[styles.button, { marginRight: 8 }]}>
+                            <TouchableOpacity 
+                                style={[styles.button, { marginRight: 8 }]}
+                                onPress={() => NavigationService.navigate('Merchant')}
+                            >
                                 <View style={styles.imageContainer}>
                                     <ImageLoader style={styles.image} source={images.merchant} />
                                 </View>
-                                <Text style={styles.buttonTitle}>MERCHANTS</Text>
+                                <Text style={styles.buttonTitle}>PERKS & DEALS</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.button}>
                                 <View style={styles.imageContainer}>

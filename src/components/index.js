@@ -7,6 +7,8 @@ import SquareList from './SquareList';
 import CircleList from './CircleList';
 import TabularList from './TabularList';
 import ImageLoader from './ImageLoader';
+import CategoryModal from './CategoryModal';
+import LocationModal from './LocationModal';
 
 export { 
     Header, 
@@ -17,5 +19,7 @@ export {
     TabularList, 
     StarRating, 
     VerticalSpacer, 
-    ImageLoader 
+    ImageLoader,
+    CategoryModal,
+    LocationModal 
 };

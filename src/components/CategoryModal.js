@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Modal, View, ScrollView, ImageBackground, FlatList, Image, Text, TouchableOpacity } from 'react-native';
-import { Header, TabularList } from '../../components';
+import { Modal, View, ScrollView, ImageBackground } from 'react-native';
+import Header from './Header';
+import TabularList from './TabularList';
 
-import { images, fonts } from '../../resources';
+import { images } from '../resources';
 
 const APP_HEADER_HEIGHT = 56;
+
 const categories = [
     {title: "All", avatar: images.image2 },
     {title: "Accessories & Apparels", avatar: images.accessories_and_apparels_light },
@@ -24,6 +26,9 @@ class CategoryModal extends Component {
     _onPressItem = item => {
         this.props.onPressItem(item);
         this.props.onPressModalClose();
+    }
+    _onPressCategoryItem = (item) => {
+        this.setState({ category: item });
     }
     render() {
         return (

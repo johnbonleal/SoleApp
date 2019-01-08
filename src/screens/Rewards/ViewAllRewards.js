@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Dimensions, View, Text, ScrollView, Image, ImageBackground, TouchableOpacity, FlatList } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Header } from '../../components';
+import { Header, CategoryModal } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
-import CategoryModal from './CategoryModal';
 
 import { images, fonts } from '../../resources';
 
@@ -51,7 +50,7 @@ class ViewAllRewards extends Component {
         this._toggleCategoryModal();
     }
     render() {
-        const { category } = this.state;
+        const { category, isCategoryModalVisible } = this.state;
         return (
             <View style={{ flex: 1, backgroundColor: '#F3F2F2' }}>
                 <Header
@@ -79,7 +78,7 @@ class ViewAllRewards extends Component {
                     <Text>1,800 Available Points</Text>
                 </View>
                 <CategoryModal
-                    isVisible={this.state.isCategoryModalVisible}
+                    isVisible={isCategoryModalVisible}
                     onPressItem={this._onPressCategoryItem}
                     onPressModalClose={this._onPressModalClose}
                 />

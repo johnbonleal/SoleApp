@@ -36,7 +36,9 @@ class Notification extends Component {
     render() {
         return (
             <View style={{ flex: 1, backgroundColor: '#F2F2F2' }}>
-                <ScrollView>
+                <ScrollView
+                    scrollEventThrottle={16}
+                >
                     <Header
                         headerTitle={"Notifications"}
                         headerStyle={{ zIndex: 10 }}
@@ -80,13 +82,13 @@ class Notification extends Component {
                         </View>
                         <View style={{ padding: 16 }}>
                             <Text style={{ fontSize: fonts.MEDIUM, textAlign: 'center' }}>Message from Venteny</Text>
-                            <View style={{marginVertical: 20, marginHorizontal: 16}}>
+                            <View style={{ marginVertical: 20, marginHorizontal: 16 }}>
                                 <Text style={{ fontSize: 25, color: '#4A4A4A', marginBottom: 5 }}>Enjoy Amazing Offers</Text>
                                 <Text style={{ fontSize: 15, color: '#9B9B9B' }}>Dec 07 2018 13:43 PM</Text>
                             </View>
                             <Text style={{ fontSize: 18, color: '#4A4A4A', marginHorizontal: 16 }}>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum.</Text>
                         </View>
-                        <View style={{ backgroundColor: 'white', justifyContent: 'center', position: 'absolute', bottom: 0, left: 0, right: 0, elevation: 10, padding: 16, shadowOffset: {width: 0, height: 1}, shadowRadius: 2, shadowColor: 'black', shadowOpacity: 0.5 }}>
+                        <View style={{ backgroundColor: 'white', justifyContent: 'center', position: 'absolute', bottom: 0, left: 0, right: 0, elevation: 10, padding: 16, shadowOffset: { width: 0, height: 1 }, shadowRadius: 2, shadowColor: 'black', shadowOpacity: 0.5 }}>
                             <TouchableOpacity style={{ backgroundColor: '#FFA701', alignItems: 'center', borderRadius: 8, paddingVertical: 16 }}>
                                 <Text style={{ fontSize: fonts.MEDIUM, color: '#FFFFFF', fontWeight: 'bold', textAlign: 'center' }}>CHECK NEW OFFERS</Text>
                             </TouchableOpacity>

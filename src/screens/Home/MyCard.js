@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, View, Text, Image, ImageBackground } from 'react-native';
+import { Dimensions, View, Text, Image, ImageBackground, TouchableOpacity } from 'react-native';
 import { Header } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
 
@@ -10,6 +10,12 @@ const { width, height } = Dimensions.get('window');
 class MyCard extends Component {
     _onPressBack = () => {
         NavigationService.back();
+    }
+    _onPressContact = () => {
+        NavigationService.navigate('ContactUs');
+    }
+    _onPressTerms = () => {
+
     }
     render() {
         return (
@@ -41,23 +47,23 @@ class MyCard extends Component {
                         <Text style={{fontSize: 12, color: 'rgba(255,255,255,0.8)', marginLeft: 4, marginTop: 16}}>Present this when asked by our merchant partner.</Text>
                     </ImageBackground>
                 </View>
-                <View style={{ height: height / 6, backgroundColor: '#FFFFFF', elevation: 10, position: 'absolute', bottom: 0, left: 0, right: 0 }}>
-                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, borderBottomColor: '#D8D8D8', borderBottomWidth: 1 }}>
+                <View style={{ height: height / 6, backgroundColor: '#FFFFFF', elevation: 10, position: 'absolute', bottom: 0, left: 0, right: 0, shadowOffset: {width: 0, height: 1}, shadowRadius: 2, shadowColor: 'black', shadowOpacity: 0.5 }}>
+                    <TouchableOpacity style={{ flex: 1, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, borderBottomColor: '#D8D8D8', borderBottomWidth: 1 }} onPress={this._onPressContact}>
                         <View style={{ height: 30, width: 30, borderRadius: 15, backgroundColor: '#F5A623', justifyContent: 'center', alignItems: 'center', marginRight: 16 }}>
                             <View style={{ height: 20, width: 20 }}>
                                 <Image style={{ flex: 1, height: null, width: null, tintColor: '#FFFFFF' }} source={images.phone} resizeMode={'contain'} />
                             </View>
                         </View>
                         <Text style={{ fontSize: fonts.SMALL, fontWeight: 'bold', color: '#9B9B9B' }}>Contact Us</Text>
-                    </View>
-                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16 }}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ flex: 1, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16 }}>
                         <View style={{ height: 30, width: 30, borderRadius: 15, backgroundColor: '#F5A623', justifyContent: 'center', alignItems: 'center', marginRight: 16 }}>
                             <View style={{ height: 20, width: 20 }}>
                                 <Image style={{ flex: 1, height: null, width: null, tintColor: '#FFFFFF' }} source={images.book} resizeMode={'contain'} />
                             </View>
                         </View>
                         <Text style={{ fontSize: fonts.SMALL, fontWeight: 'bold', color: '#9B9B9B' }}>Read Terms and Conditions</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </ImageBackground>
         )

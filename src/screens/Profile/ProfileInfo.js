@@ -13,9 +13,6 @@ const FormItem = props => (
 );
 
 class ProfileInfo extends Component {
-    constructor(props){
-        super(props);
-    }
     _onPressPassword = () => {
         this.props.onPressPasswordSettings();
     }
