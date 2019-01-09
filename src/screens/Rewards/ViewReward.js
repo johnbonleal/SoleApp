@@ -21,9 +21,6 @@ const BranchItem = ({ onPressItem }) => (
         <Text style={{ fontSize: 15, color: '#9B9B9B' }}>Alabang, Muntinlupa</Text>
     </TouchableOpacity>
 );
-
-console.log("Height: ", height);
-
 class ViewReward extends Component {
     state = {
         isBannerModalVisible: false,
@@ -152,7 +149,7 @@ class ViewReward extends Component {
                         {(this.state.current === 'Rewards') ? this._renderRewards() : this._renderBranches()}
                     </View>
                 </ScrollView>
-                <View style={{ backgroundColor: 'white', justifyContent: 'center', elevation: 10, padding: 16 }}>
+                <View style={{ backgroundColor: 'white', justifyContent: 'center', elevation: 10, padding: 16, shadowOffset: {width: 0, height: 1}, shadowRadius: 2, shadowColor: 'black', shadowOpacity: 0.5 }}>
                     <TouchableOpacity style={{ backgroundColor: '#FFA701', alignItems: 'center', borderRadius: 8, paddingVertical: 16 }}>
                         <Text style={{ fontSize: fonts.MEDIUM, color: '#FFFFFF', fontWeight: 'bold', textAlign: 'center' }}>Redeem</Text>
                     </TouchableOpacity>

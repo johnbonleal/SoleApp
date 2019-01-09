@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
-import { Modal, View, ScrollView, ImageBackground } from 'react-native';
+import { Modal, View, ScrollView, ImageBackground, StatusBar } from 'react-native';
 import Header from './Header';
 import TabularList from './TabularList';
 
 import { images } from '../resources';
 
-const APP_HEADER_HEIGHT = 56;
+const APP_HEADER_HEIGHT = 90;
 
 const locations = [
-    {title: "Caloocan City"},
-    {title: "Quezon City"},
-    {title: "Mandaluyong City"},
-    {title: "Muntinlupa City"},
-    {title: "Taguig City"},
-    {title: "Pasig City"},
-    {title: "Pasay City"},
-    {title: "Paranaque City"}
+    { title: "Caloocan City" },
+    { title: "Quezon City" },
+    { title: "Mandaluyong City" },
+    { title: "Muntinlupa City" },
+    { title: "Taguig City" },
+    { title: "Pasig City" },
+    { title: "Pasay City" },
+    { title: "Paranaque City" }
 ];
 
 class LocationModal extends Component {
@@ -30,23 +30,26 @@ class LocationModal extends Component {
         return (
             <Modal
                 animationType="slide"
-                transparent={false}
+                transparent
                 visible={this.props.isVisible}
                 onRequestClose={() => {
                     Alert.alert('Modal has been closed.');
                 }}>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+                    <StatusBar
+                        backgroundColor={'transparent'}
+                        translucent
+                    />
                     <Header
                         headerLeft={images.close}
                         headerTitle={"Location"}
                         onPressHeaderLeft={this.props.onPressModalClose}
                     />
-                    <ImageBackground style={{ height: APP_HEADER_HEIGHT, width: '100%'}} source={images.header_bg} />
+                    <ImageBackground style={{ height: APP_HEADER_HEIGHT, width: '100%' }} source={images.header_bg} />
                     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                         <TabularList
                             style={{ marginTop: 16 }}
                             data={locations}
-                            withIcons
                             onPressItem={this._onPressItem}
                         />
                     </ScrollView>

@@ -1,27 +1,25 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ImageBackground, TouchableOpacity, Text, TextInput, ScrollView } from 'react-native';
-import { Header, ImageLoader, RectangleList, SquareList, CircleList, CategoryModal, LocationModal } from '../../components';
+import { View, StyleSheet, ImageBackground, TouchableOpacity, Text, TextInput, ScrollView, Animated, StatusBar, FlatList } from 'react-native';
+import { Header, ImageLoader, RectangleList, SquareList, CircleList, CategoryModal, LocationModal, Tag, TabularList, StarRating } from '../../components';
+import MerchantList from './MerchantList';
 
 import { images, fonts } from '../../resources';
+import { NavigationService } from '../../configs/NavigationService';
 
 const HEADER_MAX_HEIGHT = 186;
+const HEADER_MIN_HEIGHT = 135;
 const APP_HEADER_HEIGHT = 56;
 
 const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
-
-const Tag = ({ title, style, onPress }) => (
-    <TouchableOpacity style={[{ borderColor: '#FFFFFF', borderRadius: 8, borderWidth: 1, padding: 8 }, style]} onPress={onPress}>
-        <Text style={{ color: '#FFFFFF' }}>{title}</Text>
-    </TouchableOpacity>
-);
-
 class Merchants extends Component {
     state = {
         searchInput: '',
         isCategoryModalVisible: false,
         category: 'Category',
         isLocationModalVisible: false,
-        location: 'Location'
+        location: 'Location',
+        isSearching: false,
+        scrollY: new Animated.Value(0)
     }
     _onPressCategoryItem = (item) => {
         this.setState({ category: item });
@@ -41,90 +39,150 @@ class Merchants extends Component {
     _onPressLocationModalClose = () => {
         this._toggleLocationModal();
     }
+    _onPressMerchantItem = () => {
+        NavigationService.navigate('MerchantView');
+    }
+    _toggleIsSearching = () => {
+        this.setState({ isSearching: !this.state.isSearching });
+    }
+    renderSearch = () => {
+        const { searchInput, category, location } = this.state;
+        return (
+            <View style={{ flex: 1, backgroundColor: '#FFFFFF', padding: 16 }}>
+                {searchInput !== '' || category !== 'Category' || location !== 'Location' ?
+                    <MerchantList data={sampleData} onPressItem={this._onPressMerchantItem} />:
+                    <TabularList
+                        style={{ marginTop: 16 }}
+                        data={[{ title: "Search Suggestions" }, { title: "New Deals" }, { title: "Fitness & Sports" }, { title: "Beauty & Wellness" }]}
+                        onPressItem={this._onPressItem}
+                    />}
+            </View>
+        )
+    }
+    renderHeaderView = () => {
+        const { scrollY, searchInput, category, location, isSearching } = this.state;
+        const animatedHeaderHeight = scrollY.interpolate({
+            inputRange: [0, 50],
+            outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
+            extrapolate: 'clamp'
+        });
+        const animatedOpacity = animatedHeaderHeight.interpolate({
+            inputRange: [HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT],
+            outputRange: [0, 1],
+            extrapolate: 'clamp'
+        });
+        return (
+            <Animated.View style={{ height: animatedHeaderHeight }}>
+                <ImageBackground style={{ flex: 1 }} source={images.header_bg} >
+                    {!isSearching && category === 'Category' && location === 'Location' && <Header
+                        headerLeft={images.close}
+                        headerTitle={"Perks & Deals"}
+                        onPressHeaderLeft={this._onPressBack}
+                    />}
+                    <View style={{ flex: 1, padding: 16, marginTop: APP_HEADER_HEIGHT + 12 }}>
+                        <View style={styles.searchBox}>
+                            <View style={styles.imageContainer}>
+                                <ImageLoader style={styles.image} source={isSearching || category !== 'Category' || location !== 'Location' ? images.back : images.search} />
+                            </View>
+                            <TextInput
+                                placeholder={"Try \"Hotels\""}
+                                placeholderTextColor={"#F5A623"}
+                                onChangeText={(searchInput) => this.setState({ searchInput })}
+                                maxLength={30}
+                                value={searchInput}
+                                style={styles.searchInput}
+                                onFocus={this._toggleIsSearching}
+                                onBlur={this._toggleIsSearching}
+                            />
+                        </View>
+                        <Animated.View
+                            style={{
+                                flexDirection: 'row',
+                                marginTop: 12,
+                                opacity: animatedOpacity
+                            }}
+                        >
+                            <Tag title={location} onPress={this._toggleLocationModal} style={{ marginRight: 5 }} />
+                            <Tag title={category} onPress={this._toggleCategoryModal} />
+                        </Animated.View>
+                    </View>
+                </ImageBackground>
+            </Animated.View>
+        )
+    }
     render() {
-        const { searchInput, isCategoryModalVisible, category, isLocationModalVisible, location } = this.state;
+        const { scrollY, isCategoryModalVisible, isLocationModalVisible, isSearching, category, location } = this.state;
         return (
             <View style={styles.container}>
-                <Header
-                    headerLeft={images.close}
-                    headerTitle={"Perks & Deals"}
-                    onPressHeaderLeft={this._onPressBack}
+                <StatusBar
+                    backgroundColor={'transparent'}
+                    translucent
                 />
+                {this.renderHeaderView()}
                 <ScrollView
+                    ref={component => { this.scrollView = component }}
                     contentContainerStyle={{ flexGrow: 1 }}
                     scrollEventThrottle={16}
+                    onScroll={Animated.event(
+                        [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                    )}
                 >
-                    <ImageBackground style={styles.backgroundImage} source={images.header_bg} >
-                        <View style={{ padding: 16, marginTop: APP_HEADER_HEIGHT }}>
-                            <View style={styles.searchBox}>
-                                <View style={styles.imageContainer}>
-                                    <ImageLoader style={styles.image} source={images.search} />
-                                </View>
-                                <TextInput
-                                    placeholder={"Try \"Hotels\""}
-                                    placeholderTextColor={"#F5A623"}
-                                    onChangeText={(searchInput) => this.setState({ searchInput })}
-                                    value={searchInput}
-                                    inlineImageLeft={images.search}
-                                    style={styles.searchInput}
+                    {isSearching || category !== 'Category' || location !== 'Location' ?
+                        this.renderSearch()
+                        :
+                        <View>
+                            <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
+                                <RectangleList
+                                    data={sampleData}
+                                    title={"Top Categories"}
+                                    onPressItem={this._onPressItem}
+                                    onPressAll={this._onPressAllItems}
                                 />
                             </View>
-                            <View style={{ flexDirection: 'row', marginTop: 12 }}>
-                                <Tag title={location} onPress={this._toggleLocationModal} style={{ marginRight: 5 }} />
-                                <Tag title={category} onPress={this._toggleCategoryModal}/>
+                            <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
+                                <RectangleList
+                                    data={sampleData}
+                                    title={"Top Deals"}
+                                    isCollapsible
+                                    onPressItem={this._onPressItem}
+                                    onPressAll={this._onPressAllItems}
+                                />
                             </View>
-                        </View>
-                    </ImageBackground>
-                    <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
-                        <RectangleList
-                            data={sampleData}
-                            title={"Top Categories"}
-                            onPressItem={this._onPressItem}
-                            onPressAll={this._onPressAllItems}
-                        />
-                    </View>
-                    <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
-                        <RectangleList
-                            data={sampleData}
-                            title={"Top Deals"}
-                            onPressItem={this._onPressItem}
-                            onPressAll={this._onPressAllItems}
-                        />
-                    </View>
-                    <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
-                        <SquareList
-                            data={sampleData}
-                            title={"Recommended Deals"}
-                            onPressCategoryItem={this._onPressCategoryItem}
-                        />
-                    </View>
-                    <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
-                        <RectangleList
-                            data={sampleData}
-                            title={"New Deals"}
-                            isCollapsible
-                            onPressItem={this._onPressItem}
-                            onPressAll={this._onPressAllItems}
-                        />
-                    </View>
-                    <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
-                        <RectangleList
-                            data={sampleData}
-                            title={"All Deals"}
-                            isCollapsible
-                            onPressItem={this._onPressItem}
-                            onPressAll={this._onPressAllItems}
-                        />
-                    </View>
-                    <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
-                        <CircleList
-                            style={{ marginVertical: 16 }}
-                            listStyle={{ marginLeft: 8, marginTop: 8 }}
-                            data={sampleData}
-                            title={"Merchant Partners"}
-                            onPressItem={this._onPressMerchantItem}
-                        />
-                    </View>
+                            <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
+                                <SquareList
+                                    data={sampleData}
+                                    title={"Recommended Deals"}
+                                    onPressCategoryItem={this._onPressCategoryItem}
+                                />
+                            </View>
+                            <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
+                                <RectangleList
+                                    data={sampleData}
+                                    title={"New Deals"}
+                                    isCollapsible
+                                    onPressItem={this._onPressItem}
+                                    onPressAll={this._onPressAllItems}
+                                />
+                            </View>
+                            <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
+                                <RectangleList
+                                    data={sampleData}
+                                    title={"All Deals"}
+                                    isCollapsible
+                                    onPressItem={this._onPressItem}
+                                    onPressAll={this._onPressAllItems}
+                                />
+                            </View>
+                            <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
+                                <CircleList
+                                    style={{ marginVertical: 16 }}
+                                    listStyle={{ marginLeft: 8, marginTop: 8 }}
+                                    data={sampleData}
+                                    title={"Merchant Partners"}
+                                    onPressItem={this._onPressMerchantItem}
+                                />
+                            </View>
+                        </View>}
                 </ScrollView>
                 <CategoryModal
                     isVisible={isCategoryModalVisible}
@@ -150,8 +208,7 @@ const styles = StyleSheet.create({
     },
     backgroundImage: {
         height: HEADER_MAX_HEIGHT,
-        width: '100%',
-        justifyContent: 'flex-end'
+        width: '100%'
     },
     imageContainer: {
         height: 20,
@@ -165,16 +222,17 @@ const styles = StyleSheet.create({
         tintColor: '#F5A623'
     },
     searchBox: {
-        backgroundColor: 'white',
+        height: 41,
+        backgroundColor: '#FFFFFF',
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 8,
-        paddingVertical: 8,
+        // paddingVertical: 8,
         paddingHorizontal: 12
     },
     searchInput: {
         color: "#F5A623",
         fontSize: fonts.LARGE,
-        fontWeight: 'bold'
+        paddingVertical: 0
     }
 });

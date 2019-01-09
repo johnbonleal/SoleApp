@@ -51,6 +51,6 @@ const styles = StyleSheet.create({
         flex: 1,
         width: null,
         height: null,
-        tintColor: '#4A4A4A'
+        tintColor: '#FFA701'
     }
 });

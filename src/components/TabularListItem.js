@@ -5,7 +5,7 @@ import { images, fonts } from '../resources';
 
 const ICON_HEIGHT = 30;
 
-const TabularListItem = ({ item, index, onPressItem, withIcons, collapsible, leftIconContainerStyle, leftIconStyle, rightIconStyle, titleStyle, descriptionStyle }) => (
+const TabularListItem = ({ item, index, onPressItem, withIcons, collapsible, leftIconContainerStyle, leftIconStyle, rightIconStyle, titleStyle, descriptionStyle, length }) => (
     <View key={index} style={{ paddingHorizontal: 16, paddingBottom: 16 }} >
         <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }} onPress={(() => onPressItem(item.title))}>
             <View style={{ flexDirection: 'row' }}>
@@ -15,13 +15,13 @@ const TabularListItem = ({ item, index, onPressItem, withIcons, collapsible, lef
                     </View>
                 </View>}
                 <View style={{ alignSelf: 'center', marginLeft: 8 }}>
-                    <Text style={[{ fontSize: fonts.REGULAR }, titleStyle]}>{item.title}</Text>
-                    <Text style={[{ fontSize: fonts.REGULAR }, descriptionStyle]}>{item.description}</Text>
+                    <Text style={[{ fontSize: fonts.REGULAR, paddingVertical: 0 }, titleStyle]}>{item.title}</Text>
+                    {item.description && <Text style={[{ fontSize: fonts.REGULAR, paddingVertical: 0 }, descriptionStyle]}>{item.description}</Text>}
                 </View>
             </View>
-            {collapsible && <Ionicons name={"ios-arrow-forward"} size={fonts.REGULAR} color={'black'} />}
+            {collapsible && <Ionicons name={"ios-arrow-forward"} size={fonts.REGULAR} color={'#000000'} />}
         </TouchableOpacity>
-        <View style={[{ height: 1, backgroundColor: '#D8D8D8', marginTop: 16 }, rightIconStyle]} />
+        {index < length - 1 && <View style={[{ height: 1, backgroundColor: '#D8D8D8', marginTop: 16 }, rightIconStyle]} />}
     </View>
 );
 

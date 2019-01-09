@@ -9,6 +9,7 @@ import TabularList from './TabularList';
 import ImageLoader from './ImageLoader';
 import CategoryModal from './CategoryModal';
 import LocationModal from './LocationModal';
+import Tag from './Tag';
 
 export { 
     Header, 
@@ -21,5 +22,6 @@ export {
     VerticalSpacer, 
     ImageLoader,
     CategoryModal,
-    LocationModal 
+    LocationModal,
+    Tag 
 };
