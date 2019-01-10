@@ -1,16 +1,48 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ImageBackground, TouchableOpacity, Text, TextInput, ScrollView, Animated, StatusBar, FlatList } from 'react-native';
+import { View, StyleSheet, ImageBackground, TouchableOpacity, Text, TextInput, ScrollView, Animated, StatusBar, Dimensions, Image, Platform } from 'react-native';
 import { Header, ImageLoader, RectangleList, SquareList, CircleList, CategoryModal, LocationModal, Tag, TabularList, StarRating } from '../../components';
 import MerchantList from './MerchantList';
 
 import { images, fonts } from '../../resources';
 import { NavigationService } from '../../configs/NavigationService';
 
-const HEADER_MAX_HEIGHT = 186;
-const HEADER_MIN_HEIGHT = 135;
+const { width, height } = Dimensions.get('window');
+
+const HEADER_MAX_HEIGHT = height / 3.7;
+const HEADER_MIN_HEIGHT = height / 7.5;
 const APP_HEADER_HEIGHT = 56;
 
 const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
+
+const MerchantHeader = ({ searchInput, isSearching, category, location, opacity }) => (
+    <View style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
+            <Image style={{ flex: 1, height: null, width: null }} source={images.header_bg} />
+        </View>
+        <View style={{ padding: 16, marginTop: 16 }}>
+            <View style={styles.searchBox}>
+                <View style={styles.imageContainer}>
+                    <ImageLoader style={styles.image} source={isSearching || category !== 'Category' || location !== 'Location' ? images.back : images.search} />
+                </View>
+                <TextInput
+                    placeholder={"Try \"Hotels\""}
+                    placeholderTextColor={"#F5A623"}
+                    onChangeText={(searchInput) => this.setState({ searchInput })}
+                    maxLength={30}
+                    value={searchInput}
+                    style={styles.searchInput}
+                    onFocus={this._toggleIsSearching}
+                    onBlur={this._toggleIsSearching}
+                />
+            </View>
+            <Animated.View style={{ flexDirection: 'row', marginTop: 12, opacity }}>
+                <Tag title={location} onPress={this._toggleLocationModal} style={{ marginRight: 5 }} />
+                <Tag title={category} onPress={this._toggleCategoryModal} />
+            </Animated.View>
+        </View>
+    </View>
+
+)
 class Merchants extends Component {
     state = {
         searchInput: '',
@@ -50,7 +82,7 @@ class Merchants extends Component {
         return (
             <View style={{ flex: 1, backgroundColor: '#FFFFFF', padding: 16 }}>
                 {searchInput !== '' || category !== 'Category' || location !== 'Location' ?
-                    <MerchantList data={sampleData} onPressItem={this._onPressMerchantItem} />:
+                    <MerchantList data={sampleData} onPressItem={this._onPressMerchantItem} /> :
                     <TabularList
                         style={{ marginTop: 16 }}
                         data={[{ title: "Search Suggestions" }, { title: "New Deals" }, { title: "Fitness & Sports" }, { title: "Beauty & Wellness" }]}
@@ -73,14 +105,21 @@ class Merchants extends Component {
         });
         return (
             <Animated.View style={{ height: animatedHeaderHeight }}>
-                <ImageBackground style={{ flex: 1 }} source={images.header_bg} >
-                    {!isSearching && category === 'Category' && location === 'Location' && <Header
-                        headerLeft={images.close}
-                        headerTitle={"Perks & Deals"}
-                        onPressHeaderLeft={this._onPressBack}
-                    />}
-                    <View style={{ flex: 1, padding: 16, marginTop: APP_HEADER_HEIGHT + 12 }}>
-                        <View style={styles.searchBox}>
+                <Header
+                    headerStyle={{ opacity: animatedOpacity }}
+                    headerLeft={images.close}
+                    headerTitle={"Perks & Deals"}
+                />
+                <ImageBackground style={{ flex: 1, justifyContent: 'flex-end' }} source={images.header_bg} >
+                    <View style={{ padding: 16 }}>
+                        <Animated.View style={[styles.searchBox, {
+                            transform: [{
+                                translateY: animatedHeaderHeight.interpolate({
+                                    inputRange: [HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT],
+                                    outputRange: [40, 0]
+                                })
+                            }]
+                        }]}>
                             <View style={styles.imageContainer}>
                                 <ImageLoader style={styles.image} source={isSearching || category !== 'Category' || location !== 'Location' ? images.back : images.search} />
                             </View>
@@ -94,14 +133,8 @@ class Merchants extends Component {
                                 onFocus={this._toggleIsSearching}
                                 onBlur={this._toggleIsSearching}
                             />
-                        </View>
-                        <Animated.View
-                            style={{
-                                flexDirection: 'row',
-                                marginTop: 12,
-                                opacity: animatedOpacity
-                            }}
-                        >
+                        </Animated.View>
+                        <Animated.View style={{ flexDirection: 'row', marginTop: 12, opacity: animatedOpacity }}>
                             <Tag title={location} onPress={this._toggleLocationModal} style={{ marginRight: 5 }} />
                             <Tag title={category} onPress={this._toggleCategoryModal} />
                         </Animated.View>
@@ -194,7 +227,7 @@ class Merchants extends Component {
                     onPressItem={this._onPressLocationItem}
                     onPressModalClose={this._onPressLocationModalClose}
                 />
-            </View>
+            </View >
         )
     }
 }
@@ -228,6 +261,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 8,
         // paddingVertical: 8,
+        zIndex: 100,
         paddingHorizontal: 12
     },
     searchInput: {

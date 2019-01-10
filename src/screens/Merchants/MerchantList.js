@@ -17,7 +17,7 @@ const MerchantList = ({ data, onPressItem }) => (
             <TouchableOpacity key={index} onPress={onPressItem}>
                 <ImageBackground source={images.image2} style={{ height: IMAGE_HEIGHT, width: '100%', borderRadius: 8, overflow: 'hidden' }} >
                     <View style={{ height: IMAGE_HEIGHT / 4, backgroundColor: 'rgba(0,0,0,0.3)', justifyContent: 'center', alignItems: 'flex-end', padding: 8 }}>
-                        <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>10% OFF</Text>
+                        <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 18, marginRight: 8 }}>10% OFF</Text>
                     </View>
                 </ImageBackground>
                 <View style={{ marginTop: 16, flexDirection: 'row' }}>

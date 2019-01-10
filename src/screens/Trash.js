@@ -87,6 +87,63 @@ export default class Trash extends Component {
                         </View>
 
                         
+{isSearching || category !== 'Category' || location !== 'Location' ?
+this.renderSearch()
+:
+<View>
+    <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
+        <RectangleList
+            data={sampleData}
+            title={"Top Categories"}
+            onPressItem={this._onPressItem}
+            onPressAll={this._onPressAllItems}
+        />
+    </View>
+    <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
+        <RectangleList
+            data={sampleData}
+            title={"Top Deals"}
+            isCollapsible
+            onPressItem={this._onPressItem}
+            onPressAll={this._onPressAllItems}
+        />
+    </View>
+    <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
+        <SquareList
+            data={sampleData}
+            title={"Recommended Deals"}
+            onPressCategoryItem={this._onPressCategoryItem}
+        />
+    </View>
+    <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
+        <RectangleList
+            data={sampleData}
+            title={"New Deals"}
+            isCollapsible
+            onPressItem={this._onPressItem}
+            onPressAll={this._onPressAllItems}
+        />
+    </View>
+    <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
+        <RectangleList
+            data={sampleData}
+            title={"All Deals"}
+            isCollapsible
+            onPressItem={this._onPressItem}
+            onPressAll={this._onPressAllItems}
+        />
+    </View>
+    <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
+        <CircleList
+            style={{ marginVertical: 16 }}
+            listStyle={{ marginLeft: 8, marginTop: 8 }}
+            data={sampleData}
+            title={"Merchant Partners"}
+            onPressItem={this._onPressMerchantItem}
+        />
+    </View>
+</View>}
+
 
                     </TouchableOpacity>
                     <TouchableOpacity style={{ paddingVertical: 12, backgroundColor: '#EAA339', borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>

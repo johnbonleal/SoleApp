@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, StatusBar, ScrollView, Dimensions, ImageBackground, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StatusBar, ScrollView, Dimensions, ImageBackground, StyleSheet, Animated } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MerchantLocation from './MerchantLocation';
 import DealDetails from './DealDetails';
 import { Header, StarRating } from '../../components';
 
 import { images, fonts } from '../../resources';
+import { NavigationService } from '../../configs/NavigationService';
 
 const { width, height } = Dimensions.get('window');
 
 const ICON_HEIGHT = 25;
-const DARK_BACKGROUND_HEIGHT = 200;
+const MERCHANT_BACKGROUND_HEIGHT = height * 0.8;
 const ratingObj = { ratings: 3 };
 
 const ASPECT_RATIO = width / height;
@@ -18,48 +19,78 @@ const LATITUDE = 14.6091;
 const LONGITUDE = 121.0223;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-
 class MerchantView extends Component {
+    state = {
+        scrollY: new Animated.Value(0)
+    }
+    renderHeader = () => {
+        const { scrollY } = this.state;
+        const animatedHeaderOpacity = scrollY.interpolate({
+            inputRange: [height + 28, height + 29],
+            outputRange: [0, 1],
+            extrapolate: 'clamp'
+        });
+        return (
+            <View style={{height: height / 9, position: 'absolute', top: 0, left: 0, right: 0, zIndex: 98}}>
+                <Animated.View style={{ flex: 1, opacity: animatedHeaderOpacity }}>
+                    <Image style={{ flex: 1, height: null, width: null }} source={images.header_bg} />
+                </Animated.View>
+                <Header
+                    headerLeft={images.back}
+                />
+            </View>
+        )
+    }
     render() {
+        const { scrollY } = this.state;
+        const animatedButtonBackground = scrollY.interpolate({
+            inputRange: [120, 121],
+            outputRange: ['#000000', '#FFFFFF'],
+            extrapolate: 'clamp'
+        });
         return (
             <View style={{ flex: 1 }}>
                 <StatusBar
                     backgroundColor={'transparent'}
                     translucent
                 />
-                <Header
-                    headerLeft={images.back}
-                />
+                {this.renderHeader()}
                 <ScrollView
                     ref={component => { this.scrollView = component }}
                     contentContainerStyle={{ flexGrow: 1 }}
                     scrollEventThrottle={16}
+                    onScroll={Animated.event(
+                        [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                    )}
                 >
-                    <ImageBackground style={{ height: height * 0.8, width: '100%' }} source={images.beach}>
-                        <View style={{ flex: 1, justifyContent: 'flex-end', padding: 16 }}>
-                            <Text style={{ fontSize: 15, color: '#FFFFFF' }}>HOTELS & RESORT</Text>
-                            <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#FFFFFF' }}>One night staycation</Text>
-                            <View style={{ flexDirection: 'row' }}>
-                                <View style={{ height: ICON_HEIGHT, width: ICON_HEIGHT, borderRadius: ICON_HEIGHT / 2, overflow: 'hidden', marginRight: 8 }}>
-                                    <Image style={{ flex: 1, height: null, width: null }} source={images.image2} />
+                    <View style={{ backgroundColor: '#000000', flex: 1 }}>
+                        <ImageBackground style={{ height: MERCHANT_BACKGROUND_HEIGHT, width }} source={images.beach} />
+                        <ImageBackground style={{ ...StyleSheet.absoluteFillObject }} source={images.gradient_3}>
+                            <View style={{ flex: 1, justifyContent: 'flex-end', padding: 16, zIndex: 99 }}>
+                                <Text style={{ fontSize: 15, color: '#FFFFFF' }}>HOTELS & RESORT</Text>
+                                <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#FFFFFF' }}>One night staycation</Text>
+                                <View style={{ flexDirection: 'row', marginVertical: 8 }}>
+                                    <View style={{ height: ICON_HEIGHT, width: ICON_HEIGHT, borderRadius: ICON_HEIGHT / 2, overflow: 'hidden', marginRight: 8 }}>
+                                        <Image style={{ flex: 1, height: null, width: null }} source={images.image2} />
+                                    </View>
+                                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFFFFF' }}>BEACH HOUSE</Text>
                                 </View>
-                                <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFFFFF' }}>BEACH HOUSE</Text>
-                            </View>
-                            <View style={{ flexDirection: 'row' }}>
-                                <View style={{ marginRight: 5 }}>
-                                    <StarRating ratingObj={ratingObj} />
+                                <View style={{ flexDirection: 'row' }}>
+                                    <View style={{ marginRight: 5 }}>
+                                        <StarRating ratingObj={ratingObj} />
+                                    </View>
+                                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#FFFFFF' }}>70</Text>
                                 </View>
-                                <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#FFFFFF' }}>70</Text>
                             </View>
-                        </View>
-                    </ImageBackground>
-                    <View style={{ height: DARK_BACKGROUND_HEIGHT, backgroundColor: '#000000', justifyContent: 'space-around', padding: 16 }}>
+                        </ImageBackground>
+                    </View>
+                    <View style={{ height: height / 4, backgroundColor: '#000000', justifyContent: 'space-around', padding: 16 }}>
                         <DealDetails
                             title={"Mandaluyong, BGC, Cal..."}
-                            subtitle={<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            subtitle={<TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => NavigationService.navigate('MerchantBranch')}>
                                 <Text style={{ fontSize: 12, color: 'grey', marginRight: 5 }}>SEE ALL BRANCHES</Text>
                                 <Ionicons name={"ios-arrow-forward"} size={16} color={'grey'} />
-                            </View>}
+                            </TouchableOpacity>}
                             image={images.location}
                         />
                         <DealDetails
@@ -109,12 +140,12 @@ class MerchantView extends Component {
                             </View>
                         </View>
                     </View>
-                    <View style={{ backgroundColor: 'white', justifyContent: 'center', elevation: 10, padding: 16, shadowOffset: { width: 0, height: 1 }, shadowRadius: 2, shadowColor: 'black', shadowOpacity: 0.5 }}>
-                        <TouchableOpacity style={{ backgroundColor: '#FFA701', alignItems: 'center', borderRadius: 8, paddingVertical: 16 }}>
-                            <Text style={{ fontSize: fonts.MEDIUM, color: '#FFFFFF', fontWeight: 'bold', textAlign: 'center' }}>Scan QR Code</Text>
-                        </TouchableOpacity>
-                    </View>
                 </ScrollView>
+                <Animated.View style={{ backgroundColor: animatedButtonBackground, justifyContent: 'center', elevation: 10, padding: 16, shadowOffset: { width: 0, height: 1 }, shadowRadius: 2, shadowColor: 'black', shadowOpacity: 0.5 }}>
+                    <TouchableOpacity style={{ backgroundColor: '#FFA701', alignItems: 'center', borderRadius: 8, paddingVertical: 16 }}>
+                        <Text style={{ fontSize: fonts.MEDIUM, color: '#FFFFFF', fontWeight: 'bold', textAlign: 'center' }}>Scan QR Code</Text>
+                    </TouchableOpacity>
+                </Animated.View>
             </View>
         )
     }

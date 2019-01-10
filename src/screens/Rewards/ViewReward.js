@@ -1,26 +1,16 @@
 import React, { Component } from 'react';
-import { Dimensions, View, ScrollView, Image, ImageBackground, Text, TouchableOpacity, TouchableWithoutFeedback, FlatList } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Header } from '../../components';
+import { View, ScrollView, Image, ImageBackground, Text, TouchableOpacity, TouchableWithoutFeedback, FlatList } from 'react-native';
+import { Header, Branch } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
 import BannerModal from './BannerModal';
 import LogoModal from './LogoModal';
 
 import { images, fonts } from '../../resources';
 
-const { width, height } = Dimensions.get('window');
 const HEADER_MAX_HEIGHT = 200;
 const ICON_HEIGHT = 35;
 const LOGO_HEIGHT = 60;
 const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
-
-const BranchItem = ({ onPressItem }) => (
-    <TouchableOpacity style={{ paddingVertical: 16, borderBottomWidth: 1, borderBottomColor: '#D8D8D8' }} onPress={onPressItem}>
-        <Text style={{ fontSize: fonts.MEDIUM, color: '#4A4A4A' }}>Alabang Town Center</Text>
-        <Text style={{ fontSize: 15, color: '#9B9B9B' }}>G/F Libero tempore, cum soluta nobis</Text>
-        <Text style={{ fontSize: 15, color: '#9B9B9B' }}>Alabang, Muntinlupa</Text>
-    </TouchableOpacity>
-);
 class ViewReward extends Component {
     state = {
         isBannerModalVisible: false,
@@ -108,20 +98,13 @@ class ViewReward extends Component {
             </View>
         </View>
     )
-    _renderBranches = () => {
-        return (
-            <View style={{ flex: 1 }}>
-                <View style={{ paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: '#D8D8D8' }}>
-                    <Text>SELECT BRANCH</Text>
-                </View>
-                <FlatList
-                    data={sampleData}
-                    keyExtractor={(item, index) => item.id}
-                    renderItem={({ item, index }) => <BranchItem key={index} onPressItem={this._showLocation} />}
-                />
-            </View>
-        )
-    }
+    _renderBranches = () => (
+        <Branch
+            data={sampleData}
+            onPressItem={this._showLocation}
+        />
+    )
+
     render() {
         return (
             <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
@@ -149,7 +132,7 @@ class ViewReward extends Component {
                         {(this.state.current === 'Rewards') ? this._renderRewards() : this._renderBranches()}
                     </View>
                 </ScrollView>
-                <View style={{ backgroundColor: 'white', justifyContent: 'center', elevation: 10, padding: 16, shadowOffset: {width: 0, height: 1}, shadowRadius: 2, shadowColor: 'black', shadowOpacity: 0.5 }}>
+                <View style={{ backgroundColor: 'white', justifyContent: 'center', elevation: 10, padding: 16, shadowOffset: { width: 0, height: 1 }, shadowRadius: 2, shadowColor: 'black', shadowOpacity: 0.5 }}>
                     <TouchableOpacity style={{ backgroundColor: '#FFA701', alignItems: 'center', borderRadius: 8, paddingVertical: 16 }}>
                         <Text style={{ fontSize: fonts.MEDIUM, color: '#FFFFFF', fontWeight: 'bold', textAlign: 'center' }}>Redeem</Text>
                     </TouchableOpacity>

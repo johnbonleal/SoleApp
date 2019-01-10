@@ -9,7 +9,7 @@ const MerchantLocation = ({ region }) => (
             provider={PROVIDER_GOOGLE}
             loadingEnabled
             style={{ ...StyleSheet.absoluteFillObject }}
-            onRegionChange={() => this.onRegionChange.bind(this)}
+            // onRegionChange={() => this.onRegionChange.bind(this)}
         >
             <Marker
                 coordinate={region}

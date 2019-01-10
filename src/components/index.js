@@ -10,6 +10,7 @@ import ImageLoader from './ImageLoader';
 import CategoryModal from './CategoryModal';
 import LocationModal from './LocationModal';
 import Tag from './Tag';
+import Branch from './Branch';
 
 export { 
     Header, 
@@ -23,5 +24,6 @@ export {
     ImageLoader,
     CategoryModal,
     LocationModal,
-    Tag 
+    Tag,
+    Branch 
 };
