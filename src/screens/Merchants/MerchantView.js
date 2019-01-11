@@ -20,8 +20,12 @@ const LONGITUDE = 121.0223;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 class MerchantView extends Component {
-    state = {
-        scrollY: new Animated.Value(0)
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            scrollY: new Animated.Value(0)
+        };
     }
     renderHeader = () => {
         const { scrollY } = this.state;
@@ -31,13 +35,47 @@ class MerchantView extends Component {
             extrapolate: 'clamp'
         });
         return (
-            <View style={{height: height / 9, position: 'absolute', top: 0, left: 0, right: 0, zIndex: 98}}>
-                <Animated.View style={{ flex: 1, opacity: animatedHeaderOpacity }}>
-                    <Image style={{ flex: 1, height: null, width: null }} source={images.header_bg} />
+            <Header
+                headerLeft={images.back}
+                imageStyle={{ opacity: animatedHeaderOpacity }}
+                withBackground
+            />
+        )
+    }
+    renderBackground = () => {
+        const { scrollY } = this.state;
+        return (
+            <View style={{ flex: 1, backgroundColor: '#000000' }}>
+                <Animated.View
+                    style={{
+                        height: MERCHANT_BACKGROUND_HEIGHT,
+                        transform: [{
+                            scale: scrollY.interpolate({
+                                inputRange: [-MERCHANT_BACKGROUND_HEIGHT, 0, MERCHANT_BACKGROUND_HEIGHT],
+                                outputRange: [2, 1, 1]
+                            })
+                        }]
+                    }}>
+                    <Image style={{ flex: 1, height: null, width: null }} source={images.beach} />
                 </Animated.View>
-                <Header
-                    headerLeft={images.back}
-                />
+                <ImageBackground style={{ ...StyleSheet.absoluteFillObject }} source={images.gradient_3}>
+                    <View style={{ flex: 1, justifyContent: 'flex-end', padding: 16, zIndex: 99 }}>
+                        <Text style={{ fontSize: 15, color: '#FFFFFF' }}>HOTELS & RESORT</Text>
+                        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#FFFFFF' }}>One night staycation</Text>
+                        <View style={{ flexDirection: 'row', marginVertical: 8 }}>
+                            <View style={{ height: ICON_HEIGHT, width: ICON_HEIGHT, borderRadius: ICON_HEIGHT / 2, overflow: 'hidden', marginRight: 8 }}>
+                                <Image style={{ flex: 1, height: null, width: null }} source={images.image2} />
+                            </View>
+                            <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFFFFF' }}>BEACH HOUSE</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
+                            <View style={{ marginRight: 5 }}>
+                                <StarRating ratingObj={ratingObj} />
+                            </View>
+                            <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#FFFFFF' }}>70</Text>
+                        </View>
+                    </View>
+                </ImageBackground>
             </View>
         )
     }
@@ -63,27 +101,7 @@ class MerchantView extends Component {
                         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
                     )}
                 >
-                    <View style={{ backgroundColor: '#000000', flex: 1 }}>
-                        <ImageBackground style={{ height: MERCHANT_BACKGROUND_HEIGHT, width }} source={images.beach} />
-                        <ImageBackground style={{ ...StyleSheet.absoluteFillObject }} source={images.gradient_3}>
-                            <View style={{ flex: 1, justifyContent: 'flex-end', padding: 16, zIndex: 99 }}>
-                                <Text style={{ fontSize: 15, color: '#FFFFFF' }}>HOTELS & RESORT</Text>
-                                <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#FFFFFF' }}>One night staycation</Text>
-                                <View style={{ flexDirection: 'row', marginVertical: 8 }}>
-                                    <View style={{ height: ICON_HEIGHT, width: ICON_HEIGHT, borderRadius: ICON_HEIGHT / 2, overflow: 'hidden', marginRight: 8 }}>
-                                        <Image style={{ flex: 1, height: null, width: null }} source={images.image2} />
-                                    </View>
-                                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFFFFF' }}>BEACH HOUSE</Text>
-                                </View>
-                                <View style={{ flexDirection: 'row' }}>
-                                    <View style={{ marginRight: 5 }}>
-                                        <StarRating ratingObj={ratingObj} />
-                                    </View>
-                                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#FFFFFF' }}>70</Text>
-                                </View>
-                            </View>
-                        </ImageBackground>
-                    </View>
+                    {this.renderBackground()}
                     <View style={{ height: height / 4, backgroundColor: '#000000', justifyContent: 'space-around', padding: 16 }}>
                         <DealDetails
                             title={"Mandaluyong, BGC, Cal..."}

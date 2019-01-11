@@ -17,9 +17,13 @@ const { width, height } = Dimensions.get('window');
 const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
 
 class MerchantBranches extends Component {
-    state = {
-        isScanQrVisible: false,
-        scrollY: new Animated.Value(0)
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isScanQrVisible: false,
+            scrollY: new Animated.Value(0)
+        };
     }
     _onPressScanQR = () => {
         if (this.props.camera.isScanQrVisible) {
@@ -44,14 +48,11 @@ class MerchantBranches extends Component {
             extrapolate: 'clamp'
         });
         return (
-            <View style={{height: height / 9, position: 'absolute', top: 0, left: 0, right: 0, zIndex: 98}}>
-                <Animated.View style={{ flex: 1, opacity: animatedHeaderOpacity }}>
-                    <Image style={{ flex: 1, height: null, width: null }} source={images.header_bg} />
-                </Animated.View>
-                <Header
-                    headerLeft={images.back}
-                />
-            </View>
+            <Header
+                headerLeft={images.back}
+                imageStyle={{ opacity: animatedHeaderOpacity }}
+                withBackground
+            />
         )
     }
     render() {

@@ -8,14 +8,14 @@ import { images } from '../resources';
 const APP_HEADER_HEIGHT = 90;
 
 const locations = [
-    { title: "Caloocan City" },
-    { title: "Quezon City" },
-    { title: "Mandaluyong City" },
-    { title: "Muntinlupa City" },
-    { title: "Taguig City" },
-    { title: "Pasig City" },
-    { title: "Pasay City" },
-    { title: "Paranaque City" }
+    { id: 1, title: "Caloocan City" },
+    { id: 2, title: "Quezon City" },
+    { id: 3, title: "Mandaluyong City" },
+    { id: 4, title: "Muntinlupa City" },
+    { id: 5, title: "Taguig City" },
+    { id: 6, title: "Pasig City" },
+    { id: 7, title: "Pasay City" },
+    { id: 8, title: "Paranaque City" }
 ];
 
 class LocationModal extends Component {
@@ -43,9 +43,10 @@ class LocationModal extends Component {
                     <Header
                         headerLeft={images.close}
                         headerTitle={"Location"}
+                        headerStyle={{position: 'relative'}}
                         onPressHeaderLeft={this.props.onPressModalClose}
+                        withBackground
                     />
-                    <ImageBackground style={{ height: APP_HEADER_HEIGHT, width: '100%' }} source={images.header_bg} />
                     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                         <TabularList
                             style={{ marginTop: 16 }}

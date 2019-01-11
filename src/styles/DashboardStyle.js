@@ -43,7 +43,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     buttonTitle: {
-        fontSize: fonts.EXTRA_SMALL
+        fontSize: fonts.EXTRA_SMALL,
+        fontWeight: 'bold',
+        color: '#FFB000'
     },
     imageContainer: {
         height: 54, 
@@ -53,7 +55,8 @@ const styles = StyleSheet.create({
     image: {
         flex: 1, 
         height: null, 
-        width: null
+        width: null,
+        resizeMode: 'contain'
     }
 });
 

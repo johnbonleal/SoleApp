@@ -8,12 +8,13 @@ import CallUs from './CallUs';
 
 import { images } from '../../resources';
 import { NavigationService } from '../../configs/NavigationService';
-
-const HEADER_MAX_HEIGHT = 90;
-
 class ContactUs extends Component {
-    state = {
-        current: ''
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            current: ''
+        };
     }
     _onPressItem = (item) => {
         this.setState({ current: item })
@@ -31,18 +32,18 @@ class ContactUs extends Component {
         return (
             <View style={{ flex: 1 }}>
                 <ScrollView
+                    ref={(component) => { this.scrollView = component }}
                     contentContainerStyle={{ flexGrow: 1 }}
                     scrollEventThrottle={16}
                 >
                     <Header
                         headerTitle={"Contact Us"}
                         headerLeft={current === '' ? images.close : images.back}
+                        headerStyle={{position: 'relative'}}
                         onPressHeaderLeft={this._onPressBack}
+                        withBackground
                     />
-                    <View style={{ height: HEADER_MAX_HEIGHT }} >
-                        <Image style={{ flex: 1, height: null, width: null }} source={images.header_bg} />
-                    </View>
-                    <View style={{ flex: 1, padding: 16 }}>
+                    <View style={{ flex: 1, backgroundColor: '#FFFFFF', padding: 16 }}>
                         {(() => {
                             switch (current) {
                                 case 'Send us a message':

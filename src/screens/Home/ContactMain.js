@@ -1,14 +1,13 @@
 import React from 'react';
-import { View } from 'react-native';
-import { TabularList } from '../../components';
+import { View} from 'react-native';
+import ContactOption from './ContactOption';
 
-const ContactMain = ({onPressItem}) => (
-    <View style={{ flex: 1, backgroundColor: '#FFFFFF', borderRadius: 8, paddingVertical: 16 }}>
-        <TabularList
-            collapsible
-            data={[{ title: "Send us a message" }, { title: "Call us" }]}
-            onPressItem={onPressItem}
-        />
+import { images } from '../../resources';
+
+const ContactMain = ({ onPressItem }) => (
+    <View style={{ flex: 1, justifyContent: 'space-between' }}>
+        <ContactOption image={images.contact_email} buttonTitle={"Send us a message"} onPressItem={onPressItem} />
+        <ContactOption image={images.contact_call} buttonTitle={"Call us"} onPressItem={onPressItem} />
     </View>
 );
 

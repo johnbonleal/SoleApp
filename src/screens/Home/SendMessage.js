@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 
 import { fonts } from '../../resources';
+import ContactOption from './ContactOption';
 
 class SendMessage extends Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <Text style={{ fontSize: fonts.LARGE, fontWeight: 'bold', color: '#4A4A4A' }}>Send us a message</Text>
+                <ContactOption image={images.contact_email} buttonTitle={"Send us a message"} />
                 <View style={{ flex: 1, marginVertical: 5 }}>
                     <TextInput
                         underlineColorAndroid="transparent"

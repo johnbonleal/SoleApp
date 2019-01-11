@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, View, Text, ScrollView, Image, ImageBackground, TouchableOpacity, Animated } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Animated, StyleSheet } from 'react-native';
 
 import { Header, ImageLoader, RectangleList, SquareList, CircleList } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
@@ -9,9 +9,6 @@ import styles from '../../styles/HomeStyle';
 
 const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
 const TOP_CONTAINER_MAX_HEIGHT = 200;
-
-const w = Dimensions.get('window');
-
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -61,10 +58,10 @@ class Home extends Component {
                 style={[styles.backgroundImage, {
                     transform: [{
                         translateY: scrollY.interpolate({
-                            inputRange: [0, TOP_CONTAINER_MAX_HEIGHT],
-                            outputRange: [0, -TOP_CONTAINER_MAX_HEIGHT/ 2]
+                            inputRange: [-TOP_CONTAINER_MAX_HEIGHT, 0, TOP_CONTAINER_MAX_HEIGHT],
+                            outputRange: [TOP_CONTAINER_MAX_HEIGHT / 3, 0, -TOP_CONTAINER_MAX_HEIGHT]
                         })
-                    },{
+                    }, {
                         scale: scrollY.interpolate({
                             inputRange: [-TOP_CONTAINER_MAX_HEIGHT, 0, TOP_CONTAINER_MAX_HEIGHT],
                             outputRange: [2, 1, 1]
@@ -72,7 +69,9 @@ class Home extends Component {
                     }]
                 }
                 ]}>
-                <ImageLoader style={{ flex: 1, height: null, width: null }} thumbnailSource={images.image2} source={images.image2} />
+                <View style={{ ...StyleSheet.absoluteFill }}>
+                    <ImageLoader style={{ flex: 1, height: null, width: null }} thumbnailSource={images.header_bg} source={images.header_bg} />
+                </View>
             </Animated.View>
         );
     }
@@ -88,6 +87,7 @@ class Home extends Component {
                         [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
                     )}
                     scrollEventThrottle={16}
+                    showsVerticalScrollIndicator={false}
                 >
                     <View style={styles.dashboardContainer}>
                         <Dashboard />
@@ -95,12 +95,12 @@ class Home extends Component {
                     <View style={styles.servicesContainer}>
                         <Text style={styles.serviceTitle}>Venteny Services</Text>
                         <View style={styles.buttonContainer}>
-                            <TouchableOpacity 
+                            <TouchableOpacity
                                 style={[styles.button, { marginRight: 8 }]}
                                 onPress={() => NavigationService.navigate('Merchant')}
                             >
                                 <View style={styles.imageContainer}>
-                                    <ImageLoader style={styles.image} source={images.merchant} />
+                                    <ImageLoader style={styles.image} source={images.perks} />
                                 </View>
                                 <Text style={styles.buttonTitle}>PERKS & DEALS</Text>
                             </TouchableOpacity>

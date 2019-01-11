@@ -13,45 +13,19 @@ const HEADER_MIN_HEIGHT = height / 7.5;
 const APP_HEADER_HEIGHT = 56;
 
 const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
-
-const MerchantHeader = ({ searchInput, isSearching, category, location, opacity }) => (
-    <View style={{ flex: 1 }}>
-        <View style={{ flex: 1 }}>
-            <Image style={{ flex: 1, height: null, width: null }} source={images.header_bg} />
-        </View>
-        <View style={{ padding: 16, marginTop: 16 }}>
-            <View style={styles.searchBox}>
-                <View style={styles.imageContainer}>
-                    <ImageLoader style={styles.image} source={isSearching || category !== 'Category' || location !== 'Location' ? images.back : images.search} />
-                </View>
-                <TextInput
-                    placeholder={"Try \"Hotels\""}
-                    placeholderTextColor={"#F5A623"}
-                    onChangeText={(searchInput) => this.setState({ searchInput })}
-                    maxLength={30}
-                    value={searchInput}
-                    style={styles.searchInput}
-                    onFocus={this._toggleIsSearching}
-                    onBlur={this._toggleIsSearching}
-                />
-            </View>
-            <Animated.View style={{ flexDirection: 'row', marginTop: 12, opacity }}>
-                <Tag title={location} onPress={this._toggleLocationModal} style={{ marginRight: 5 }} />
-                <Tag title={category} onPress={this._toggleCategoryModal} />
-            </Animated.View>
-        </View>
-    </View>
-
-)
 class Merchants extends Component {
-    state = {
-        searchInput: '',
-        isCategoryModalVisible: false,
-        category: 'Category',
-        isLocationModalVisible: false,
-        location: 'Location',
-        isSearching: false,
-        scrollY: new Animated.Value(0)
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            searchInput: '',
+            isCategoryModalVisible: false,
+            category: 'Category',
+            isLocationModalVisible: false,
+            location: 'Location',
+            isSearching: false,
+            scrollY: new Animated.Value(0)
+        };
     }
     _onPressCategoryItem = (item) => {
         this.setState({ category: item });

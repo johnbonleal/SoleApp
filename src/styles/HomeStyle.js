@@ -10,11 +10,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF'
     },
     backgroundImage: {
-        height: TOP_CONTAINER_MAX_HEIGHT, 
-        position: 'absolute', 
-        top: 0, 
-        left: 0, 
-        right: 0
+        height: TOP_CONTAINER_MAX_HEIGHT,
+        ...StyleSheet.absoluteFill
     },
     greetingsContainer: {
         flex: 1, 
@@ -58,7 +55,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     buttonTitle: {
-        fontSize: fonts.EXTRA_SMALL, 
+        fontSize: fonts.EXTRA_SMALL,
+        fontWeight: 'bold', 
+        color: '#FFB000', 
         marginTop: 5
     },
     imageContainer: {

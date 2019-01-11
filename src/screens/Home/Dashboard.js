@@ -44,8 +44,8 @@ class Dashboard extends Component {
                 <View style={styles.topRowContainer}>
                     <Text style={styles.topRowTitle}>Points</Text>
                     <TouchableOpacity style={styles.topRowRightComponent} onPress={this._onPressEarnedPoints}>
-                        <Text style={styles.topRowBody}>1,800</Text>
-                        <Ionicons name={"ios-arrow-forward"} size={20} color={"#D8D8D8"} />
+                        <Text style={[styles.topRowBody, { color: '#FFB000'}]}>1,800</Text>
+                        <Ionicons name={"ios-arrow-forward"} size={20} color={"#FFB000"} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.lineSeparator} />

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Dimensions, View, Animated, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { Dimensions, View, Animated, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
 import ImageLoader from './ImageLoader';
-import { fonts } from '../resources';
+import { images, fonts } from '../resources';
 import { NavigationService } from '../configs/NavigationService';
 
 var _ = require('lodash');
@@ -10,8 +10,11 @@ const { width, height } = Dimensions.get('window');
 const APP_HEADER_HEIGHT = 56;
 
 // TODO: Fix HeaderRight
-const Header = ({ headerLeft, onPressHeaderLeft, onPressHeaderRight, headerRight, headerTitle, headerRightStyle, headerLeftStyle, headerStyle }) => (
+const Header = ({ headerLeft, onPressHeaderLeft, onPressHeaderRight, headerRight, headerTitle, headerRightStyle, headerLeftStyle, headerStyle, imageStyle, withBackground }) => (
     <Animated.View style={[styles.headerContainer, headerStyle]}>
+        {withBackground && <Animated.View style={[{ ...StyleSheet.absoluteFill }, imageStyle]}>
+            <Image style={{ flex: 1, height: null, width: null }} source={images.header_bg} />
+        </Animated.View>}
         <View style={styles.header}>
             <View>
                 {headerLeft && <TouchableOpacity onPress={onPressHeaderLeft || NavigationService.back} style={[styles.imageContainer, headerLeftStyle]} >
@@ -32,26 +35,26 @@ const Header = ({ headerLeft, onPressHeaderLeft, onPressHeaderRight, headerRight
                 </TouchableOpacity>
             </View>
         </View>
-    </Animated.View>
+    </Animated.View >
 );
 
 export default Header;
 
 const styles = StyleSheet.create({
     headerContainer: {
-        height: APP_HEADER_HEIGHT,
-        position: 'absolute',
-        top: height / 35,
-        left: 0,
-        right: 0,
+        height: height / 7.5, 
+        position: 'absolute', 
+        top: 0, 
+        left: 0, 
+        right: 0, 
+        justifyContent: 'flex-end',
         zIndex: 99
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingHorizontal: 16,
-        marginTop: 20
+        padding: 16
     },
     imageContainer: {
         height: 24,

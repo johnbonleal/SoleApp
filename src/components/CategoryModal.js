@@ -8,18 +8,18 @@ import { images } from '../resources';
 const APP_HEADER_HEIGHT = 90;
 
 const categories = [
-    { title: "All", avatar: images.image2 },
-    { title: "Accessories & Apparels", avatar: images.accessories_and_apparels_light },
-    { title: "Beauty & Wellness", avatar: images.beauty_and_wellness_light },
-    { title: "Electronics & Appliances", avatar: images.electronics_and_appliances_light },
-    { title: "Fitness & Sports", avatar: images.fitness_and_sports_light },
-    { title: "Hotels & Resorts", avatar: images.hotels_and_resorts_light },
-    { title: "Medical", avatar: images.medical_light },
-    { title: "Paymaya / VISA", avatar: images.paymaya_light },
-    { title: "Restaurants & Bars", avatar: images.restaurants_and_bars_light },
-    { title: "Services", avatar: images.services_light },
-    { title: "Things To Do", avatar: images.things_to_do_light },
-    { title: "Travel", avatar: images.travel_light }
+    { id: 1, title: "All", avatar: images.image2 },
+    { id: 2, title: "Accessories & Apparels", avatar: images.accessories_and_apparels_light },
+    { id: 3, title: "Beauty & Wellness", avatar: images.beauty_and_wellness_light },
+    { id: 4, title: "Electronics & Appliances", avatar: images.electronics_and_appliances_light },
+    { id: 5, title: "Fitness & Sports", avatar: images.fitness_and_sports_light },
+    { id: 6, title: "Hotels & Resorts", avatar: images.hotels_and_resorts_light },
+    { id: 7, title: "Medical", avatar: images.medical_light },
+    { id: 8, title: "Paymaya / VISA", avatar: images.paymaya_light },
+    { id: 9, title: "Restaurants & Bars", avatar: images.restaurants_and_bars_light },
+    { id: 10, title: "Services", avatar: images.services_light },
+    { id: 11, title: "Things To Do", avatar: images.things_to_do_light },
+    { id: 12, title: "Travel", avatar: images.travel_light }
 ];
 
 class CategoryModal extends Component {
@@ -47,9 +47,10 @@ class CategoryModal extends Component {
                     <Header
                         headerLeft={images.close}
                         headerTitle={"Category"}
+                        headerStyle={{position: 'relative'}}
                         onPressHeaderLeft={this.props.onPressModalClose}
+                        withBackground
                     />
-                    <ImageBackground style={{ height: APP_HEADER_HEIGHT, width: '100%' }} source={images.header_bg} />
                     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                         <TabularList
                             style={{ marginTop: 16 }}
