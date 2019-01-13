@@ -11,6 +11,7 @@ import CategoryModal from './CategoryModal';
 import LocationModal from './LocationModal';
 import Tag from './Tag';
 import Branch from './Branch';
+import Indicator from './Indicator';
 
 export { 
     Header, 
@@ -25,5 +26,6 @@ export {
     CategoryModal,
     LocationModal,
     Tag,
-    Branch 
+    Branch,
+    Indicator 
 };

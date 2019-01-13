@@ -76,6 +76,7 @@ class Home extends Component {
         );
     }
     render() {
+        const { scrollY } = this.state;
         return (
             <View style={styles.container}>
                 {this.renderHeader()}
@@ -84,7 +85,7 @@ class Home extends Component {
                     ref={component => { this.scrollView = component }}
                     contentContainerStyle={{ flexGrow: 1 }}
                     onScroll={Animated.event(
-                        [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
+                        [{ nativeEvent: { contentOffset: { y: scrollY } } }]
                     )}
                     scrollEventThrottle={16}
                     showsVerticalScrollIndicator={false}
