@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Animated, StyleSheet } from 'react-native';
+import AutoSlideAnimationHelper from '../utils/AutoSlideAnimationHelper';
 
 class Indicator extends Component {
     constructor(props) {
@@ -8,51 +9,32 @@ class Indicator extends Component {
         this.state = {
             indicatorAnim: new Animated.Value(0),
             width: 0,
-            paused: false
         };
     }
     componentDidMount() {
-        this.animateIndicator();
+        const { animate } = this.props;
+        if (animate) {
+            this.animateIndicator();
+        }  
     }
     animateIndicator = (reset = true) => {
-        const { indicatorAnim } = this.state;
         if (reset) this.state.indicatorAnim.setValue(0);
 
         requestAnimationFrame(() => {
-            Animated.timing(indicatorAnim, {
+            Animated.timing(this.state.indicatorAnim, {
                 toValue: 1,
-                duration: 5000 * (1 - indicatorAnim._value),
+                duration: 5000 * (1 - this.state.indicatorAnim._value),
             }).start(({ finished }) => {
-                if (finished) this.onNextItem();
+                // if (finished) this.onNextItem();
             });
         });
-    }
-    play = () => {
-        if (this.state.paused) {
-            this.setPaused(false);
-            this.animateIndicator(false);
-        }
-    }
-    onNextItem = () => {
-        if (this.state.paused) return this.play();
-
-        const story = this.currentStory;
-
-        // if (story.idx >= story.items.length - 1)
-        //     return this.onNextDeck();
-
-        this.animateIndicator();
-        // this.setStoryIdx(story.idx + 1);
-    }
-    setPaused = (paused) => {
-        this.setState({ paused });
     }
     setWidthFromLayout = event => {
         const { width } = event.nativeEvent.layout;
         this.setState({ width });
     }
     render() {
-        const { animate } = this.props;
+        const { animate, story, seen, coming, i } = this.props;
         let style = {};
 
         if (animate) {
@@ -64,6 +46,11 @@ class Indicator extends Component {
                 })
             };
         }
+        // } else if (story.idx > i) { // seen
+		// 	style = { flex: 1 };
+		// } else if (story.idx <= i) { // coming
+		// 	style = { width: 0 };
+		// }
         return (
             <View style={styles.line} onLayout={this.setWidthFromLayout}>
                 <Animated.View style={[styles.progress, style]} />

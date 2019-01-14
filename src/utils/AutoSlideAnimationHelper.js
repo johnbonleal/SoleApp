@@ -6,15 +6,29 @@ const VERTICAL_THRESHOLD = 80;
 const HORIZONTAL_THRESHOLD = 60;
 
 const data = [
-    { id: 1, uri: images.beach_1 },
-    { id: 2, uri: images.beach_2 },
-    { id: 3, uri: images.beach_3 },
-    { id: 4, uri: images.beach_4 }
+    { 
+        idx: 1, 
+        items: [
+            { src: images.beach_1, type: 'img' }, 
+            { src: images.beach_2, type: 'img' },
+            { src: images.beach_3, type: 'img' },
+            { src: images.beach_4, type: 'img' }
+        ]
+    },
+    { 
+        idx: 2, 
+        items: [
+            { src: images.beach_4, type: 'img' }, 
+            { src: images.beach_3, type: 'img' },
+            { src: images.beach_2, type: 'img' },
+            { src: images.beach_1, type: 'img' }
+        ]
+    }
 ];
 
-class Helpers {
-    constructor(props) {
-        super(props);
+class AutoSlideAnimationHelper {
+
+    constructor() {
 
         this.carouselOpen = false;
         this.offset = { top: height / 2, left: width / 2 };
@@ -38,63 +52,64 @@ class Helpers {
         this.panResponder = PanResponder.create({
             onMoveShouldSetResponderCapture: () => true,
             onMoveShouldSetPanResponderCapture: (evt, { dx, dy }) => {
-                if (Math.abs(dx) > 5) {
-                    this.swipedHorizontally = true;
-                    return true;
-                }
+                // if (Math.abs(dx) > 5) {
+                //     this.swipedHorizontally = true;
+                //     return true;
+                // }
 
-                if (dy > 5) {
-                    this.swipedHorizontally = false;
-                    return true;
-                }
+                // if (dy > 5) {
+                //     this.swipedHorizontally = false;
+                //     return true;
+                // }
 
-                return false;
+                // return false;
             },
 
             onPanResponderGrant: () => {
-                if (this.swipedHorizontally) {
-                    this.horizontalSwipe.setOffset(this.horizontalSwipe._value);
-                    this.horizontalSwipe.setValue(0);
-                }
+                // if (this.swipedHorizontally) {
+                //     this.horizontalSwipe.setOffset(this.horizontalSwipe._value);
+                //     this.horizontalSwipe.setValue(0);
+                // }
 
-                this.pause();
-                this.setBackOpacity(0);
+                // this.pause();
+                // this.setBackOpacity(0);
             },
 
             onPanResponderMove: (e, { dx, dy }) => {
-                if (this.swipedHorizontally) {
-                    this.horizontalSwipe.setValue(-dx);
-                } else {
-                    this.verticalSwipe.setValue(dy);
-                }
+                console.log("Move: ", { dx, dy });
+                // if (this.swipedHorizontally) {
+                //     this.horizontalSwipe.setValue(-dx);
+                // } else {
+                //     this.verticalSwipe.setValue(dy);
+                // }
             },
 
             onPanResponderRelease: (e, { dx, dy }) => {
-                if (!this.swipedHorizontally) {
-                    if (dy > VERTICAL_THRESHOLD) return this.leaveStories();
-                    this.play();
-                    return this.resetVerticalSwipe();
-                }
+                // if (!this.swipedHorizontally) {
+                //     if (dy > VERTICAL_THRESHOLD) return this.leaveStories();
+                //     this.play();
+                //     return this.resetVerticalSwipe();
+                // }
 
-                this.horizontalSwipe.flattenOffset();
-                const deckIdx = this.deckIdx;
+                // this.horizontalSwipe.flattenOffset();
+                // const deckIdx = this.deckIdx;
 
-                if (dx > HORIZONTAL_THRESHOLD) { // previous deck
-                    if (deckIdx == 0)
-                        return this.leaveStories();
+                // if (dx > HORIZONTAL_THRESHOLD) { // previous deck
+                //     if (deckIdx == 0)
+                //         return this.leaveStories();
 
-                    return this.animateDeck(width * (deckIdx - 1), true);
-                }
+                //     return this.animateDeck(width * (deckIdx - 1), true);
+                // }
 
-                if (dx < -HORIZONTAL_THRESHOLD) { // -> next deck
-                    if (deckIdx == this.stories.length - 1)
-                        return this.leaveStories();
+                // if (dx < -HORIZONTAL_THRESHOLD) { // -> next deck
+                //     if (deckIdx == this.stories.length - 1)
+                //         return this.leaveStories();
 
-                    return this.animateDeck(width * (deckIdx + 1), true);
-                }
+                //     return this.animateDeck(width * (deckIdx + 1), true);
+                // }
 
-                this.play();
-                return this.animateDeck(width * deckIdx);
+                // this.play();
+                // return this.animateDeck(width * deckIdx);
             }
         });
     }
@@ -149,7 +164,7 @@ class Helpers {
     }
 
     setStoryIdx(idx) {
-        this.currentStory.idx = idx;
+        this.currentStory.id = idx;
     }
 
 
@@ -177,7 +192,7 @@ class Helpers {
                 toValue: 1,
                 duration: 5000 * (1 - this.indicatorAnim._value),
             }).start(({ finished }) => {
-                if (finished) this.onNextItem();
+                // if (finished) this.onNextItem();
             });
         });
     }
@@ -249,6 +264,6 @@ class Helpers {
 
 };
 
-export default Helpers;
+export default new AutoSlideAnimationHelper();
 
 

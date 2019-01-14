@@ -22,7 +22,8 @@ const AppNavigator = createStackNavigator(
         Profile: { screen: ProfileRoutes },
         Rewards: { screen: RewardsRoutes },
         Points: { screen: PointsRoutes },
-        Merchant: { screen: MerchantRoutes }
+        Merchant: { screen: MerchantRoutes },
+        
     },
     {
         mode: 'modal',

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, StatusBar, ScrollView, Dimensions, ImageBackground, StyleSheet, Animated, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StatusBar, ScrollView, Dimensions, ImageBackground, StyleSheet, Animated, TouchableWithoutFeedback, UIManager, Platform } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MerchantLocation from './MerchantLocation';
 import DealDetails from './DealDetails';
@@ -7,7 +7,8 @@ import { Header, StarRating, Indicator } from '../../components';
 
 import { images, fonts } from '../../resources';
 import { NavigationService } from '../../configs/NavigationService';
-import Helpers from '../../utils/AutoSlideAnimation';
+import AutoSlideAnimationHelper from '../../utils/AutoSlideAnimationHelper';
+import Story from './Story';
 
 const { width, height } = Dimensions.get('window');
 
@@ -26,11 +27,11 @@ class MerchantView extends Component {
 
         this.state = {
             scrollY: new Animated.Value(0),
-            indicatorAnim: new Animated.Value(0)
         };
     }
     componentDidMount() {
-        Helpers.
+        if (Platform.OS == 'android')
+        UIManager.setLayoutAnimationEnabledExperimental(true);
     }
     renderHeader = () => {
         const { scrollY } = this.state;
@@ -47,13 +48,55 @@ class MerchantView extends Component {
             />
         )
     }
+    renderImageSlideShow = () => (
+        <View style={styles.container} {...AutoSlideAnimationHelper.panResponder.panHandlers}>
+            {AutoSlideAnimationHelper.stories.map((story, idx) => {
+                let scale = AutoSlideAnimationHelper.verticalSwipe.interpolate({
+                    inputRange: [-1, 0, height],
+                    outputRange: [1, 1, 0.75]
+                });
+
+                if (AutoSlideAnimationHelper.swipedHorizontally) {
+                    scale = AutoSlideAnimationHelper.horizontalSwipe.interpolate({
+                        inputRange: [width * (idx - 1), width * idx, width * (idx + 1)],
+                        outputRange: [0.79, 1, 0.78]
+                    });
+                }
+
+                return (
+                    <Animated.View
+                        key={idx}
+                        style={[styles.deck, {
+                            transform: [
+                                {
+                                    translateX: AutoSlideAnimationHelper.horizontalSwipe.interpolate({
+                                        inputRange: [width * (idx - 1), width * idx, width * (idx + 1)],
+                                        outputRange: [width, 0, -width]
+                                    })
+                                },
+                                {
+                                    translateY: AutoSlideAnimationHelper.verticalSwipe.interpolate({
+                                        inputRange: [-1, 0, height],
+                                        outputRange: [0, 0, height / 2]
+                                    })
+                                },
+                                { scale }
+                            ]
+                        }]
+                        }>
+                        <Story story={story} currentDeck={AutoSlideAnimationHelper.deckIdx == idx} />
+                    </Animated.View>
+                );
+            })}
+        </View>
+    )
     renderBackground = () => {
         const { scrollY } = this.state;
         return (
             <TouchableWithoutFeedback
-                onPress={store.onNextItem}
+                // onPress={store.onNextItem}
                 delayPressIn={200}
-                onPressIn={store.pause}
+            // onPressIn={store.pause}
             >
                 <View style={{ flex: 1, backgroundColor: '#000000' }}>
                     <Animated.View
@@ -120,7 +163,7 @@ class MerchantView extends Component {
                         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
                     )}
                 >
-                    {this.renderBackground()}
+                {this.renderBackground()}
                     <View style={{ height: height / 4, backgroundColor: '#000000', justifyContent: 'space-around', padding: 16 }}>
                         <DealDetails
                             title={"Mandaluyong, BGC, Cal..."}
@@ -191,5 +234,5 @@ class MerchantView extends Component {
 export default MerchantView;
 
 const styles = StyleSheet.create({
-
+    
 });
