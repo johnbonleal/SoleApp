@@ -73,7 +73,7 @@ class MerchantBranches extends Component {
                     )}
                 >
                     <View style={{ height: APP_HEADER_HEIGHT, width }}>
-                        <Image style={{ flex: 1, height: null, width: null }} source={images.beach} />
+                        <Image style={{ flex: 1, height: null, width: null }} source={images.beach_1} />
                     </View>
                     <View style={{ padding: 16 }}>
                         <View style={{ marginVertical: 8 }}>

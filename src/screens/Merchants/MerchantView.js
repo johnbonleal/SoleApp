@@ -3,17 +3,16 @@ import { View, Text, TouchableOpacity, Image, StatusBar, ScrollView, Dimensions,
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MerchantLocation from './MerchantLocation';
 import DealDetails from './DealDetails';
-import { Header, StarRating, Indicator } from '../../components';
+import { Header, ImageSlideshow } from '../../components';
 
 import { images, fonts } from '../../resources';
 import { NavigationService } from '../../configs/NavigationService';
-import AutoSlideAnimationHelper from '../../utils/AutoSlideAnimationHelper';
-import Story from './Story';
+import { MerchantImageData } from '../../utils/Data';
 
 const { width, height } = Dimensions.get('window');
 
 const ICON_HEIGHT = 25;
-const MERCHANT_BACKGROUND_HEIGHT = height * 0.8;
+const MERCHANT_BACKGROUND_HEIGHT = height * 0.9;
 const ratingObj = { ratings: 3 };
 
 const ASPECT_RATIO = width / height;
@@ -29,10 +28,6 @@ class MerchantView extends Component {
             scrollY: new Animated.Value(0),
         };
     }
-    componentDidMount() {
-        if (Platform.OS == 'android')
-        UIManager.setLayoutAnimationEnabledExperimental(true);
-    }
     renderHeader = () => {
         const { scrollY } = this.state;
         const animatedHeaderOpacity = scrollY.interpolate({
@@ -46,99 +41,6 @@ class MerchantView extends Component {
                 imageStyle={{ opacity: animatedHeaderOpacity }}
                 withBackground
             />
-        )
-    }
-    renderImageSlideShow = () => (
-        <View style={styles.container} {...AutoSlideAnimationHelper.panResponder.panHandlers}>
-            {AutoSlideAnimationHelper.stories.map((story, idx) => {
-                let scale = AutoSlideAnimationHelper.verticalSwipe.interpolate({
-                    inputRange: [-1, 0, height],
-                    outputRange: [1, 1, 0.75]
-                });
-
-                if (AutoSlideAnimationHelper.swipedHorizontally) {
-                    scale = AutoSlideAnimationHelper.horizontalSwipe.interpolate({
-                        inputRange: [width * (idx - 1), width * idx, width * (idx + 1)],
-                        outputRange: [0.79, 1, 0.78]
-                    });
-                }
-
-                return (
-                    <Animated.View
-                        key={idx}
-                        style={[styles.deck, {
-                            transform: [
-                                {
-                                    translateX: AutoSlideAnimationHelper.horizontalSwipe.interpolate({
-                                        inputRange: [width * (idx - 1), width * idx, width * (idx + 1)],
-                                        outputRange: [width, 0, -width]
-                                    })
-                                },
-                                {
-                                    translateY: AutoSlideAnimationHelper.verticalSwipe.interpolate({
-                                        inputRange: [-1, 0, height],
-                                        outputRange: [0, 0, height / 2]
-                                    })
-                                },
-                                { scale }
-                            ]
-                        }]
-                        }>
-                        <Story story={story} currentDeck={AutoSlideAnimationHelper.deckIdx == idx} />
-                    </Animated.View>
-                );
-            })}
-        </View>
-    )
-    renderBackground = () => {
-        const { scrollY } = this.state;
-        return (
-            <TouchableWithoutFeedback
-                // onPress={store.onNextItem}
-                delayPressIn={200}
-            // onPressIn={store.pause}
-            >
-                <View style={{ flex: 1, backgroundColor: '#000000' }}>
-                    <Animated.View
-                        style={{
-                            height: MERCHANT_BACKGROUND_HEIGHT,
-                            transform: [{
-                                scale: scrollY.interpolate({
-                                    inputRange: [-MERCHANT_BACKGROUND_HEIGHT, 0, MERCHANT_BACKGROUND_HEIGHT],
-                                    outputRange: [2, 1, 1]
-                                })
-                            }]
-                        }}>
-                        <Image style={{ flex: 1, height: null, width: null }} source={images.beach_1} />
-                    </Animated.View>
-                    <ImageBackground style={{ ...StyleSheet.absoluteFillObject }} source={images.gradient_3}>
-                        <View style={{ flex: 1, justifyContent: 'flex-end', padding: 16, zIndex: 99 }}>
-                            <Text style={{ fontSize: 15, color: '#FFFFFF' }}>HOTELS & RESORT</Text>
-                            <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#FFFFFF' }}>One night staycation</Text>
-                            <View style={{ flexDirection: 'row', marginVertical: 8 }}>
-                                <View style={{ height: ICON_HEIGHT, width: ICON_HEIGHT, borderRadius: ICON_HEIGHT / 2, overflow: 'hidden', marginRight: 8 }}>
-                                    <Image style={{ flex: 1, height: null, width: null }} source={images.image2} />
-                                </View>
-                                <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFFFFF' }}>BEACH HOUSE</Text>
-                            </View>
-                            <View style={{ flexDirection: 'row' }}>
-                                <View style={{ marginRight: 5 }}>
-                                    <StarRating ratingObj={ratingObj} />
-                                </View>
-                                <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#FFFFFF' }}>70</Text>
-                            </View>
-                            {this.renderIndicator()}
-                        </View>
-                    </ImageBackground>
-                </View>
-            </TouchableWithoutFeedback>
-        )
-    }
-    renderIndicator = () => {
-        return (
-            <View style={{ height: 30, alignItems: 'center', paddingHorizontal: 8, flexDirection: 'row' }}>
-                <Indicator animate />
-            </View>
         )
     }
     render() {
@@ -163,23 +65,28 @@ class MerchantView extends Component {
                         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
                     )}
                 >
-                {this.renderBackground()}
-                    <View style={{ height: height / 4, backgroundColor: '#000000', justifyContent: 'space-around', padding: 16 }}>
+                    <View style={{ height: MERCHANT_BACKGROUND_HEIGHT }}>
+                        <ImageSlideshow data={MerchantImageData} />
+                    </View>
+                    <View style={{ height: height / 5, backgroundColor: '#000000', paddingHorizontal: 16 }}>
                         <DealDetails
                             title={"Mandaluyong, BGC, Cal..."}
                             subtitle={<TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => NavigationService.navigate('MerchantBranch')}>
                                 <Text style={{ fontSize: 12, color: 'grey', marginRight: 5 }}>SEE ALL BRANCHES</Text>
                                 <Ionicons name={"ios-arrow-forward"} size={16} color={'grey'} />
                             </TouchableOpacity>}
-                            image={images.location}
+                            image={images.location_dark}
+                            style={{marginVertical: 8}}
                         />
                         <DealDetails
                             title={"25% OFF on published rate (room only)"}
                             image={images.percentage}
+                            style={{marginVertical: 8}}
                         />
                         <DealDetails
                             title={"Place notes here"}
                             image={images.clipboard}
+                            style={{marginVertical: 8}}
                         />
                     </View>
                     <View style={{ backgroundColor: '#FFFFFF' }}>
@@ -234,5 +141,7 @@ class MerchantView extends Component {
 export default MerchantView;
 
 const styles = StyleSheet.create({
-    
+    container: {
+        flex: 1
+    }
 });

@@ -12,6 +12,7 @@ import LocationModal from './LocationModal';
 import Tag from './Tag';
 import Branch from './Branch';
 import Indicator from './Indicator';
+import ImageSlideshow from './ImageSlideshow';
 
 export { 
     Header, 
@@ -27,5 +28,6 @@ export {
     LocationModal,
     Tag,
     Branch,
-    Indicator 
+    Indicator, 
+    ImageSlideshow 
 };

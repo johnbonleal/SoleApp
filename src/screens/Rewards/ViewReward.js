@@ -88,7 +88,7 @@ class ViewReward extends Component {
             </View>
             <View style={{ flexDirection: 'row', marginVertical: 8, paddingBottom: 16 }}>
                 <View style={{ height: 20, width: 20, marginRight: 8 }}>
-                    <Image style={{ flex: 1, height: null, width: null, tintColor: '#9B9B9B' }} source={images.location} />
+                    <Image style={{ flex: 1, height: null, width: null, tintColor: '#9B9B9B' }} source={images.location_dark} />
                 </View>
                 <View>
                     <Text style={{ fontSize: fonts.MEDIUM, color: '#9B9B9B', fontWeight: 'bold' }}>Bamboo House Paranaque</Text>

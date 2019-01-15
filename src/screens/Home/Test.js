@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, Image, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, Animated, Dimensions, Image, StyleSheet, TouchableWithoutFeedback, Alert } from 'react-native';
 import { Indicator } from '../../components';
 import AutoSlideAnimationHelper from './AutoSlideAnimationHelper';
 
@@ -18,49 +18,67 @@ const data = [
         ]
     }
 ];
-
 class Test extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            currentIndex: 0
+            indicatorAnim: new Animated.Value(0),
+            currentIndex: 0,
         }
     }
-    _onPressImage = () => {
-        // this.setState(prevState => ({
-        //     currentIndex: prevState.currentIndex < data[0].items.length - 1 ? prevState.currentIndex + 1 : 0
-        // }));
-        AutoSlideAnimationHelper.onNextItem();
+    componentDidMount() {
+        this._animateIndicator();
+    }
+    _increment = () => {
+        this.setState(prevState => ({
+            currentIndex: prevState.currentIndex < data[0].items.length - 1 ? prevState.currentIndex + 1 : 0
+        }));
+    }
+    _animateIndicator = (reset = true) => {
+        if (reset) this.state.indicatorAnim.setValue(0);
+
+        requestAnimationFrame(() => {
+            Animated.timing(this.state.indicatorAnim, {
+                toValue: 1,
+                duration: 5000 * (1 - this.state.indicatorAnim._value),
+            }).start(({ finished }) => {
+                if (finished) this._onNextItem();
+            });
+        });
+    }
+    _onNextItem = () => {
+        this._animateIndicator();
+        this._increment();
+    }
+    _setCurrentIndex = (currentIndex) => {
+        this.setState({ currentIndex });
     }
     renderIndicators = () => {
-        const { currentIndex } = this.state;
+        const { currentIndex, width, indicatorAnim } = this.state;
+        
         return (
-            <TouchableWithoutFeedback
-                onPress={AutoSlideAnimationHelper.onNextItem}
-                delayPressIn={200}
-                onPressIn={AutoSlideAnimationHelper.pause}
-            >
-                <View style={styles.indicatorWrap}>
-                    <View style={styles.indicators}>
-                        {data[0].items.map((item, i) => (
-                            <Indicator
-                                key={i} i={i}
-                                animate={currentIndex == i}
-                                // story={story}
-                            />
-                        ))}
-                    </View>
-                </View>
-            </TouchableWithoutFeedback>
-        )
 
+            <View style={[styles.indicatorWrap, { zIndex: 99 }]}>
+                <View style={styles.indicators}>
+                    {data[0].items.map((item, i) => (
+                        <Indicator
+                            key={i} i={i}
+                            animate={currentIndex === i}
+                            currentIndex={currentIndex}
+                            indicatorAnim={indicatorAnim}
+                        />
+                    ))}
+                </View>
+            </View>
+
+        )
     }
     render() {
         const { currentIndex } = this.state;
         return (
             <View style={{ flex: 1 }}>
-                <TouchableWithoutFeedback style={{ flex: 1, backgroundColor: 'red' }} onPress={this._onPressImage}>
+                <TouchableWithoutFeedback style={{ flex: 1}} >
                     <Image style={{ flex: 1, height: null, width: null }} source={data[0].items[currentIndex].src} />
                 </TouchableWithoutFeedback>
                 {this.renderIndicators()}
@@ -81,5 +99,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 8,
         flexDirection: 'row',
+    },
+    // Indicator
+    line: {
+        flex: 1,
+        backgroundColor: 'rgba(255,255,255,0.4)',
+        marginHorizontal: 1,
+        height: 2,
+    },
+    progress: {
+        backgroundColor: 'rgba(255,255,255,0.4)',
+        height: 2,
     },
 })
