@@ -1,6 +1,7 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 import TrashScreen from '../screens/Trash';
+import LoginRoutes from './LoginRoutes';
 import ProfileRoutes from './ProfileRoutes';
 import MyCardScreen from '../screens/Home/MyCard';
 import ScanQRScreen from '../screens/ScanQR/Scanqr';
@@ -23,11 +24,11 @@ const AppNavigator = createStackNavigator(
         Rewards: { screen: RewardsRoutes },
         Points: { screen: PointsRoutes },
         Merchant: { screen: MerchantRoutes },
-        
+        Login : { screen: LoginRoutes }
     },
     {
         mode: 'modal',
-        initialRouteName: 'AppDrawer',
+        initialRouteName: 'Login',
         headerMode: 'none'
     }
 )

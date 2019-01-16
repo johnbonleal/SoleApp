@@ -2,21 +2,9 @@ import React, { Component } from 'react';
 import { Modal, View, ScrollView, ImageBackground, StatusBar } from 'react-native';
 import Header from './Header';
 import TabularList from './TabularList';
+import { LocationData } from '../utils/Data';
 
 import { images } from '../resources';
-
-const APP_HEADER_HEIGHT = 90;
-
-const locations = [
-    { id: 1, title: "Caloocan City" },
-    { id: 2, title: "Quezon City" },
-    { id: 3, title: "Mandaluyong City" },
-    { id: 4, title: "Muntinlupa City" },
-    { id: 5, title: "Taguig City" },
-    { id: 6, title: "Pasig City" },
-    { id: 7, title: "Pasay City" },
-    { id: 8, title: "Paranaque City" }
-];
 
 class LocationModal extends Component {
     _onPressItem = item => {
@@ -50,7 +38,7 @@ class LocationModal extends Component {
                     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                         <TabularList
                             style={{ marginTop: 16 }}
-                            data={locations}
+                            data={LocationData}
                             onPressItem={this._onPressItem}
                         />
                     </ScrollView>

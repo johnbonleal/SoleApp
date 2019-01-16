@@ -8,8 +8,8 @@ import { images } from '../resources';
 const ICON_HEIGHT = 25;
 const ratingObj = { ratings: 3 };
 
-const { width, height } = Dimensions.get('window');
-
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+const MERCHANT_BACKGROUND_HEIGHT = SCREEN_HEIGHT * 0.9;
 class ImageSlideshow extends Component {
     constructor(props) {
         super(props);
@@ -67,29 +67,29 @@ class ImageSlideshow extends Component {
         const { currentIndex } = this.state;
         const { data } = this.props;
         return (
-            <View style={{ flex: 1 }}>
-                <View style={{ ...StyleSheet.absoluteFill }} >
-                    <Image style={{ flex: 1, height: null, width: null }} source={data[0].items[currentIndex].src} />
-                </View>
-                <View style={{ ...StyleSheet.absoluteFill }}>
-                    <Image style={{ flex: 1, height: null, width: null }} source={images.gradient_3} />
-                </View>
-                <View style={{ flex: 1, justifyContent: 'flex-end', padding: 16, zIndex: 99 }}>
-                    <Text style={{ fontSize: 15, color: '#FFFFFF' }}>HOTELS & RESORT</Text>
-                    <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#FFFFFF' }}>One night staycation</Text>
-                    <View style={{ flexDirection: 'row', marginVertical: 8 }}>
-                        <View style={{ height: ICON_HEIGHT, width: ICON_HEIGHT, borderRadius: ICON_HEIGHT / 2, overflow: 'hidden', marginRight: 8 }}>
-                            <Image style={{ flex: 1, height: null, width: null }} source={images.image2} />
-                        </View>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFFFFF' }}>BEACH HOUSE</Text>
+            <View style={{ height: MERCHANT_BACKGROUND_HEIGHT }}>
+                <View style={styles.container}>
+                    <View style={{ ...StyleSheet.absoluteFill }} >
+                        <Image style={styles.image} source={data[0].items[currentIndex].src} />
                     </View>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={{ marginRight: 5 }}>
-                            <StarRating ratingObj={ratingObj} />
-                        </View>
-                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#FFFFFF' }}>70</Text>
+                    <View style={{ ...StyleSheet.absoluteFill }}>
+                        <Image style={styles.image} source={images.gradient_3} />
                     </View>
-                    {this.renderIndicators()}
+                    <View style={styles.content}>
+                        <Text style={styles.title}>HOTELS & RESORT</Text>
+                        <Text style={styles.description}>One night staycation</Text>
+                        <View style={{ flexDirection: 'row', marginVertical: 8 }}>
+                            <View style={styles.logo}>
+                                <Image style={styles.image} source={images.image2} />
+                            </View>
+                            <Text style={styles.companyName}>BEACH HOUSE</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
+                            <StarRating style={{ marginRight: 5 }} ratingObj={ratingObj} />
+                            <Text style={styles.reviewCount}>70</Text>
+                        </View>
+                        {this.renderIndicators()}
+                    </View>
                 </View>
             </View>
         )
@@ -99,6 +99,46 @@ class ImageSlideshow extends Component {
 export default ImageSlideshow;
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    image: {
+        flex: 1,
+        height: null,
+        width: null
+    },
+    content: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        padding: 16,
+        zIndex: 99
+    },
+    title: {
+        fontSize: 15,
+        color: '#FFFFFF'
+    },
+    description: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        color: '#FFFFFF'
+    },
+    logo: {
+        height: ICON_HEIGHT,
+        width: ICON_HEIGHT,
+        borderRadius: ICON_HEIGHT / 2,
+        overflow: 'hidden',
+        marginRight: 8
+    },
+    companyName: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#FFFFFF'
+    },
+    reviewCount: {
+        fontSize: 12, 
+        fontWeight: 'bold', 
+        color: '#FFFFFF'
+    },
     indicatorWrap: {
         position: 'absolute',
         left: 0,

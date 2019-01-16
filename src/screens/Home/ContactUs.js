@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Image } from 'react-native';
+import { View, ScrollView, Image, Alert } from 'react-native';
 import { Header } from '../../components';
 
 import ContactMain from './ContactMain';
 import SendMessage from './SendMessage';
 import CallUs from './CallUs';
+import ContactUserSignIn from './ContactUserSignIn';
 
 import { images } from '../../resources';
 import { NavigationService } from '../../configs/NavigationService';
@@ -38,18 +39,20 @@ class ContactUs extends Component {
                 >
                     <Header
                         headerTitle={"Contact Us"}
-                        headerLeft={current === '' ? images.close : images.back}
-                        headerStyle={{position: 'relative'}}
+                        headerLeft={images.back}
+                        headerStyle={{ position: 'relative' }}
                         onPressHeaderLeft={this._onPressBack}
                         withBackground
                     />
-                    <View style={{ flex: 1, backgroundColor: '#FFFFFF', padding: 16 }}>
+                    <View style={{ flex: 1, backgroundColor: '#FFFFFF', paddingHorizontal: 16 }}>
                         {(() => {
                             switch (current) {
                                 case 'Send us a message':
-                                    return <SendMessage />;
+                                    return <SendMessage onPress={this._onPressItem} />;
                                 case 'Call us':
                                     return <CallUs />;
+                                case 'Required Information':
+                                    return <ContactUserSignIn />;
                                 default:
                                     return <ContactMain onPressItem={this._onPressItem} />;
                             }

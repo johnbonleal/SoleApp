@@ -18,19 +18,20 @@ type Props = {
 
 export default class StarRating extends Component<Props> {
     render() {
-        let ratingObj = this.props.ratingObj;
+        const { style, ratingObj } = this.props;
+        let ratingObject = ratingObj;
 
         let stars = [];
 
         for (var i = 1; i <= 5; i++) {
             let path = images.rating_filled;
-            if (i > ratingObj.ratings) {
+            if (i > ratingObject.ratings) {
                 path = images.rating_empty;
             }
             stars.push((<View key={i} style={styles.imageContainer} ><Image style={styles.image} source={path} /></View>));
         }
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, style]}>
                 { stars }
             </View>
         );
@@ -39,7 +40,6 @@ export default class StarRating extends Component<Props> {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         flexDirection: 'row',
         alignItems: 'center'
     },

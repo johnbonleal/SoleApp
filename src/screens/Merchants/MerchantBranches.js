@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Dimensions, Image, StatusBar, ScrollView, TouchableOpacity, Animated } from 'react-native';
 import { connect } from 'react-redux';
-import { Header, StarRating, Branch } from '../../components';
+import { Header, StarRating, Branch,  } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
 import ScanQrModal from '../ScanQR/ScanqrModal';
 import { toggleScanQrModal } from '../../actions/CameraActions';

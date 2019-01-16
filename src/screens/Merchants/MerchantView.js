@@ -1,25 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, StatusBar, ScrollView, Dimensions, ImageBackground, StyleSheet, Animated, TouchableWithoutFeedback, UIManager, Platform } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MerchantLocation from './MerchantLocation';
-import DealDetails from './DealDetails';
-import { Header, ImageSlideshow } from '../../components';
+import { View, StatusBar, ScrollView, Dimensions, StyleSheet, Animated } from 'react-native';
 
-import { images, fonts } from '../../resources';
-import { NavigationService } from '../../configs/NavigationService';
+import DealSummary from './Perks&Deals/DealSummary';
+import DealContent from './Perks&Deals/DealContent';
+import { Header, ImageSlideshow, FixedButton } from '../../components';
+
+import { images } from '../../resources';
 import { MerchantImageData } from '../../utils/Data';
 
-const { width, height } = Dimensions.get('window');
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
-const ICON_HEIGHT = 25;
-const MERCHANT_BACKGROUND_HEIGHT = height * 0.9;
-const ratingObj = { ratings: 3 };
-
-const ASPECT_RATIO = width / height;
-const LATITUDE = 14.6091;
-const LONGITUDE = 121.0223;
-const LATITUDE_DELTA = 0.0922;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 class MerchantView extends Component {
     constructor(props) {
         super(props);
@@ -28,35 +18,25 @@ class MerchantView extends Component {
             scrollY: new Animated.Value(0),
         };
     }
-    renderHeader = () => {
-        const { scrollY } = this.state;
-        const animatedHeaderOpacity = scrollY.interpolate({
-            inputRange: [height + 28, height + 29],
-            outputRange: [0, 1],
-            extrapolate: 'clamp'
-        });
-        return (
-            <Header
-                headerLeft={images.back}
-                imageStyle={{ opacity: animatedHeaderOpacity }}
-                withBackground
-            />
-        )
-    }
     render() {
         const { scrollY } = this.state;
-        const animatedButtonBackground = scrollY.interpolate({
-            inputRange: [120, 121],
-            outputRange: ['#000000', '#FFFFFF'],
-            extrapolate: 'clamp'
-        });
         return (
-            <View style={{ flex: 1 }}>
+            <View style={styles.container}>
                 <StatusBar
                     backgroundColor={'transparent'}
                     translucent
                 />
-                {this.renderHeader()}
+                <Header
+                    headerLeft={images.back}
+                    imageStyle={{
+                        opacity: scrollY.interpolate({
+                            inputRange: [SCREEN_HEIGHT + 28, SCREEN_HEIGHT + 29],
+                            outputRange: [0, 1],
+                            extrapolate: 'clamp'
+                        })
+                    }}
+                    withBackground
+                />
                 <ScrollView
                     ref={component => { this.scrollView = component }}
                     contentContainerStyle={{ flexGrow: 1 }}
@@ -65,74 +45,19 @@ class MerchantView extends Component {
                         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
                     )}
                 >
-                    <View style={{ height: MERCHANT_BACKGROUND_HEIGHT }}>
-                        <ImageSlideshow data={MerchantImageData} />
-                    </View>
-                    <View style={{ height: height / 5, backgroundColor: '#000000', paddingHorizontal: 16 }}>
-                        <DealDetails
-                            title={"Mandaluyong, BGC, Cal..."}
-                            subtitle={<TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => NavigationService.navigate('MerchantBranch')}>
-                                <Text style={{ fontSize: 12, color: 'grey', marginRight: 5 }}>SEE ALL BRANCHES</Text>
-                                <Ionicons name={"ios-arrow-forward"} size={16} color={'grey'} />
-                            </TouchableOpacity>}
-                            image={images.location_dark}
-                            style={{marginVertical: 8}}
-                        />
-                        <DealDetails
-                            title={"25% OFF on published rate (room only)"}
-                            image={images.percentage}
-                            style={{marginVertical: 8}}
-                        />
-                        <DealDetails
-                            title={"Place notes here"}
-                            image={images.clipboard}
-                            style={{marginVertical: 8}}
-                        />
-                    </View>
-                    <View style={{ backgroundColor: '#FFFFFF' }}>
-                        <View style={{ padding: 16 }}>
-                            <View style={{ borderBottomColor: '#D8D8D8', borderBottomWidth: 1, paddingBottom: 16 }}>
-                                <View style={{ marginVertical: 8 }}>
-                                    <Text style={{ fontSize: fonts.MEDIUM, fontWeight: 'bold', marginBottom: 5 }}>Terms & Conditions</Text>
-                                    <Text style={{ fontSize: fonts.MEDIUM, color: '#9B9B9B', marginLeft: 8 }}>• Libero tempore, cum soluta nobis</Text>
-                                    <Text style={{ fontSize: fonts.MEDIUM, color: '#9B9B9B', marginLeft: 8 }}>• Soluta nobis est eligendi optio</Text>
-                                    <Text style={{ fontSize: fonts.MEDIUM, color: '#9B9B9B', marginLeft: 8 }}>• Optio cumque nihil impedit quo minus id</Text>
-                                </View>
-                            </View>
-                            <View style={{ marginVertical: 16 }}>
-                                <Text style={{ fontSize: fonts.MEDIUM, fontWeight: 'bold', marginBottom: 5 }}>About Beach House</Text>
-                                <Text style={{ fontSize: fonts.MEDIUM }} numberOfLines={4}>
-                                    Excepteur qui enim deserunt commodo do. Incididunt non magna anim sit est do. Eiusmod laborum amet aliqua sunt ex excepteur aliquip sunt quis ea occaecat velit incididunt. Magna culpa laborum nulla sint laborum enim mollit elit officia excepteur sit. Proident occaecat reprehenderit non adipisicing mollit reprehenderit. Commodo excepteur ad aliquip amet magna nostrud deserunt do veniam fugiat.
-                            </Text>
-                            </View>
-                        </View>
-                        <View style={{ height: 200, width: '100%' }}>
-                            <MerchantLocation region={{ latitude: LATITUDE, longitude: LONGITUDE, latitudeDelta: LATITUDE_DELTA, longitudeDelta: LONGITUDE_DELTA }} />
-                        </View>
-                        <View style={{ padding: 16 }}>
-                            <View style={{ marginVertical: 8 }}>
-                                <Text style={{ fontSize: fonts.MEDIUM, fontWeight: 'bold', marginVertical: 5 }}>Contact Details</Text>
-                                <DealDetails
-                                    title={"beachhouse@gmail.com"}
-                                    image={images.email}
-                                    style={{ marginVertical: 8, alignItems: 'center' }}
-                                    textStyle={{ color: '#000000' }}
-                                />
-                                <DealDetails
-                                    title={"1241-12453-1235"}
-                                    image={images.phone}
-                                    style={{ marginVertical: 8, alignItems: 'center' }}
-                                    textStyle={{ color: '#000000' }}
-                                />
-                            </View>
-                        </View>
-                    </View>
+                    <ImageSlideshow data={MerchantImageData} />
+                    <DealSummary />
+                    <DealContent />
                 </ScrollView>
-                <Animated.View style={{ backgroundColor: animatedButtonBackground, justifyContent: 'center', elevation: 10, padding: 16, shadowOffset: { width: 0, height: 1 }, shadowRadius: 2, shadowColor: 'black', shadowOpacity: 0.5 }}>
-                    <TouchableOpacity style={{ backgroundColor: '#FFA701', alignItems: 'center', borderRadius: 8, paddingVertical: 16 }}>
-                        <Text style={{ fontSize: fonts.MEDIUM, color: '#FFFFFF', fontWeight: 'bold', textAlign: 'center' }}>Scan QR Code</Text>
-                    </TouchableOpacity>
-                </Animated.View>
+                <FixedButton
+                    style={{
+                        backgroundColor: scrollY.interpolate({
+                            inputRange: [120, 121],
+                            outputRange: ['#000000', '#FFFFFF'],
+                            extrapolate: 'clamp'
+                        })
+                    }}
+                    text={"Scan QR Code"} />
             </View>
         )
     }

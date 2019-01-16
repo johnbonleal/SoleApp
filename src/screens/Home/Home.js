@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Animated, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Animated, StyleSheet, StatusBar } from 'react-native';
 
 import { Header, ImageLoader, RectangleList, SquareList, CircleList } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
@@ -72,6 +72,7 @@ class Home extends Component {
                 <View style={{ ...StyleSheet.absoluteFill }}>
                     <ImageLoader style={{ flex: 1, height: null, width: null }} thumbnailSource={images.header_bg} source={images.header_bg} />
                 </View>
+                <Text style={styles.greetings}>Hi, John</Text>
             </Animated.View>
         );
     }
@@ -79,6 +80,10 @@ class Home extends Component {
         const { scrollY } = this.state;
         return (
             <View style={styles.container}>
+                <StatusBar
+                    backgroundColor={'transparent'}
+                    translucent
+                />
                 {this.renderHeader()}
                 {this.renderBackgroundImage()}
                 <ScrollView

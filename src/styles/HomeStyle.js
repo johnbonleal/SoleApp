@@ -13,15 +13,12 @@ const styles = StyleSheet.create({
         height: TOP_CONTAINER_MAX_HEIGHT,
         ...StyleSheet.absoluteFill
     },
-    greetingsContainer: {
-        flex: 1, 
-        justifyContent: 'flex-end'
-    },
     greetings: {
         fontSize: 30, 
-        color: 'white', 
         fontWeight: 'bold', 
-        marginLeft: 16
+        color: '#FFFFFF', 
+        marginLeft: 16, 
+        marginTop: TOP_CONTAINER_MAX_HEIGHT / 3
     },
     dashboardContainer: {
         backgroundColor: 'transparent',

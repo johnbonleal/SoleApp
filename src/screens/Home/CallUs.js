@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { TabularList } from '../../components';
+import Logo from '../../components/Logo';
+import { ContactUsData } from '../../utils/Data';
 
-import { fonts } from '../../resources';
+import { images } from '../../resources';
 
 class CallUs extends Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <Text style={{ fontSize: fonts.LARGE, fontWeight: 'bold', color: '#4A4A4A' }}>Call us</Text>
-                <View style={{marginTop: 16}}>
+                <Logo image={images.contact_call} text={"Call us"} />
+                <View style={{ marginTop: 16 }}>
                     <TabularList
-                        data={[{ title: "General Inquiry" }, { title: "Administration" }, { title: "Financial Services" }, { title: "Corporate Sales" }, { title: "Marketing and Relations" }]}
+                        data={ContactUsData}
                         onPressItem={this._onPressItem}
+                        withValue
                     />
                 </View>
             </View>

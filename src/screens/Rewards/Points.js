@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StatusBar, ScrollView, Image, ImageBackground, TouchableOpacity, FlatList } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { NavigationService } from '../../configs/NavigationService';
+import EarnPointsModal from './EarnPointsModal';
 
 import { Header, CircleList, TabularList } from '../../components';
 import { images, fonts } from '../../resources';
@@ -10,6 +11,18 @@ const HEADER_MAX_HEIGHT = 198;
 const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
 
 class Points extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            pointsModalIsVisible: false
+        }
+    }
+    _togglePointsModal = () => {
+        this.setState(prevState => ({
+            pointsModalIsVisible: !prevState.pointsModalIsVisible
+        }));
+    }
     _onPressClose = () => {
         NavigationService.back();
     }
@@ -20,7 +33,7 @@ class Points extends Component {
                 routeName = "PointHistory";
                 break;
             case "How do I earn points?":
-                routeName = "";
+                this._togglePointsModal();
                 break;
             case "Venteny Rewards":
                 routeName = "Rewards";
@@ -31,6 +44,7 @@ class Points extends Component {
         NavigationService.navigate(routeName);
     }
     render() {
+        const { pointsModalIsVisible } = this.state;
         return (
             <View style={{ flex: 1, backgroundColor: 'white' }}>
                 <StatusBar
@@ -70,6 +84,7 @@ class Points extends Component {
                         <Ionicons name={"ios-arrow-forward"} size={12} color={'#9B9B9B'} />
                     </View>
                 </ScrollView>
+                <EarnPointsModal isVisible={pointsModalIsVisible} toggleIsVisible={this._togglePointsModal} />
             </View >
         )
     }

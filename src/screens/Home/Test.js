@@ -1,23 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, Animated, Dimensions, Image, StyleSheet, TouchableWithoutFeedback, Alert } from 'react-native';
 import { Indicator } from '../../components';
-import AutoSlideAnimationHelper from './AutoSlideAnimationHelper';
 
 import { images } from '../../resources';
 
-const { width, height } = Dimensions.get('window');
+const ICON_HEIGHT = 230;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
-const data = [
-    {
-        idx: 1,
-        items: [
-            { id: 1, src: images.beach_1, type: 'img' },
-            { id: 2, src: images.beach_2, type: 'img' },
-            { id: 3, src: images.beach_3, type: 'img' },
-            { id: 4, src: images.beach_4, type: 'img' }
-        ]
-    }
-];
 class Test extends Component {
     constructor(props) {
         super(props);
@@ -27,61 +16,15 @@ class Test extends Component {
             currentIndex: 0,
         }
     }
-    componentDidMount() {
-        this._animateIndicator();
-    }
-    _increment = () => {
-        this.setState(prevState => ({
-            currentIndex: prevState.currentIndex < data[0].items.length - 1 ? prevState.currentIndex + 1 : 0
-        }));
-    }
-    _animateIndicator = (reset = true) => {
-        if (reset) this.state.indicatorAnim.setValue(0);
-
-        requestAnimationFrame(() => {
-            Animated.timing(this.state.indicatorAnim, {
-                toValue: 1,
-                duration: 5000 * (1 - this.state.indicatorAnim._value),
-            }).start(({ finished }) => {
-                if (finished) this._onNextItem();
-            });
-        });
-    }
-    _onNextItem = () => {
-        this._animateIndicator();
-        this._increment();
-    }
-    _setCurrentIndex = (currentIndex) => {
-        this.setState({ currentIndex });
-    }
-    renderIndicators = () => {
-        const { currentIndex, width, indicatorAnim } = this.state;
-        
-        return (
-
-            <View style={[styles.indicatorWrap, { zIndex: 99 }]}>
-                <View style={styles.indicators}>
-                    {data[0].items.map((item, i) => (
-                        <Indicator
-                            key={i} i={i}
-                            animate={currentIndex === i}
-                            currentIndex={currentIndex}
-                            indicatorAnim={indicatorAnim}
-                        />
-                    ))}
-                </View>
-            </View>
-
-        )
-    }
     render() {
-        const { currentIndex } = this.state;
         return (
-            <View style={{ flex: 1 }}>
-                <TouchableWithoutFeedback style={{ flex: 1}} >
-                    <Image style={{ flex: 1, height: null, width: null }} source={data[0].items[currentIndex].src} />
-                </TouchableWithoutFeedback>
-                {this.renderIndicators()}
+            <View style={styles.container} >
+                <View style={styles.imageContainer}>
+                    <Image style={styles.image} source={images.contact_email} />
+                </View>
+                <View style={styles.textContainer} >
+                    <Text style={styles.text}>Send us a message</Text>
+                </View>
             </View>
         )
     }
@@ -90,25 +33,30 @@ class Test extends Component {
 export default Test;
 
 const styles = StyleSheet.create({
-    indicatorWrap: {
-        position: 'absolute',
-        left: 0, right: 0, bottom: 0
-    },
-    indicators: {
-        height: 30,
+    container: {
         alignItems: 'center',
-        paddingHorizontal: 8,
-        flexDirection: 'row',
     },
-    // Indicator
-    line: {
+    imageContainer: {
+        height: ICON_HEIGHT,
+        width: ICON_HEIGHT,
+        position: 'absolute'
+    },
+    image: {
         flex: 1,
-        backgroundColor: 'rgba(255,255,255,0.4)',
-        marginHorizontal: 1,
-        height: 2,
+        height: null,
+        width: null,
+        resizeMode: 'cover'
     },
-    progress: {
-        backgroundColor: 'rgba(255,255,255,0.4)',
-        height: 2,
+    textContainer: {
+        backgroundColor: '#FFB000',
+        borderRadius: 32,
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        marginTop: ICON_HEIGHT - 32
     },
+    text: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#FFFFFF'
+    }
 })

@@ -7,7 +7,7 @@ const ICON_HEIGHT = 30;
 
 // TODO: Fix right icon
 
-const TabularList = ({ data, onPressItem, withIcons, collapsible, style, leftIconContainerStyle, leftIconStyle, rightIconStyle, titleStyle, descriptionStyle }) => (
+const TabularList = ({ data, onPressItem, withIcons, collapsible, withValue, style, leftIconContainerStyle, leftIconStyle, rightIconStyle, titleStyle, descriptionStyle }) => (
     <FlatList
         style={style}
         data={data}
@@ -25,6 +25,7 @@ const TabularList = ({ data, onPressItem, withIcons, collapsible, style, leftIco
                         {item.description && <Text style={[styles.description, descriptionStyle]}>{item.description}</Text>}
                     </View>
                 </View>
+                {withValue && <Text style={styles.value}>{item.value}</Text>}
                 {collapsible && <Ionicons name={"ios-arrow-forward"} size={fonts.REGULAR} color={'#000000'} />}
             </TouchableOpacity>
             {index < data.length - 1 && <View style={[styles.separator, rightIconStyle]} />}
@@ -68,6 +69,10 @@ const styles = StyleSheet.create({
     description: { 
         fontSize: fonts.REGULAR, 
         paddingVertical: 0 
+    },
+    value: {
+        fontSize: 15, 
+        color: '#9B9B9B'
     },
     separator: {
         height: 1, 

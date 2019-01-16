@@ -13,6 +13,8 @@ import Tag from './Tag';
 import Branch from './Branch';
 import Indicator from './Indicator';
 import ImageSlideshow from './ImageSlideshow';
+import FixedButton from './FixedButton';
+import Logo from './Logo';
 
 export { 
     Header, 
@@ -29,5 +31,7 @@ export {
     Tag,
     Branch,
     Indicator, 
-    ImageSlideshow 
+    ImageSlideshow,
+    FixedButton,
+    Logo 
 };

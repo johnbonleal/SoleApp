@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Image, ImageBackground, Text, TouchableOpacity, TouchableWithoutFeedback, FlatList } from 'react-native';
-import { Header, Branch } from '../../components';
+import { Header, Branch, FixedButton } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
 import BannerModal from './BannerModal';
 import LogoModal from './LogoModal';
@@ -12,10 +12,14 @@ const ICON_HEIGHT = 35;
 const LOGO_HEIGHT = 60;
 const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
 class ViewReward extends Component {
-    state = {
-        isBannerModalVisible: false,
-        isLogoModalVisible: false,
-        current: 'Rewards'
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isBannerModalVisible: false,
+            isLogoModalVisible: false,
+            current: 'Rewards'
+        };
     }
     _onPressBack = () => {
         if (this.state.current === 'Rewards') {
@@ -132,11 +136,7 @@ class ViewReward extends Component {
                         {(this.state.current === 'Rewards') ? this._renderRewards() : this._renderBranches()}
                     </View>
                 </ScrollView>
-                <View style={{ backgroundColor: 'white', justifyContent: 'center', elevation: 10, padding: 16, shadowOffset: { width: 0, height: 1 }, shadowRadius: 2, shadowColor: 'black', shadowOpacity: 0.5 }}>
-                    <TouchableOpacity style={{ backgroundColor: '#FFA701', alignItems: 'center', borderRadius: 8, paddingVertical: 16 }}>
-                        <Text style={{ fontSize: fonts.MEDIUM, color: '#FFFFFF', fontWeight: 'bold', textAlign: 'center' }}>Redeem</Text>
-                    </TouchableOpacity>
-                </View>
+                <FixedButton text={"Redeem"} />
                 <BannerModal isBannerModalVisible={this.state.isBannerModalVisible} toggleBannerModal={this._toggleBannerModal} />
                 <LogoModal isLogoModalVisible={this.state.isLogoModalVisible} toggleLogoModal={this._toggleLogoModal} />
             </View>
