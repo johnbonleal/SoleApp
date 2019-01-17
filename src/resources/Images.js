@@ -36,6 +36,8 @@ const images = {
     login_3: require('../assets/images/login_3.png'),
     login_4: require('../assets/images/login_4.png'),
     login_gradient: require('../assets/images/login_gradient.png'),
+    login_password: require('../assets/images/login_passcode.png'),
+    login_username: require('../assets/images/login_username.png'),
     logout: require('../assets/images/logout.png'),
     perks: require('../assets/images/perks.png'),
     mobile: require('../assets/images/mobile.png'),

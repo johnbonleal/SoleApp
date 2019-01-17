@@ -1,15 +1,43 @@
-const data = [
-    { 
-        id: 1, 
+var _ = require('lodash')
+const response = [
+    {
+        id: 1,
         items: [
-            { src: 4, type: 'img' }, 
+            { src: 4, type: 'img' },
             { src: 5, type: 'img' },
             { src: 6, type: 'img' },
             { src: 7, type: 'img' }
         ]
     }
 ];
-let x = data[0].items.map((item, index) => {
-    console.log(index === data[0].items.length - 1)
-})
-// console.log(data[0].src)
+
+var x = "";
+console.log(/\S/.test(x));
+
+
+// var Carousel = (function() {
+//     let currentIndex = 0
+//     let data = response;
+
+//     function autoPlay(reset = true) {
+//         if (reset) return
+//         console.log(currentIndex);
+//         onNextItem();
+//     }
+//     function onNextItem() {
+//         // autoPlay();
+//         currentIndex = currentIndex < data[0].items.length - 1 ? currentIndex + 1 : 0;
+//         setCurrentIndex(currentIndex);
+//         console.log(currentIndex)
+//     }
+//     function setCurrentIndex(index) {
+//         currentIndex = index
+//     }
+//     return {
+//         init: autoPlay
+//     }
+// })();
+
+console.log(autorun());
+
+

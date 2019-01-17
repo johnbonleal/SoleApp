@@ -52,3 +52,8 @@ export const LoginImageData = [
     { id: 3, src: images.login_3, type: 'img' },
     { id: 4, src: images.login_4, type: 'img' }
 ];
+
+export const OnBoardingData = [
+    { id: 1, src: images.splash_1, type: 'img' },
+    { id: 2, src: images.splash_2, type: 'img' },
+]

@@ -1,16 +1,21 @@
 import { createStackNavigator } from 'react-navigation';
 
+import OnBoardingScreen from '../screens/Login/OnBoarding';
 import LoginScreen from '../screens/Login/Login';
 
 const LoginRoutes = createStackNavigator(
     {
-        Login: {
+        OnBoarding: {
+            screen: OnBoardingScreen,
+            navigationOptions: { header: null }
+        },
+        SignIn: {
             screen: LoginScreen,
             navigationOptions: { header: null }
         }
     },
     {
-        initialRouteName: 'Login'
+        initialRouteName: 'OnBoarding'
     }
 );
 
