@@ -26,6 +26,7 @@ class MerchantNearby extends Component {
 
         this.state = {
             bounceValue: new Animated.Value(0),
+            scrollX: new Animated.Value(0),
             isHidden: false,
             currentIndex: 0
         };
@@ -99,7 +100,7 @@ class MerchantNearby extends Component {
                 <MapBox data={NearbyMerchantsData} currentIndex={currentIndex} />
                 <View style={[styles.container, { justifyContent: 'flex-end' }]}>
                     <View style={styles.closeButtonContainer}>
-                        <TouchableOpacity style={styles.closeButton} onPress={()=>NavigationService.back()}>
+                        <TouchableOpacity style={styles.closeButton} onPress={() => NavigationService.back()}>
                             <View style={styles.closeButtonIcon}>
                                 <Image style={styles.image} source={images.close} resizeMode={"contain"} />
                             </View>
@@ -118,6 +119,17 @@ class MerchantNearby extends Component {
                             sliderWidth={SLIDER_WIDTH}
                             itemWidth={ITEM_WIDTH}
                             onSnapToItem={this._onItemChange}
+                            onScroll={Animated.event(
+                                [
+                                    {
+                                        nativeEvent: {
+                                            contentOffset: {
+                                                x: this.state.scrollX,
+                                            },
+                                        },
+                                    },
+                                ]
+                            )}
                         />
                     </Animated.View>
                 </View>

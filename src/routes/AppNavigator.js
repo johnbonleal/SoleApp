@@ -28,7 +28,7 @@ const AppNavigator = createStackNavigator(
     },
     {
         mode: 'modal',
-        initialRouteName: 'Login',
+        initialRouteName: 'Test',
         headerMode: 'none'
     }
 )

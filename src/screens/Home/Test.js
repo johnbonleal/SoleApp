@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Animated, Dimensions, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import Carousel from 'react-native-snap-carousel';
 import { StarRating, MapBox } from '../../components';
 import { NearbyMerchantsData } from '../../utils/Data';
-import Carousel from 'react-native-snap-carousel';
+import { NavigationService } from '../../configs';
 
 import { images } from '../../resources';
 
@@ -13,30 +14,19 @@ const ITEM_WIDTH = width * 0.85;
 const CAROUSEL_HEIGHT = (height / 3) + 30;
 const MARGIN_BOUNDS = (width - ITEM_WIDTH) / 2;
 
-const ASPECT_RATIO = width / height;
-const LATITUDE = 14.6091;
-const LONGITUDE = 121.0223;
-const LATITUDE_DELTA = 0.0922;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-
 const ContentIcon = ({ icon }) => (
     <View style={styles.contentIcon}>
-        <Image style={[styles.image, { tintColor: '#9B9B9B' }]} source={icon} />
+        <Image style={[styles.image, { tintColor: '#9B9B9B' }]} source={icon} resizeMode={"contain"} />
     </View>
 );
 
-class Test extends Component {
+class MerchantNearby extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            region: {
-                latitude: LATITUDE,
-                longitude: LONGITUDE,
-                latitudeDelta: LATITUDE_DELTA,
-                longitudeDelta: LONGITUDE_DELTA,
-            },
             bounceValue: new Animated.Value(0),
+            scrollX: new Animated.Value(0),
             isHidden: false,
             currentIndex: 0
         };
@@ -104,13 +94,13 @@ class Test extends Component {
         );
     }
     render() {
-        const { region, bounceValue, currentIndex } = this.state;
+        const { bounceValue, currentIndex, scrollX } = this.state;
         return (
             <View style={[styles.container, { ...StyleSheet.absoluteFillObject }]}>
-                <MapBox data={NearbyMerchantsData} currentIndex={currentIndex} />
+                <MapBox data={NearbyMerchantsData} currentIndex={currentIndex} scrollX={scrollX} />
                 <View style={[styles.container, { justifyContent: 'flex-end' }]}>
                     <View style={styles.closeButtonContainer}>
-                        <TouchableOpacity style={styles.closeButton}>
+                        <TouchableOpacity style={styles.closeButton} onPress={() => NavigationService.back()}>
                             <View style={styles.closeButtonIcon}>
                                 <Image style={styles.image} source={images.close} resizeMode={"contain"} />
                             </View>
@@ -129,6 +119,17 @@ class Test extends Component {
                             sliderWidth={SLIDER_WIDTH}
                             itemWidth={ITEM_WIDTH}
                             onSnapToItem={this._onItemChange}
+                            onScroll={Animated.event(
+                                [
+                                    {
+                                        nativeEvent: {
+                                            contentOffset: {
+                                                x: this.state.scrollX,
+                                            },
+                                        },
+                                    },
+                                ]
+                            )}
                         />
                     </Animated.View>
                 </View>
@@ -137,7 +138,7 @@ class Test extends Component {
     }
 }
 
-export default Test;
+export default MerchantNearby;
 
 const styles = StyleSheet.create({
     container: {
@@ -200,8 +201,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 0,
         right: 0,
-        left: 0,
-        // paddingBottom: 8
+        left: 0
     },
     drawerToggler: {
         height: 5,
