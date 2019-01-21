@@ -3,33 +3,33 @@ import { Dimensions, View, Animated, TouchableOpacity, Text, Image, StyleSheet }
 import ImageLoader from './ImageLoader';
 import { images, fonts } from '../resources';
 import { NavigationService } from '../configs/NavigationService';
+import PropTypes from 'prop-types';
 
 var _ = require('lodash');
 
 const { width, height } = Dimensions.get('window');
-const APP_HEADER_HEIGHT = 56;
 
 // TODO: Fix HeaderRight
-const Header = ({ headerLeft, onPressHeaderLeft, onPressHeaderRight, headerRight, headerTitle, headerRightStyle, headerLeftStyle, headerStyle, imageStyle, withBackground }) => (
+const Header = ({ headerLeft, onPressHeaderLeft, onPressHeaderRight, headerRight, headerTitle, headerTitleStyle, headerRightStyle, headerRightImageStyle, headerLeftStyle, headerLeftImageStyle, headerStyle, imageStyle, withBackground }) => (
     <Animated.View style={[styles.headerContainer, headerStyle]}>
         {withBackground && <Animated.View style={[{ ...StyleSheet.absoluteFill }, imageStyle]}>
-            <Image style={{ flex: 1, height: null, width: null }} source={images.header_bg} />
+            <Image style={styles.image} source={images.header_bg} />
         </Animated.View>}
         <View style={styles.header}>
             <View>
                 {headerLeft && <TouchableOpacity onPress={onPressHeaderLeft || NavigationService.back} style={[styles.imageContainer, headerLeftStyle]} >
-                    <ImageLoader style={styles.image} source={headerLeft} />
+                    <ImageLoader style={[styles.image, {tintColor: '#FFFFFF'}, headerLeftImageStyle]} source={headerLeft} />
                 </TouchableOpacity>}
             </View>
             <View style={{ alignItems: 'center' }}>
-                {headerTitle && <Text style={styles.headerTitle}>{headerTitle}</Text>}
+                {headerTitle && <Text style={[styles.headerTitle, headerTitleStyle]}>{headerTitle}</Text>}
             </View>
             <View>
                 <TouchableOpacity onPress={onPressHeaderRight} style={{ justifyContent: 'center' }} >
                     {_.isString(headerRight) ?
-                        <Text style={{ color: 'white' }}>{headerRight}</Text> :
+                        <Text style={{ color: '#FFFFFF' }}>{headerRight}</Text> :
                         <View style={[styles.imageContainer, !_.isString(headerRight) && headerRightStyle]}>
-                            <ImageLoader style={styles.image} source={headerRight} />
+                            <ImageLoader style={[styles.image, {tintColor: '#FFFFFF'}, headerRightImageStyle]} source={headerRight} />
                         </View>
                     }
                 </TouchableOpacity>
@@ -37,6 +37,19 @@ const Header = ({ headerLeft, onPressHeaderLeft, onPressHeaderRight, headerRight
         </View>
     </Animated.View >
 );
+
+Header.propTypes = {
+    headerLeft: PropTypes.string,
+    headerTitle: PropTypes.string,
+    headerRight: PropTypes.string,
+    headerLeftStyle: PropTypes.object,
+    headerTitleStyle: PropTypes.object,
+    headerRightStyle: PropTypes.object,
+    headerLeftImageStyle: PropTypes.object,
+    headerRightImageStyle: PropTypes.object,
+    imageStyle: PropTypes.object,
+    headerStyle: PropTypes.object
+};
 
 export default Header;
 
@@ -63,8 +76,7 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         height: null,
-        width: null,
-        tintColor: '#FFFFFF'
+        width: null
     },
     headerTitle: {
         fontSize: 22,

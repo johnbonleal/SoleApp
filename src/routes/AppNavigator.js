@@ -1,6 +1,6 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
-import TrashScreen from '../screens/Trash';
+import TestScreen from '../screens/Home/Test';
 import LoginRoutes from './LoginRoutes';
 import ProfileRoutes from './ProfileRoutes';
 import MyCardScreen from '../screens/Home/MyCard';
@@ -18,7 +18,7 @@ const AppNavigator = createStackNavigator(
         MyCard: { screen: MyCardScreen },
         ContactUs: { screen: ContactUsScreen },
         ScanQR: { screen: ScanQRScreen },
-        Trash: { screen: TrashScreen },
+        Test: { screen: TestScreen },
         AppDrawer: { screen: MainDrawer },
         Profile: { screen: ProfileRoutes },
         Rewards: { screen: RewardsRoutes },

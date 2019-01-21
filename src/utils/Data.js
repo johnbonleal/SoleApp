@@ -13,10 +13,10 @@ export const MerchantImageData = [
 ];
 
 export const ContactUsData = [
-    { title: "General Inquiry", value: "(02) 833 3453" }, 
-    { title: "Administration", value: "(+632) 824 4693" }, 
-    { title: "Financial Services", value: "(+632) 917 309 3000" }, 
-    { title: "Corporate Sales", value: "(+632) 777 6242" }, 
+    { title: "General Inquiry", value: "(02) 833 3453" },
+    { title: "Administration", value: "(+632) 824 4693" },
+    { title: "Financial Services", value: "(+632) 917 309 3000" },
+    { title: "Corporate Sales", value: "(+632) 777 6242" },
     { title: "Marketing and Relations", value: "(+632) 777 6134" }
 ];
 
@@ -56,4 +56,11 @@ export const LoginImageData = [
 export const OnBoardingData = [
     { id: 1, src: images.splash_1, type: 'img' },
     { id: 2, src: images.splash_2, type: 'img' },
-]
+];
+
+export const NearbyMerchantsData = [
+    { id: 1, name: 'SM Mall of Asia', address: 'Main Mall SM Central Business Park, SM Mall of Asia, Seaside Blvd, 123, Pasay, 1300 Metro Manila', src: images.beach_1, region: { latitude: 14.53128, longitude: 120.98352 }, distance: '300 m', rating: { ratings: 3 } },
+    { id: 2, name: 'Uptown Mall', address: '36th St, Taguig, 1630 Metro Manila', src: images.beach_2, region: { latitude: 14.556466, longitude: 121.05433 }, distance: '48 m', rating: { ratings: 4 } },
+    { id: 3, name: 'Glorietta', address: 'Ayala Center, 6811 Ayala Ave, Makati, 1226 Metro Manila', src: images.beach_3, region: { latitude: 14.551255, longitude: 121.026215 }, distance: '125 m', rating: { ratings: 5 } },
+    { id: 4, name: 'The Podium', address: '12 ADB Ave, Ortigas Center, Mandaluyong, 1550 Metro Manila', src: images.beach_4, region: { latitude: 14.585315, longitude: 121.0592 }, distance: '485 m', rating: { ratings: 3 } },
+];

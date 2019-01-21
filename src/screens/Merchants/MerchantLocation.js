@@ -37,7 +37,6 @@ const MerchantLocation = ({ region, style }) => (
             </MapView>
         </View>
     </View>
-
 )
 
 export default MerchantLocation;

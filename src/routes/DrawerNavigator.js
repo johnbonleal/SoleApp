@@ -19,21 +19,21 @@ const MainDrawer = createDrawerNavigator(
             screen: HomeRoutes,
             navigationOptions: {
                 drawerLabel: "Home",
-                drawerIcon: ({ tintColor }) => <Image style={{ width: 20, height: 20, resizeMode: 'contain', tintColor }} source={images.card} />
+                drawerIcon: ({ tintColor }) => <Image style={{ width: 20, height: 20, resizeMode: 'contain', tintColor }} source={images.store} />
             }
         },
         MyCard: {
             screen: MyCardScreen,
             navigationOptions: {
                 drawerLabel: "Virtual Card",
-                drawerIcon: ({ tintColor }) => <Image style={{ width: 20, height: 20, resizeMode: 'contain', tintColor }} source={images.card} />
+                drawerIcon: ({ tintColor }) => <Image style={{ width: 20, height: 20, resizeMode: 'contain', tintColor }} source={images.card_dark} />
             }
         },
         VRewards: {
             screen: VRewardsScreen,
             navigationOptions: {
                 drawerLabel: "Venteny Rewards",
-                drawerIcon: ({ tintColor }) => <Image style={{ width: 20, height: 20, resizeMode: 'contain', tintColor }} source={images.rewards} />
+                drawerIcon: ({ tintColor }) => <Image style={{ width: 20, height: 20, resizeMode: 'contain', tintColor }} source={images.rewards_dark} />
             }
         },
         History: {

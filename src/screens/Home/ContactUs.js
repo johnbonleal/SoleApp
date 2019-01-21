@@ -30,6 +30,7 @@ class ContactUs extends Component {
     }
     render() {
         const { current } = this.state;
+        const { isAuthenticated } = this.props.navigation.state.params;
         return (
             <View style={{ flex: 1 }}>
                 <ScrollView
@@ -40,9 +41,11 @@ class ContactUs extends Component {
                     <Header
                         headerTitle={"Contact Us"}
                         headerLeft={images.back}
+                        headerLeftImageStyle={!isAuthenticated && { tintColor: '#F9960F' }}
                         headerStyle={{ position: 'relative' }}
+                        headerTitleStyle={!isAuthenticated && {color: '#F9960F'}}
                         onPressHeaderLeft={this._onPressBack}
-                        withBackground
+                        withBackground={isAuthenticated}
                     />
                     <View style={{ flex: 1, backgroundColor: '#FFFFFF', paddingHorizontal: 16 }}>
                         {(() => {

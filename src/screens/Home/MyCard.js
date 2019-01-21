@@ -8,7 +8,7 @@ import { images, fonts } from '../../resources';
 const { width, height } = Dimensions.get('window');
 class MyCard extends Component {
     _onPressContact = () => {
-        NavigationService.navigate('ContactUs');
+        NavigationService.navigate('ContactUs', { isAuthenticated: true });
     }
     _onPressTerms = () => {
 

@@ -174,6 +174,15 @@ class Merchants extends Component {
                             <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
                                 <RectangleList
                                     data={sampleData}
+                                    title={"Merchants Nearby"}
+                                    isCollapsible
+                                    onPressItem={this._onPressItem}
+                                    onPressAll={()=>NavigationService.navigate('MerchantNearby')}
+                                />
+                            </View>
+                            <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
+                                <RectangleList
+                                    data={sampleData}
                                     title={"All Deals"}
                                     isCollapsible
                                     onPressItem={this._onPressItem}

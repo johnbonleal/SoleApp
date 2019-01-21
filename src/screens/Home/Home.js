@@ -122,8 +122,6 @@ class Home extends Component {
                         data={sampleData}
                         title={"New Merchants"}
                         isCollapsible
-                        onPressItem={this._onPressItem}
-                        onPressAll={this._onPressAllItems}
                     />
                     <SquareList
                         data={sampleData}

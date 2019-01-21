@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Animated, TextInput, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
-import { FormField, Button } from '../../components/Login/';
+import { FormField, Button, Footer } from '../../components/Login';
 import { NavigationService } from '../../configs/NavigationService';
 import { LoginImageData } from '../../utils/Data';
 import { images } from '../../resources';
@@ -21,16 +21,18 @@ class Login extends Component {
                     <View style={{ height: height / 9, width: width * 0.7 }}>
                         <Image style={styles.image} source={images.venteny_logo} resizeMode={'contain'} />
                     </View>
-                    <View style={{ width: '100%' }}>
+                    <View style={{width: '100%'}}>
                         <FormField icon={images.login_username} placeholder={"Membership ID Number"} />
                         <FormField icon={images.login_password} placeholder={"Password"} />
-                        <Button onPress={() => NavigationService.navigate('AppDrawer')} />
+                        {/* <Button text={"Log In"}  /> */}
+                        <Button
+                            style={{ backgroundColor: '#F3721C', marginVertical: 12 }}
+                            text={"Log In"}
+                            onPress={() => NavigationService.navigate('AppDrawer')}
+                        />
                     </View>
                 </View>
-                <View style={styles.footer}>
-                    <Text style={styles.footerTitle}>NOT READY TO SIGN UP?</Text>
-                    <Text style={styles.footerDescription}>EXPLORE NOW</Text>
-                </View>
+                <Footer />
             </View >
         )
     }
@@ -49,22 +51,5 @@ const styles = StyleSheet.create({
         height: null,
         width: null
     },
-    footer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 32
-    },
-    footerTitle: {
-        fontSize: 12,
-        color: '#FFDA9E',
-        marginRight: 16
-    },
-    footerDescription: {
-        fontSize: 12,
-        color: '#FFFFFF',
-        fontWeight: 'bold'
-    }
+
 });
