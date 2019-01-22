@@ -21,6 +21,7 @@ const images = {
     earn_points: require('../assets/images/earn_points.png'),
     email: require('../assets/images/email.png'),
     form: require('../assets/images/form.png'),
+    forward: require('../assets/images/right_arrow.png'),
     gps: require('../assets/images/gps.png'),
     gradient_1: require('../assets/images/gradient_1.png'),
     gradient_2: require('../assets/images/gradient_2.png'),

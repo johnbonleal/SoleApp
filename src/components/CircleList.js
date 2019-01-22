@@ -5,7 +5,7 @@ import CircleListItem from './CircleListItem';
 import { fonts } from '../resources';
 
 const CircleList = ({title, onPressItem, isCollapsible, data, listStyle, titleStyle, style}) => (
-    <View style={style} >
+    <View style={[{flex: 1}, style]} >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 16 }}>
             {title && <Text style={[{ fontSize: fonts.MEDIUM }, titleStyle]}>{title}</Text>}
             {isCollapsible && <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }} onPress={onPressItem} >

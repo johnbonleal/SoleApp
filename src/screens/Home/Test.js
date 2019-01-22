@@ -55,7 +55,7 @@ class MerchantNearby extends Component {
         ).start();
     }
     _onItemChange = index => {
-        this.setState({ currentIndex: index });
+        this.setState({ currentIndex: index, animateToUser: false });
     }
     _renderItem = ({ item, index }) => {
         return (
@@ -94,45 +94,43 @@ class MerchantNearby extends Component {
         );
     }
     render() {
-        const { bounceValue, currentIndex, scrollX } = this.state;
+        const { bounceValue, currentIndex, scrollX, animateToUser } = this.state;
         return (
             <View style={[styles.container, { ...StyleSheet.absoluteFillObject }]}>
-                <MapBox data={NearbyMerchantsData} currentIndex={currentIndex} scrollX={scrollX} />
-                <View style={[styles.container, { justifyContent: 'flex-end' }]}>
-                    <View style={styles.closeButtonContainer}>
-                        <TouchableOpacity style={styles.closeButton} onPress={() => NavigationService.back()}>
-                            <View style={styles.closeButtonIcon}>
-                                <Image style={styles.image} source={images.close} resizeMode={"contain"} />
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <TouchableOpacity style={styles.gpsButton}>
-                        <View style={styles.gpsIcon}>
-                            <Image style={styles.image} source={images.gps} />
+                <MapBox data={NearbyMerchantsData} currentIndex={currentIndex} scrollX={scrollX} animateToUser={animateToUser} />
+                <View style={styles.closeButtonContainer}>
+                    <TouchableOpacity style={styles.closeButton} onPress={() => NavigationService.back()}>
+                        <View style={styles.closeButtonIcon}>
+                            <Image style={styles.image} source={images.close} resizeMode={"contain"} />
                         </View>
                     </TouchableOpacity>
-                    <Animated.View style={{ height: CAROUSEL_HEIGHT, transform: [{ translateY: bounceValue }] }}>
-                        <Carousel
-                            ref={(c) => { this._carousel = c; }}
-                            data={NearbyMerchantsData}
-                            renderItem={this._renderItem}
-                            sliderWidth={SLIDER_WIDTH}
-                            itemWidth={ITEM_WIDTH}
-                            onSnapToItem={this._onItemChange}
-                            onScroll={Animated.event(
-                                [
-                                    {
-                                        nativeEvent: {
-                                            contentOffset: {
-                                                x: this.state.scrollX,
-                                            },
+                </View>
+                <TouchableOpacity style={styles.gpsButton} onPress={()=>this.setState({animateToUser: true})}>
+                    <View style={styles.gpsIcon}>
+                        <Image style={styles.image} source={images.gps} />
+                    </View>
+                </TouchableOpacity>
+                <Animated.View style={[{ height: CAROUSEL_HEIGHT, position: 'absolute', left: 0, right: 0, bottom: 0 }, { transform: [{ translateY: bounceValue }] }]}>
+                    <Carousel
+                        ref={(c) => { this._carousel = c; }}
+                        data={NearbyMerchantsData}
+                        renderItem={this._renderItem}
+                        sliderWidth={SLIDER_WIDTH}
+                        itemWidth={ITEM_WIDTH}
+                        onSnapToItem={this._onItemChange}
+                        onScroll={Animated.event(
+                            [
+                                {
+                                    nativeEvent: {
+                                        contentOffset: {
+                                            x: this.state.scrollX,
                                         },
                                     },
-                                ]
-                            )}
-                        />
-                    </Animated.View>
-                </View>
+                                },
+                            ]
+                        )}
+                    />
+                </Animated.View>
             </View>
         );
     }
@@ -210,13 +208,20 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255,255,255,0.7)'
     },
     gpsButton: {
-        alignSelf: 'flex-end',
+        position: 'absolute',
         backgroundColor: '#FFFFFF',
         elevation: 2,
         borderRadius: 8,
         padding: 8,
-        marginBottom: MARGIN_BOUNDS,
-        marginRight: MARGIN_BOUNDS
+        bottom: CAROUSEL_HEIGHT + MARGIN_BOUNDS,
+        right: MARGIN_BOUNDS,
+        shadowOffset: { 
+            width: 0, 
+            height: 1 
+        }, 
+        shadowRadius: 2, 
+        shadowColor: 'black', 
+        shadowOpacity: 0.5
     },
     gpsIcon: {
         height: 24,
@@ -225,7 +230,14 @@ const styles = StyleSheet.create({
     closeButtonContainer: {
         position: 'absolute',
         right: MARGIN_BOUNDS,
-        top: MARGIN_BOUNDS
+        top: MARGIN_BOUNDS,
+        shadowOffset: { 
+            width: 0, 
+            height: 1 
+        }, 
+        shadowRadius: 2, 
+        shadowColor: 'black', 
+        shadowOpacity: 0.5
     },
     closeButton: {
         height: 36,

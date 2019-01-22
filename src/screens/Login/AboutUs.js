@@ -18,7 +18,7 @@ class AboutUs extends Component {
                     headerLeft={images.back}
                 />
                 <View style={{ ...StyleSheet.absoluteFill }}>
-                    <Image style={styles.image} source={images.splash_3} resizeMode={"contain"} />
+                    <Image style={styles.image} source={images.splash_3} resizeMode={"cover"} />
                 </View>
                 <View style={{flex: 1}} />
                 <View style={{flex: 2}}>

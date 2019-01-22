@@ -126,7 +126,7 @@ class Merchants extends Component {
                     translucent
                 />
                 {this.renderHeaderView()}
-                <ScrollView
+                <Animated.ScrollView
                     ref={component => { this.scrollView = component }}
                     contentContainerStyle={{ flexGrow: 1 }}
                     scrollEventThrottle={16}
@@ -138,68 +138,60 @@ class Merchants extends Component {
                         this.renderSearch()
                         :
                         <View>
-                            <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
-                                <RectangleList
-                                    data={sampleData}
-                                    title={"Top Categories"}
-                                    onPressItem={this._onPressItem}
-                                    onPressAll={this._onPressAllItems}
-                                />
-                            </View>
-                            <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
-                                <RectangleList
-                                    data={sampleData}
-                                    title={"Top Deals"}
-                                    isCollapsible
-                                    onPressItem={this._onPressItem}
-                                    onPressAll={this._onPressAllItems}
-                                />
-                            </View>
-                            <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
-                                <SquareList
-                                    data={sampleData}
-                                    title={"Recommended Deals"}
-                                    onPressCategoryItem={this._onPressCategoryItem}
-                                />
-                            </View>
-                            <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
-                                <RectangleList
-                                    data={sampleData}
-                                    title={"New Deals"}
-                                    isCollapsible
-                                    onPressItem={this._onPressItem}
-                                    onPressAll={this._onPressAllItems}
-                                />
-                            </View>
-                            <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
-                                <RectangleList
-                                    data={sampleData}
-                                    title={"Merchants Nearby"}
-                                    isCollapsible
-                                    onPressItem={this._onPressItem}
-                                    onPressAll={()=>NavigationService.navigate('MerchantNearby')}
-                                />
-                            </View>
-                            <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
-                                <RectangleList
-                                    data={sampleData}
-                                    title={"All Deals"}
-                                    isCollapsible
-                                    onPressItem={this._onPressItem}
-                                    onPressAll={this._onPressAllItems}
-                                />
-                            </View>
-                            <View style={{ backgroundColor: '#FFFFFF', marginTop: 16 }}>
-                                <CircleList
-                                    style={{ marginVertical: 16 }}
-                                    listStyle={{ marginLeft: 8, marginTop: 8 }}
-                                    data={sampleData}
-                                    title={"Merchant Partners"}
-                                    onPressItem={this._onPressMerchantItem}
-                                />
-                            </View>
+                            <RectangleList
+                                data={sampleData}
+                                title={"Top Categories"}
+                                onPressItem={this._onPressItem}
+                                onPressAll={this._onPressAllItems}
+                                style={{ backgroundColor: '#FFFFFF', marginVertical: 6, paddingVertical: 16 }}
+                            />
+                            <RectangleList
+                                data={sampleData}
+                                title={"Top Deals"}
+                                isCollapsible
+                                onPressItem={this._onPressItem}
+                                onPressAll={this._onPressAllItems}
+                                style={{ backgroundColor: '#FFFFFF', marginVertical: 6, paddingVertical: 16 }}
+                            />
+                            <SquareList
+                                data={sampleData}
+                                title={"Recommended Deals"}
+                                onPressCategoryItem={this._onPressCategoryItem}
+                                style={{ backgroundColor: '#FFFFFF', marginVertical: 4, paddingVertical: 16 }}
+                            />
+                            <RectangleList
+                                data={sampleData}
+                                title={"New Deals"}
+                                isCollapsible
+                                onPressItem={this._onPressItem}
+                                onPressAll={this._onPressAllItems}
+                                style={{ backgroundColor: '#FFFFFF', marginVertical: 6, paddingVertical: 16 }}
+                            />
+                            <RectangleList
+                                data={sampleData}
+                                title={"Merchants Nearby"}
+                                isCollapsible
+                                onPressItem={this._onPressItem}
+                                onPressAll={() => NavigationService.navigate('MerchantNearby')}
+                                style={{ backgroundColor: '#FFFFFF', marginVertical: 6, paddingVertical: 16 }}
+                            />
+                            <RectangleList
+                                data={sampleData}
+                                title={"All Deals"}
+                                isCollapsible
+                                onPressItem={this._onPressItem}
+                                onPressAll={this._onPressAllItems}
+                                style={{ backgroundColor: '#FFFFFF', marginVertical: 4, paddingVertical: 16 }}
+                            />
+                            <CircleList
+                                listStyle={{ marginLeft: 8, marginTop: 8 }}
+                                data={sampleData}
+                                title={"Merchant Partners"}
+                                onPressItem={this._onPressMerchantItem}
+                                style={{ backgroundColor: '#FFFFFF', marginVertical: 4, paddingVertical: 16 }}
+                            />
                         </View>}
-                </ScrollView>
+                </Animated.ScrollView>
                 <CategoryModal
                     isVisible={isCategoryModalVisible}
                     onPressItem={this._onPressCategoryItem}

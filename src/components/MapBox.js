@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { View, Dimensions, StyleSheet, Image, Animated } from 'react-native';
+import { View, Dimensions, StyleSheet, Image, Text, Animated } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker, Circle } from 'react-native-maps';
 import { images } from '../resources';
-import styles from '../styles/CameraStyle';
 
 const { width, height } = Dimensions.get('window');
 
@@ -67,6 +66,9 @@ class MapBox extends Component {
                 };
                 this._animateToRegion(region);
             }
+            if (nextProps.animateToUser) {
+                this._animateToRegion(this.state.region);
+            }
         }
     }
     componentWillUnmount() {
@@ -87,22 +89,25 @@ class MapBox extends Component {
             const inputRange = [
                 (index - 1) * ITEM_WIDTH,
                 index * ITEM_WIDTH,
-                ((index + 1) * ITEM_WIDTH),
+                (index + 1) * ITEM_WIDTH,
             ];
-            const scale = scrollX.interpolate({
+            const height = scrollX.interpolate({
                 inputRange,
-                outputRange: [1, 2.5, 1],
+                outputRange: [24, 50, 24],
                 extrapolate: "clamp",
             });
             const opacity = scrollX.interpolate({
                 inputRange,
-                outputRange: [0.7, 1, 0.7],
+                outputRange: [0.8, 1, 0.8],
                 extrapolate: "clamp",
             });
-            return { scale, opacity };
+            return { height, opacity };
         });
+        _onRegionChange = region => {
+
+        }
         return (
-            <View style={{ ...StyleSheet.absoluteFillObject, flex: 1 }}>
+            <View style={{ ...StyleSheet.absoluteFill, flex: 1, alignItems: 'center' }}>
                 <MapView
                     ref={(mapView) => { this.mapView = mapView; }}
                     style={{ ...StyleSheet.absoluteFillObject }}
@@ -111,35 +116,39 @@ class MapBox extends Component {
                     showUserLocation
                     followUserLocation
                     loadingEnabled
-                    onRegionChange={() => null}
+                    onRegionChange={this._onRegionChange}
                 >
                     <Marker
                         coordinate={region}
                         title='You are here!'
-                        image={images.current_location}
-                    />
-                    {this.props.data && this.props.data.length > 0 && this.props.data.map((item, index) => {
-                        const scaleStyle = {
-                            transform: [
-                                {
-                                    scale: interpolations[index].scale,
-                                },
-                            ],
-                        };
-                        const opacityStyle = {
-                            opacity: interpolations[index].opacity,
-                        };
-                        return (
-                            <Marker
-                                ref={(marker) => { this.marker = marker; }}
-                                key={item.id}
-                                coordinate={item.region}>
-                                <Animated.View style={[{ height: 25, width: 25 }, opacityStyle, scaleStyle]}>
-                                    <Image style={{ flex: 1, height: null, width: null }} source={images.location_active} resizeMode={"contain"} />
-                                </Animated.View>
-                            </Marker>
-                        )
-                    })}
+                    >
+                        <View style={{ height: 29, width: 29 }}>
+                            <Image style={{ flex: 1, height: null, width: null }} source={images.current_location} />
+                        </View>
+                    </Marker>
+                    {this.props.data &&
+                        this.props.data.length > 0 &&
+                        this.props.data.map((item, index) => {
+                            const dimensStyle = {
+                                height: interpolations[index].height,
+                                width: interpolations[index].height,
+                            };
+                            const opacityStyle = {
+                                opacity: interpolations[index].opacity,
+                            };
+                            return (
+                                <Marker.Animated
+                                    ref={(marker) => { this.marker = marker; }}
+                                    key={item.id}
+                                    coordinate={data[index].region}
+                                >
+                                    <Animated.View style={[dimensStyle, opacityStyle]}>
+                                        <Image style={{ flex: 1, height: null, width: null }} source={images.location_active} resizeMode={"contain"} />
+                                    </Animated.View>
+                                </Marker.Animated>
+
+                            )
+                        })}
                 </MapView>
             </View>
         )
@@ -147,3 +156,25 @@ class MapBox extends Component {
 }
 
 export default MapBox;
+
+const styles = StyleSheet.create({
+    markerWrap: {
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    marker: {
+        width: 8,
+        height: 8,
+        borderRadius: 4,
+        backgroundColor: "rgba(130,4,150, 0.9)",
+    },
+    ring: {
+        width: 24,
+        height: 24,
+        borderRadius: 12,
+        backgroundColor: "rgba(130,4,150, 0.3)",
+        position: "absolute",
+        borderWidth: 1,
+        borderColor: "rgba(130,4,150, 0.5)",
+    },
+});

@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
     },
     backgroundImage: {
         height: TOP_CONTAINER_MAX_HEIGHT,
-        ...StyleSheet.absoluteFill
+        ...StyleSheet.absoluteFill,
+        backgroundColor: '#F2F2F2'
     },
     greetings: {
         fontSize: 30, 

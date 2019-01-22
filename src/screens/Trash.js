@@ -49,10 +49,10 @@ const Indicator = ({ animate, indicatorAnim, width, currentIndex, i, setWidthFro
                 extrapolate: 'clamp'
             })
         };
-        } else if (currentIndex > i) { // seen
-            style = { flex: 1 };
-        } else if (currentIndex <= i) { // coming
-            style = { width: 0 };
+    } else if (currentIndex > i) { // seen
+        style = { flex: 1 };
+    } else if (currentIndex <= i) { // coming
+        style = { width: 0 };
     }
     return (
         <View style={styles.line} onLayout={setWidthFromLayout}>
@@ -125,36 +125,48 @@ export default class Trash extends Component {
     render() {
         const { currentIndex } = this.state;
         return (
-            <View style={{ flex: 1 }}>
-                <TouchableWithoutFeedback style={{ flex: 1, backgroundColor: 'red' }} onPress={this._increment}>
-                    <Image style={{ flex: 1, height: null, width: null }} source={data[0].items[currentIndex].src} />
-                </TouchableWithoutFeedback>
-                {this.renderIndicators()}
+            <View style={{ ...StyleSheet.absoluteFillObject, flex: 1 }}>
+                <MapView
+                    ref={(mapView) => { this.mapView = mapView; }}
+                    style={{ ...StyleSheet.absoluteFillObject }}
+                    provider={PROVIDER_GOOGLE}
+                    initialRegion={region}
+                    showUserLocation
+                    followUserLocation
+                    loadingEnabled
+                    onRegionChange={() => null}
+                >
+                    <Marker
+                        coordinate={region}
+                        title='You are here!'
+                        image={images.current_location}
+                    />
+                </MapView>
             </View>
-        )
-    }
-}
-
+                )
+            }
+        }
+        
 const styles = StyleSheet.create({
-    indicatorWrap: {
-        position: 'absolute',
-        left: 0, right: 0, bottom: 0
-    },
+                    indicatorWrap: {
+                    position: 'absolute',
+                left: 0, right: 0, bottom: 0
+            },
     indicators: {
-        height: 30,
-        alignItems: 'center',
-        paddingHorizontal: 8,
-        flexDirection: 'row',
-    },
-    // Indicator
+                    height: 30,
+                alignItems: 'center',
+                paddingHorizontal: 8,
+                flexDirection: 'row',
+            },
+            // Indicator
     line: {
-        flex: 1,
-        backgroundColor: 'rgba(255,255,255,0.4)',
-        marginHorizontal: 1,
-        height: 2,
-    },
+                    flex: 1,
+                backgroundColor: 'rgba(255,255,255,0.4)',
+                marginHorizontal: 1,
+                height: 2,
+            },
     progress: {
-        backgroundColor: 'rgba(255,255,255,0.4)',
-        height: 2,
-    },
+                    backgroundColor: 'rgba(255,255,255,0.4)',
+                height: 2,
+            },
 })

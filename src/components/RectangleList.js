@@ -1,16 +1,15 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, StyleSheet, Image } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RectangleListItem from './RectangleListItem';
-import { fonts } from '../resources';
+import { fonts, images } from '../resources';
 
-const RectangleList = ({title, isCollapsible, onPressAll, onPressItem, data, withIcon}) => (
-    <View style={styles.container} >
+const RectangleList = ({title, isCollapsible, onPressAll, onPressItem, data, withIcon, style}) => (
+    <View style={[styles.container, style]} >
         <View style={styles.header}>
-            {title && <Text style={{ fontSize: fonts.MEDIUM }}>{title}</Text>}
+            {title && <Text style={styles.title}>{title}</Text>}
             {isCollapsible && <TouchableOpacity style={styles.headerRightContainer} onPress={onPressAll} >
-                <Text style={styles.headerRightText}>SEE ALL</Text>
-                <Ionicons name={"ios-arrow-forward"} size={12} color={"#D8D8D8"} />
+                <Image style={styles.image} source={images.forward} />
             </TouchableOpacity>}
         </View>
         <FlatList
@@ -31,20 +30,23 @@ const styles = StyleSheet.create({
         height: 240, 
         marginVertical: 16
     },
+    title: { 
+        fontSize: fonts.MEDIUM, 
+        marginRight: 5 
+    },
     header: {
         flexDirection: 'row', 
-        justifyContent: 'space-between', 
+        alignItems: 'center',
         paddingHorizontal: 16
     },
     headerRightContainer: {
-        flexDirection: 'row', 
-        justifyContent: 'space-evenly', 
-        alignItems: 'center'
+        height: 12,
+        width: 12,
+        tintColor: '#9B9B9B'
     },
-    headerRightText: {
-        color: '#000000', 
-        fontSize: fonts.EXTRA_SMALL, 
-        color: 'gray', 
-        marginRight: 8
+    image: {
+        flex: 1, 
+        height: null, 
+        width: null
     }
 });

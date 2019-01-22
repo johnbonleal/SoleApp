@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     },
     thumbnailContainer: {
         flex: 4, 
+        backgroundColor: '#F2F2F2',
         marginHorizontal: 8, 
         marginVertical: 8, 
         borderRadius: 8, 

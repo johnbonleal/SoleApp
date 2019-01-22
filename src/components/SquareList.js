@@ -3,8 +3,8 @@ import { View, Text, FlatList } from 'react-native';
 import { fonts } from '../resources';
 import SquareListItem from './SquareListItem';
 
-const SquareList = ({title, data, onPress}) => (
-    <View style={{ flexGrow: 1, marginVertical: 16 }} >
+const SquareList = ({title, data, onPress, style}) => (
+    <View style={[{ flexGrow: 1, marginVertical: 16 }, style]} >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 16 }}>
             <Text style={{ fontSize: fonts.MEDIUM }}>{title}</Text>
         </View>

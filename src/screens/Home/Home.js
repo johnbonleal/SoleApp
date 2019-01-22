@@ -52,7 +52,7 @@ class Home extends Component {
         )
     }
     renderBackgroundImage() {
-        const { scrollY } = this.state
+        const { scrollY } = this.state;
         return (
             <Animated.View
                 style={[styles.backgroundImage, {
