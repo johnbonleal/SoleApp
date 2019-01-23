@@ -35,5 +35,5 @@ export {
     ImageSlideshow,
     FixedButton,
     Logo,
-    MapBox 
+    MapBox
 };

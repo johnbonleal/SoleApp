@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Modal, View, ScrollView, StatusBar } from 'react-native';
 import Header from './Header';
 import TabularList from './TabularList';
 import { CategoryData } from '../utils/Data';
 import { images } from '../resources';
-class CategoryModal extends Component {
+class CategoryModal extends PureComponent {
     _onPressItem = item => {
         this.props.onPressItem(item);
         this.props.onPressModalClose();

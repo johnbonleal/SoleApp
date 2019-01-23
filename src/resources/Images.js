@@ -47,6 +47,7 @@ const images = {
     mobile: require('../assets/images/mobile.png'),
     notification: require('../assets/images/notification.png'),
     password: require('../assets/images/password.png'),
+    password_logo: require('../assets/images/password_logo.png'),
     percentage: require('../assets/images/percentage.png'),
     phone: require('../assets/images/phone.png'),
     prepaid_card: require('../assets/images/prepaid_card.png'),
@@ -101,6 +102,13 @@ const images = {
     services_dark: require('../assets/images/Services_hover-21.png'),
     things_to_do_dark: require('../assets/images/Things-to-do_hover_-15.png'),
     travel_dark: require('../assets/images/Travel_hover_-14.png'),
+
+    // recommended deals
+    recommended_1: require('../assets/images/recommended_1.png'),
+    recommended_2: require('../assets/images/recommended_2.png'),
+    recommended_3: require('../assets/images/recommended_3.png'),
+    recommended_4: require('../assets/images/recommended_4.png'),
+    recommended_5: require('../assets/images/recommended_5.png'),
 };
 
 export {images};

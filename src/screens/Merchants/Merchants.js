@@ -10,7 +10,6 @@ const { width, height } = Dimensions.get('window');
 
 const HEADER_MAX_HEIGHT = height / 3.7;
 const HEADER_MIN_HEIGHT = height / 7.5;
-const APP_HEADER_HEIGHT = 56;
 
 const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
 class Merchants extends Component {

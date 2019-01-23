@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
     StyleSheet,
     View,
@@ -16,7 +16,7 @@ type Props = {
     }
 };
 
-export default class StarRating extends Component<Props> {
+class StarRating extends PureComponent<Props> {
     render() {
         const { style, ratingObj } = this.props;
         let ratingObject = ratingObj;
@@ -37,6 +37,8 @@ export default class StarRating extends Component<Props> {
         );
     }
 }
+
+export default StarRating;
 
 const styles = StyleSheet.create({
     container: {

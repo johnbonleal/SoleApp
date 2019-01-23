@@ -18,8 +18,9 @@ const styles = StyleSheet.create({
         fontSize: 30, 
         fontWeight: 'bold', 
         color: '#FFFFFF', 
-        marginLeft: 16, 
-        marginTop: TOP_CONTAINER_MAX_HEIGHT / 3
+        left: 16, 
+        position: 'absolute',
+        top: TOP_CONTAINER_MAX_HEIGHT / 3
     },
     dashboardContainer: {
         backgroundColor: 'transparent',

@@ -1,33 +1,6 @@
 import React, { Component } from 'react';
 import { Animated, View, Image, StyleSheet, PanResponder } from 'react-native';
 
-// export const Carousel = (function() {
-//     var anim = new Animated.Value(0);
-//     var currentIndex = 0;
-//     const data = LoginImageData;
-
-//     function autoPlay(reset = true) {
-//         if (reset) anim.setValue(0);
-
-//         requestAnimationFrame(() => {
-//             Animated.timing(anim, {
-//                 toValue: 1,
-//                 duration: 5000 * (1 - anim._value),
-//             }).start(({ finished }) => {
-//                 if (finished) onNextItem();
-//             });
-//         });
-//     }
-//     function onNextItem() {
-//         autoPlay();
-//         currentIndex = currentIndex < data.length - 1 ? currentIndex + 1 : 0;
-//     }
-//     return {
-//         autoPlay,
-//         currentIndex
-//     };
-// })();
-
 class Carousel extends Component {
     constructor(props) {
         super(props);

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Modal, View, ScrollView, ImageBackground, StatusBar } from 'react-native';
 import Header from './Header';
 import TabularList from './TabularList';
@@ -6,7 +6,7 @@ import { LocationData } from '../utils/Data';
 
 import { images } from '../resources';
 
-class LocationModal extends Component {
+class LocationModal extends PureComponent {
     _onPressItem = item => {
         this.props.onPressItem(item);
         this.props.onPressModalClose();

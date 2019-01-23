@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Animated, StyleSheet, Alert } from 'react-native';
-class Indicator extends Component {
+
+class Indicator extends PureComponent {
     constructor(props) {
         super(props);
 

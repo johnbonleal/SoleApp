@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Dimensions, StyleSheet, Image, Text, Animated } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker, Circle } from 'react-native-maps';
 import { images } from '../resources';
@@ -12,7 +12,7 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const ITEM_WIDTH = width * 0.85;
 
-class MapBox extends Component {
+class MapBox extends PureComponent {
     constructor(props) {
         super(props);
 

@@ -4,6 +4,7 @@ import { View, Text, ScrollView, TouchableOpacity, Animated, StyleSheet, StatusB
 import { Header, ImageLoader, RectangleList, SquareList, CircleList } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
 import { images } from '../../resources';
+import { RecommendedDealsData } from '../../utils/Data';
 import Dashboard from './Dashboard';
 import styles from '../../styles/HomeStyle';
 
@@ -54,25 +55,10 @@ class Home extends Component {
     renderBackgroundImage() {
         const { scrollY } = this.state;
         return (
-            <Animated.View
-                style={[styles.backgroundImage, {
-                    transform: [{
-                        translateY: scrollY.interpolate({
-                            inputRange: [-TOP_CONTAINER_MAX_HEIGHT, 0, TOP_CONTAINER_MAX_HEIGHT],
-                            outputRange: [TOP_CONTAINER_MAX_HEIGHT / 3, 0, -TOP_CONTAINER_MAX_HEIGHT]
-                        })
-                    }, {
-                        scale: scrollY.interpolate({
-                            inputRange: [-TOP_CONTAINER_MAX_HEIGHT, 0, TOP_CONTAINER_MAX_HEIGHT],
-                            outputRange: [2, 1, 1]
-                        })
-                    }]
-                }
-                ]}>
+            <Animated.View style={styles.backgroundImage}>
                 <View style={{ ...StyleSheet.absoluteFill }}>
                     <ImageLoader style={{ flex: 1, height: null, width: null }} thumbnailSource={images.header_bg} source={images.header_bg} />
                 </View>
-                <Text style={styles.greetings}>Hi, John</Text>
             </Animated.View>
         );
     }
@@ -85,7 +71,6 @@ class Home extends Component {
                     translucent
                 />
                 {this.renderHeader()}
-                {this.renderBackgroundImage()}
                 <ScrollView
                     ref={component => { this.scrollView = component }}
                     contentContainerStyle={{ flexGrow: 1 }}
@@ -95,6 +80,8 @@ class Home extends Component {
                     scrollEventThrottle={16}
                     showsVerticalScrollIndicator={false}
                 >
+                    {this.renderBackgroundImage()}
+                    <Text style={styles.greetings}>Hi, John</Text>
                     <View style={styles.dashboardContainer}>
                         <Dashboard />
                     </View>
@@ -124,7 +111,7 @@ class Home extends Component {
                         isCollapsible
                     />
                     <SquareList
-                        data={sampleData}
+                        data={RecommendedDealsData}
                         title={"Recommended Deals"}
                         onPressCategoryItem={this._onPressCategoryItem}
                     />

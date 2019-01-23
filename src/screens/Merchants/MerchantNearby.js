@@ -102,7 +102,7 @@ class MerchantNearby extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.gpsButton} onPress={()=>this.setState({animateToUser: true})}>
+                <TouchableOpacity style={styles.gpsButton} onPress={() => this.setState({ animateToUser: true })}>
                     <View style={styles.gpsIcon}>
                         <Image style={styles.image} source={images.gps} />
                     </View>
@@ -212,12 +212,9 @@ const styles = StyleSheet.create({
         padding: 8,
         bottom: CAROUSEL_HEIGHT + MARGIN_BOUNDS,
         right: MARGIN_BOUNDS,
-        shadowOffset: { 
-            width: 0, 
-            height: 1 
-        }, 
-        shadowRadius: 2, 
-        shadowColor: 'black', 
+        shadowOffset: { width: 0, height: 1 },
+        shadowRadius: 1,
+        shadowColor: 'black',
         shadowOpacity: 0.5
     },
     gpsIcon: {
@@ -228,12 +225,12 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: MARGIN_BOUNDS,
         top: MARGIN_BOUNDS,
-        shadowOffset: { 
-            width: 0, 
-            height: 1 
-        }, 
-        shadowRadius: 2, 
-        shadowColor: 'black', 
+        shadowOffset: {
+            width: 0,
+            height: 1
+        },
+        shadowRadius: 2,
+        shadowColor: 'black',
         shadowOpacity: 0.5
     },
     closeButton: {

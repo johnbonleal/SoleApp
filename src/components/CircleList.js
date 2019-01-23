@@ -1,27 +1,59 @@
-import React from 'react';
-import { Dimensions, View, Text, TouchableOpacity, FlatList } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import React, { PureComponent } from 'react';
+import { StyleSheet, View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
 import CircleListItem from './CircleListItem';
-import { fonts } from '../resources';
+import { fonts, images } from '../resources';
 
-const CircleList = ({title, onPressItem, isCollapsible, data, listStyle, titleStyle, style}) => (
-    <View style={[{flex: 1}, style]} >
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 16 }}>
-            {title && <Text style={[{ fontSize: fonts.MEDIUM }, titleStyle]}>{title}</Text>}
-            {isCollapsible && <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }} onPress={onPressItem} >
-                <Text style={{ color: '#000', fontSize: fonts.TINY, color: 'gray', marginRight: 8 }}>SEE ALL</Text>
-                <Ionicons name={"ios-arrow-forward"} size={10} color={"#D8D8D8"} />
-            </TouchableOpacity>}
-        </View>
-        <FlatList
-            style={listStyle}
-            horizontal
-            data={data}
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item, index) => item.id}
-            renderItem={({ item, index }) => <CircleListItem item={item} index={index} onPressItem={onPressItem}/>}
-        />
-    </View>
-);
+class CircleList extends PureComponent {
+    render() {
+        const { title, onPressItem, isCollapsible, data, listStyle, titleStyle, style } = this.props;
+        return (
+            <View style={[styles.container, style]} >
+                <View style={styles.headerRow}>
+                    {title && <Text style={[styles.title, titleStyle]}>{title}</Text>}
+                    {isCollapsible && <TouchableOpacity style={styles.rightArrowContainer} onPress={onPressItem} >
+                        <View style={styles.imageContainer}>
+                            <Image style={styles.image} source={images.forward} />
+                        </View>
+                    </TouchableOpacity>}
+                </View>
+                <FlatList
+                    style={listStyle}
+                    horizontal
+                    data={data}
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={(item, index) => item.id}
+                    renderItem={({ item, index }) => <CircleListItem item={item} index={index} onPressItem={onPressItem} />}
+                />
+            </View>
+        )
+    }
+}
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    headerRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 16
+    },
+    title: {
+        fontSize: fonts.MEDIUM
+    },
+    rightArrowContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center'
+    },
+    imageContainer: {
+        height: 12,
+        width: 12
+    },
+    image: {
+        flex: 1,
+        height: null,
+        width: null
+    }
+});
 
 export default CircleList;

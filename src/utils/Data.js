@@ -1,23 +1,11 @@
 import { images } from '../resources';
 
-export const MerchantImageData = [
-    {
-        id: 1,
-        items: [
-            { id: 1, src: images.beach_1, type: 'img' },
-            { id: 2, src: images.beach_2, type: 'img' },
-            { id: 3, src: images.beach_3, type: 'img' },
-            { id: 4, src: images.beach_4, type: 'img' }
-        ]
-    }
-];
-
-export const ContactUsData = [
-    { title: "General Inquiry", value: "(02) 833 3453" },
-    { title: "Administration", value: "(+632) 824 4693" },
-    { title: "Financial Services", value: "(+632) 917 309 3000" },
-    { title: "Corporate Sales", value: "(+632) 777 6242" },
-    { title: "Marketing and Relations", value: "(+632) 777 6134" }
+export const RecommendedDealsData = [
+    { id: 1, src: images.recommended_1 },
+    { id: 2, src: images.recommended_2 },
+    { id: 3, src: images.recommended_3 },
+    { id: 4, src: images.recommended_4 },
+    { id: 5, src: images.recommended_5 },
 ];
 
 export const CategoryData = [
@@ -33,6 +21,14 @@ export const CategoryData = [
     { id: 10, title: "Services", avatar: images.services_light },
     { id: 11, title: "Things To Do", avatar: images.things_to_do_light },
     { id: 12, title: "Travel", avatar: images.travel_light }
+];
+
+export const ContactUsData = [
+    { title: "General Inquiry", value: "(02) 833 3453" },
+    { title: "Administration", value: "(+632) 824 4693" },
+    { title: "Financial Services", value: "(+632) 917 309 3000" },
+    { title: "Corporate Sales", value: "(+632) 777 6242" },
+    { title: "Marketing and Relations", value: "(+632) 777 6134" }
 ];
 
 export const LocationData = [
@@ -53,9 +49,16 @@ export const LoginImageData = [
     { id: 4, src: images.login_4, type: 'img' }
 ];
 
-export const OnBoardingData = [
-    { id: 1, src: images.splash_1, type: 'img' },
-    { id: 2, src: images.splash_2, type: 'img' },
+export const MerchantImageData = [
+    {
+        id: 1,
+        items: [
+            { id: 1, src: images.beach_1, type: 'img' },
+            { id: 2, src: images.beach_2, type: 'img' },
+            { id: 3, src: images.beach_3, type: 'img' },
+            { id: 4, src: images.beach_4, type: 'img' }
+        ]
+    }
 ];
 
 export const NearbyMerchantsData = [
@@ -64,3 +67,9 @@ export const NearbyMerchantsData = [
     { id: 3, name: 'Glorietta', address: 'Ayala Center, 6811 Ayala Ave, Makati, 1226 Metro Manila', src: images.beach_3, region: { latitude: 14.551255, longitude: 121.026215 }, distance: '125 m', rating: { ratings: 5 } },
     { id: 4, name: 'The Podium', address: '12 ADB Ave, Ortigas Center, Mandaluyong, 1550 Metro Manila', src: images.beach_4, region: { latitude: 14.585315, longitude: 121.0592 }, distance: '485 m', rating: { ratings: 3 } },
 ];
+
+export const OnBoardingData = [
+    { id: 1, src: images.splash_1, type: 'img' },
+    { id: 2, src: images.splash_2, type: 'img' },
+];
+

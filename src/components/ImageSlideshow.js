@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Animated, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import Indicator from './Indicator';
 import StarRating from './StarRating';
@@ -10,7 +10,7 @@ const ratingObj = { ratings: 3 };
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const MERCHANT_BACKGROUND_HEIGHT = SCREEN_HEIGHT * 0.9;
-class ImageSlideshow extends Component {
+class ImageSlideshow extends PureComponent {
     constructor(props) {
         super(props);
 
