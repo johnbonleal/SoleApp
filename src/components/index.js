@@ -16,6 +16,7 @@ import ImageSlideshow from './ImageSlideshow';
 import FixedButton from './FixedButton';
 import Logo from './Logo';
 import MapBox from './MapBox';
+import ErrorBox from './ErrorBox';
 
 export { 
     Header, 
@@ -35,5 +36,6 @@ export {
     ImageSlideshow,
     FixedButton,
     Logo,
-    MapBox
+    MapBox,
+    ErrorBox
 };

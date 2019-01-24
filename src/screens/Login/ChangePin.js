@@ -11,7 +11,8 @@ const FormField = ({ title, onChangeText, value, style }) => (
         </View>
         <TextInput style={{ color: '#4A4A4A', fontSize: fonts.SMALL, borderWidth: 1, borderColor: '#DBDBDB', borderRadius: 8, marginVertical: 3, paddingHorizontal: 12, paddingVertical: 5 }} onChangeText={onChangeText} value={value}></TextInput>
     </View>
-)
+);
+
 class ChangePin extends Component {
     constructor(props) {
         super(props);

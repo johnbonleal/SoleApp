@@ -2,6 +2,8 @@ const images = {
     add: require('../assets/images/add.png'),
     app_icon: require('../assets/images/app_icon.png'),
     back: require('../assets/images/back.png'),
+    banner_correct: require('../assets/images/banner_correct.png'),
+    banner_error: require('../assets/images/banner_error.png'),
     beach_1: require('../assets/images/beach_1.png'),
     beach_2: require('../assets/images/beach_2.png'),
     beach_3: require('../assets/images/beach_3.png'),
