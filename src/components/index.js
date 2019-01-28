@@ -17,6 +17,7 @@ import FixedButton from './FixedButton';
 import Logo from './Logo';
 import MapBox from './MapBox';
 import ErrorBox from './ErrorBox';
+import InputField from './InputField';
 
 export { 
     Header, 
@@ -37,5 +38,6 @@ export {
     FixedButton,
     Logo,
     MapBox,
-    ErrorBox
+    ErrorBox,
+    InputField
 };
