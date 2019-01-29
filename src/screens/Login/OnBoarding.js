@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, StatusBar, TouchableOpacity, Text, Dimensions } from 'react-native';
+import { View, StyleSheet, StatusBar } from 'react-native';
 import { Footer, Button } from '../../components/Login';
 import FirstScreen from './FirstScreen';
 import SecondScreen from './SecondScreen';
 import Swiper from 'react-native-swiper';
-import { NavigationService } from '../../configs/NavigationService';
-
-const { width, height } = Dimensions.get('window');
+import { NavigationService, Constants } from '../../configs';
 
 const Dot = ({style}) => (
     <View style={[{backgroundColor:'rgba(255,255,255,0.7)', width: 10, height: 10,borderRadius: 5, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3}, style]} />
@@ -24,7 +22,7 @@ class OnBoarding extends Component {
                     loop
                     autoplay
                     autoplayTimeout={5}
-                    paginationStyle={{ marginBottom: height / 5 }}
+                    paginationStyle={{ marginBottom: Constants.SCREEN_HEIGHT / 5 }}
                     dot={<Dot style={{backgroundColor: 'rgba(255,255,255,0.7)'}} />}
                     activeDot={<Dot style={{backgroundColor: '#F3721C'}} />}
                 >

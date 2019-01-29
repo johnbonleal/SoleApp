@@ -1,4 +1,10 @@
 const images = {
+    availa_bg: require('../assets/images/availa_bg.png'),
+    availa_calculator: require('../assets/images/availa_calculator.png'),
+    availa_contact: require('../assets/images/availa_contact.png'),
+    availa_home_bg: require('../assets/images/availa_home_bg.png'),
+    availa_loan: require('../assets/images/availa_loan.png'),
+    availa_logo: require('../assets/images/availa_logo.png'),
     add: require('../assets/images/add.png'),
     app_icon: require('../assets/images/app_icon.png'),
     back: require('../assets/images/back.png'),
@@ -76,6 +82,7 @@ const images = {
     scan_qr: require('../assets/images/scan_qr.png'),
     terms: require('../assets/images/agreement.png'),
     trash: require('../assets/images/trash.png'),
+    user: require('../assets/images/user.png'),
     venteny_icon: require('../assets/images/venteny_new.png'),
     venteny_logo: require('../assets/images/venteny_white.png'),
 

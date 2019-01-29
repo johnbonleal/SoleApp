@@ -3,7 +3,7 @@ import { Image } from 'react-native';
 import { createDrawerNavigator, createStackNavigator } from 'react-navigation';
 import SideMenu from './SideMenu';
 
-import HomeRoutes from './HomeRoutes';
+import HomeScreen from '../screens/Home/Home';
 import MyCardScreen from '../screens/Home/MyCard';
 import VRewardsScreen from '../screens/Rewards/VRewards';
 import HistoryScreen from '../screens/History/History';
@@ -13,10 +13,12 @@ import HelpCenterScreen from '../screens/Help Center/HelpCenter';
 
 import { images } from '../resources';
 
+const drawerIcon = ({ tintColor, image }) => <Image style={{ width: 20, height: 20, resizeMode: 'contain', tintColor }} source={image} />
+
 const MainDrawer = createDrawerNavigator(
     {
         Home: {
-            screen: HomeRoutes,
+            screen: HomeScreen,
             navigationOptions: {
                 drawerLabel: "Home",
                 drawerIcon: ({ tintColor }) => <Image style={{ width: 20, height: 20, resizeMode: 'contain', tintColor }} source={images.store} />

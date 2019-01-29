@@ -97,7 +97,10 @@ class Home extends Component {
                                 </View>
                                 <Text style={styles.buttonTitle}>PERKS & DEALS</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.button}>
+                            <TouchableOpacity
+                                style={styles.button}
+                                onPress={() => NavigationService.navigate('Loan')}
+                            >
                                 <View style={styles.imageContainer}>
                                     <ImageLoader style={styles.image} source={images.loan} />
                                 </View>

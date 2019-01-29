@@ -1,18 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, Animated, Dimensions, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Animated, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { StarRating, MapBox } from '../../components';
 import { NearbyMerchantsData } from '../../utils/Data';
-import { NavigationService } from '../../configs';
-
+import { Constants, NavigationService } from '../../configs';
 import { images } from '../../resources';
-
-const { width, height } = Dimensions.get('window');
-
-const SLIDER_WIDTH = width;
-const ITEM_WIDTH = width * 0.85;
-const CAROUSEL_HEIGHT = (height / 3) + 30;
-const MARGIN_BOUNDS = (width - ITEM_WIDTH) / 2;
 
 const ContentIcon = ({ icon }) => (
     <View style={styles.contentIcon}>
@@ -37,7 +29,7 @@ class MerchantNearby extends Component {
             isHidden: !prevState.isHidden
         }));
 
-        var toValue = CAROUSEL_HEIGHT - 25;
+        var toValue = Constants.CAROUSEL_HEIGHT - 25;
         if (isHidden) {
             toValue = 0;
         }
@@ -107,13 +99,13 @@ class MerchantNearby extends Component {
                         <Image style={styles.image} source={images.gps} />
                     </View>
                 </TouchableOpacity>
-                <Animated.View style={[{ height: CAROUSEL_HEIGHT, position: 'absolute', left: 0, right: 0, bottom: 0 }, { transform: [{ translateY: bounceValue }] }]}>
+                <Animated.View style={[{ height: Constants.CAROUSEL_HEIGHT, position: 'absolute', left: 0, right: 0, bottom: 0 }, { transform: [{ translateY: bounceValue }] }]}>
                     <Carousel
                         ref={(c) => { this._carousel = c; }}
                         data={NearbyMerchantsData}
                         renderItem={this._renderItem}
-                        sliderWidth={SLIDER_WIDTH}
-                        itemWidth={ITEM_WIDTH}
+                        sliderWidth={Constants.SLIDER_WIDTH}
+                        itemWidth={Constants.ITEM_WIDTH}
                         onSnapToItem={this._onItemChange}
                         onScroll={Animated.event(
                             [
@@ -192,7 +184,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     drawerContainer: {
-        height: height / 25,
+        height: Constants.SCREEN_HEIGHT / 25,
         position: 'absolute',
         top: 0,
         right: 0,
@@ -210,8 +202,8 @@ const styles = StyleSheet.create({
         elevation: 2,
         borderRadius: 8,
         padding: 8,
-        bottom: CAROUSEL_HEIGHT + MARGIN_BOUNDS,
-        right: MARGIN_BOUNDS,
+        bottom: Constants.CAROUSEL_HEIGHT + Constants.MARGIN_BOUNDS,
+        right: Constants.MARGIN_BOUNDS,
         shadowOffset: { width: 0, height: 1 },
         shadowRadius: 1,
         shadowColor: 'black',
@@ -223,8 +215,8 @@ const styles = StyleSheet.create({
     },
     closeButtonContainer: {
         position: 'absolute',
-        right: MARGIN_BOUNDS,
-        top: MARGIN_BOUNDS,
+        right: Constants.MARGIN_BOUNDS,
+        top: Constants.MARGIN_BOUNDS,
         shadowOffset: {
             width: 0,
             height: 1

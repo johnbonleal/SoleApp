@@ -10,7 +10,21 @@ var _ = require('lodash');
 // TODO: Fix HeaderRight
 class Header extends PureComponent {
     render() {
-        const { headerLeft, onPressHeaderLeft, onPressHeaderRight, headerRight, headerTitle, headerTitleStyle, headerRightStyle, headerRightImageStyle, headerLeftStyle, headerLeftImageStyle, headerStyle, imageStyle, withBackground } = this.props;
+        const { 
+            headerLeft, 
+            onPressHeaderLeft, 
+            onPressHeaderRight, 
+            headerRight, 
+            headerTitle, 
+            headerTitleStyle, 
+            headerRightStyle, 
+            headerRightImageStyle, 
+            headerLeftStyle, 
+            headerLeftImageStyle, 
+            headerStyle, 
+            imageStyle, 
+            withBackground 
+        } = this.props;
         return (
             <Animated.View style={[styles.headerContainer, headerStyle]}>
                 {withBackground && <Animated.View style={[{ ...StyleSheet.absoluteFill }, imageStyle]}>

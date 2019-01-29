@@ -1,29 +1,64 @@
 import { createStackNavigator } from 'react-navigation';
 
-import HomeScreen from '../screens/Home/Home';
-// import MerchantViewScreen from '../screens/Merchants/MerchantView';
-// import MerchantListScreen from '../screens/Home/MerchantList';
-import MerchantRoute from '../routes/MerchantRoutes';
-import TestScreen from '../screens/Home/Test';
+import OnBoardingScreen from '../screens/Login/OnBoarding';
+import AboutUsScreen from '../screens/Login/AboutUs';
+import LoginScreen from '../screens/Login/Login';
+import SignUpScreen from '../screens/Login/SignUp';
 
-const HomeRoute = createStackNavigator(
+import ProfileScreen from '../screens/Profile/Profile';
+import EditProfileScreen from '../screens/Profile/EditProfile';
+
+import MainDrawer from './DrawerNavigator';
+import MyCardScreen from '../screens/Home/MyCard';
+import ScanQRScreen from '../screens/ScanQR/Scanqr';
+import PerkRoutes from './PerkRoutes';
+
+import ContactUsScreen from '../screens/Home/ContactUs';
+
+const LoginRoutes = createStackNavigator(
     {
-        Home: {
-            screen: HomeScreen,
-            navigationOptions: { header: null }
-        },
-        Merchant: {
-            screen: MerchantRoute,
-            navigationOptions: { header: null }
-        },
-        Test: {
-            screen: TestScreen,
-            navigationOptions: { header: null }
-        }
+        OnBoarding: { screen: OnBoardingScreen },
+        AboutUs: { screen: AboutUsScreen },
+        SignIn: { screen: LoginScreen },
+        SignUp: { screen: SignUpScreen }
     },
     {
-        initialRouteName: 'Home'
+        headerMode: 'none'
     }
 );
 
-export default HomeRoute;
+const ProfileRoutes = createStackNavigator(
+    {
+        Profile: { screen: ProfileScreen },
+        EditProfile: { screen: EditProfileScreen }
+    },
+    {
+        headerMode: 'none'
+    }
+);
+
+const MainRoutes = createStackNavigator(
+    {
+        AppDrawer: { screen: MainDrawer },
+        MyCard: { screen: MyCardScreen },
+        ScanQR: { screen: ScanQRScreen },
+        Perks: { screen: PerkRoutes },
+        Profile: { screen: ProfileRoutes }
+    },
+    {
+        headerMode: 'none'
+    }
+);
+
+const HomeRoutes = createStackNavigator(
+    {
+        Login: { screen: LoginRoutes },
+        Main: { screen: MainRoutes },
+        ContactUs: { screen: ContactUsScreen }
+    },
+    {
+        headerMode: 'none'
+    }
+);
+
+export default HomeRoutes;

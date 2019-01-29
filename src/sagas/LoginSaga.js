@@ -3,7 +3,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import * as loginActions from '../actions/LoginActions';
 import api from '../services/Api';
 
-export function* handleLogin(action) {
+function* handleLogin(action) {
     try {
         const response = yield call(api.USER_LOGIN, action.params);
         yield put(loginActions.successLogin(response.data));
@@ -27,8 +27,9 @@ export function* handleLogin(action) {
     }
 }
 
+
 // Watcher Saga
-// export default [
-//     takeLatest(loginActions.LoginTypes.REQUEST, handleLogin),
-// ];
+export default [
+    takeLatest(loginActions.LoginTypes.REQUEST, handleLogin),
+];
 
