@@ -5,6 +5,8 @@ const images = {
     availa_home_bg: require('../assets/images/availa_home_bg.png'),
     availa_loan: require('../assets/images/availa_loan.png'),
     availa_logo: require('../assets/images/availa_logo.png'),
+    availa_scrub: require('../assets/images/scrub.png'),
+    availa_scrubber: require('../assets/images/scrubber.png'),
     add: require('../assets/images/add.png'),
     app_icon: require('../assets/images/app_icon.png'),
     back: require('../assets/images/back.png'),

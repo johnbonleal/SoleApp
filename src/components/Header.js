@@ -10,20 +10,20 @@ var _ = require('lodash');
 // TODO: Fix HeaderRight
 class Header extends PureComponent {
     render() {
-        const { 
-            headerLeft, 
-            onPressHeaderLeft, 
-            onPressHeaderRight, 
-            headerRight, 
-            headerTitle, 
-            headerTitleStyle, 
-            headerRightStyle, 
-            headerRightImageStyle, 
-            headerLeftStyle, 
-            headerLeftImageStyle, 
-            headerStyle, 
-            imageStyle, 
-            withBackground 
+        const {
+            headerLeft,
+            onPressHeaderLeft,
+            onPressHeaderRight,
+            headerRight,
+            headerTitle,
+            headerTitleStyle,
+            headerRightStyle,
+            headerRightImageStyle,
+            headerLeftStyle,
+            headerLeftImageStyle,
+            headerStyle,
+            imageStyle,
+            withBackground
         } = this.props;
         return (
             <Animated.View style={[styles.headerContainer, headerStyle]}>
@@ -32,19 +32,27 @@ class Header extends PureComponent {
                 </Animated.View>}
                 <View style={styles.header}>
                     <View>
-                        {headerLeft && <TouchableOpacity onPress={onPressHeaderLeft || NavigationService.back} style={[styles.imageContainer, headerLeftStyle]} >
-                            <ImageLoader style={[styles.image, { tintColor: '#FFFFFF' }, headerLeftImageStyle]} source={headerLeft} />
-                        </TouchableOpacity>}
+                        {headerLeft &&
+                            <TouchableOpacity onPress={onPressHeaderLeft || NavigationService.back} style={[styles.imageContainer, headerLeftStyle]} >
+                                <ImageLoader style={[styles.image, { tintColor: Constants.COLOR_WHITE }, headerLeftImageStyle]} source={headerLeft} />
+                            </TouchableOpacity>
+                        }
                     </View>
                     <View style={{ alignItems: 'center' }}>
-                        {headerTitle && <Text style={[styles.headerTitle, headerTitleStyle]}>{headerTitle}</Text>}
+                        {headerTitle && _.isString(headerTitle) ?
+                            <Text style={[styles.headerTitle, headerTitleStyle]}>{headerTitle}</Text> :
+                            headerTitle
+                        }
                     </View>
                     <View>
                         <TouchableOpacity onPress={onPressHeaderRight} style={{ justifyContent: 'center' }} >
                             {_.isString(headerRight) ?
-                                <Text style={{ color: '#FFFFFF' }}>{headerRight}</Text> :
+                                <Text style={{ color: Constants.COLOR_WHITE }}>{headerRight}</Text> :
                                 <View style={[styles.imageContainer, !_.isString(headerRight) && headerRightStyle]}>
-                                    <ImageLoader style={[styles.image, { tintColor: '#FFFFFF' }, headerRightImageStyle]} source={headerRight} />
+                                    <ImageLoader
+                                        style={[styles.image, { tintColor: Constants.COLOR_WHITE }, headerRightImageStyle]}
+                                        source={headerRight}
+                                    />
                                 </View>
                             }
                         </TouchableOpacity>
@@ -56,8 +64,11 @@ class Header extends PureComponent {
 }
 
 Header.propTypes = {
-    headerLeft: PropTypes.string,
-    headerTitle: PropTypes.string,
+    headerLeft: PropTypes.number,
+    headerTitle: PropTypes.oneOf([
+        PropTypes.string,
+        PropTypes.element
+    ]),
     headerRight: PropTypes.string,
     headerLeftStyle: PropTypes.object,
     headerTitleStyle: PropTypes.object,

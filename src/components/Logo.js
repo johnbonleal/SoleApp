@@ -3,12 +3,12 @@ import { View, Image, Text, StyleSheet } from 'react-native';
 
 const ICON_HEIGHT = 230;
 
-const Logo = ({ image, text }) => (
+const Logo = ({ image, text, textStyle }) => (
     <View style={styles.container} >
         <View style={styles.imageContainer}>
             <Image style={styles.image} source={image} />
         </View>
-        <View style={styles.textContainer} >
+        <View style={[styles.textContainer, textStyle]} >
             <Text style={styles.text}>{text}</Text>
         </View>
     </View>

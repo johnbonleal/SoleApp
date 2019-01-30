@@ -1,18 +1,14 @@
 var _ = require('lodash')
-const response = [
-    {
-        id: 1,
-        items: [
-            { src: 4, type: 'img' },
-            { src: 5, type: 'img' },
-            { src: 6, type: 'img' },
-            { src: 7, type: 'img' }
-        ]
-    }
+
+var errors = [
+    
 ];
 
-var x = "";
-console.log(/\S/.test(x));
+var loop = errors.length > 0 && errors.map(error => {
+    return error
+});
+
+console.log(loop)
 
 
 // var Carousel = (function() {
