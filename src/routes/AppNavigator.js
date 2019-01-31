@@ -1,60 +1,24 @@
-import React from 'react';
-import { createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
-import ShoeScreen from '../screens/Home/shoes';
-import NearbyScreen from '../screens/Nearby/nearby';
-import ProfileScreen from '../screens/Profile/profile';
-import ScanQRScreen from '../screens/ScanQR/scanqr';
+import HomeRoutes from './HomeRoutes';
+import PerkRoutes from './PerkRoutes';
+import LoanRoutes from './LoanRoutes';
+import TestScreen from '../screens/Home/Test';
 
 const noHeaderNavOptions = () => ({ header: null });
 
-const HomeTabNav = createBottomTabNavigator(
-    {
-        Shoes: ShoeScreen,
-        Nearby: NearbyScreen,
-        Profile: ProfileScreen,
-        ScanQR: ScanQRScreen
-    },
-    {
-        initialRouteName: "Shoes",
-        defaultNavigationOptions: ({ navigation }) => ({
-            tabBarIcon: ({ horizontal, tintColor }) => {
-                const { routeName } = navigation.state;
-                let iconName;
-                switch (routeName) {
-                    case "Shoes":
-                        iconName = "ios-cart";
-                        break;
-                    case "Nearby":
-                        iconName = "ios-compass";
-                        break;
-                    case "Profile":
-                        iconName = "ios-person";
-                        break;
-                    case "ScanQR":
-                        iconName = "ios-qr-scanner";
-                        break;
-                    default:
-                        break;
-                }
-                return <Ionicons name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
-            }
-        }),
-        tabBarOptions: {
-            activeTintColor: 'tomato',
-            inactiveTintColor: 'gray',
-        },
-    }
-);
-
 const AppNavigator = createStackNavigator(
     {
-        Home: {
-            screen: HomeTabNav,
-            navigationOptions: noHeaderNavOptions
-        }
+        Home: { screen: HomeRoutes },
+        Perk: { screen: PerkRoutes },
+        Loan: { screen: LoanRoutes },
+        // Test Routes
+        Test: { screen: TestScreen }
+    },
+    {
+        initialRouteName: 'Home',
+        headerMode: 'none'
     }
-);
+)
 
 export default createAppContainer(AppNavigator);

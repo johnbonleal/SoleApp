@@ -2,10 +2,10 @@
 import { all, takeLatest } from 'redux-saga/effects';
 
 // ActionTypes
-import { LoginTypes } from '../actions/loginActions';
+import { LoginTypes } from '../actions/LoginActions';
 
 // Sagas
-import { handleLogin } from './login_saga';
+import { handleLogin } from './LoginSaga';
 
 export function* rootSaga() {
     yield all([

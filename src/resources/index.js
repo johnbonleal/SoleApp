@@ -1,4 +1,4 @@
-import { images } from './images';
-import { fonts } from './fonts';
+import { images } from './Images';
+import { fonts } from './Fonts';
 
 export { images, fonts };

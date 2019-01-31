@@ -1,5 +1,5 @@
 import { create } from 'axios';
-import { API_URL } from '../configs/constants';
+import { API_URL } from '../configs/Constants';
 
 const removeEmpty = (obj) => {
     Object.keys(obj).forEach((key) => {

@@ -43,6 +43,8 @@ PODS:
     - React
   - react-native-maps (0.22.1):
     - React
+  - react-native-splash-screen (3.1.1):
+    - React
   - React/Core (0.57.5):
     - yoga (= 0.57.5.React)
   - React/CxxBridge (0.57.5):
@@ -99,6 +101,7 @@ DEPENDENCIES:
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -135,6 +138,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga/yoga.podspec"
 
@@ -149,8 +154,9 @@ SPEC CHECKSUMS:
   react-native-camera: eac1e8cc7523273a2a11956d0e5dac08296cf4b0
   react-native-google-maps: b946d62e25dc66097921ed82520e45b0b081768a
   react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
+  react-native-splash-screen: 8e3f866dc79bfe533baeffd0a38c33f7a7eae7f8
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: 90a8f4804ae54c5c643894df248010fbca0571c0
+PODFILE CHECKSUM: a826554a86c39a161920643610e752582b95a096
 
 COCOAPODS: 1.5.3

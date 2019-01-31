@@ -1,15 +1,15 @@
-import { CAMERA_TOGGLE } from '../actions/cameraActions';
+import { SCAN_QR_MODAL_TOGGLE } from '../actions/CameraActions';
 
 const INITIAL_STATE = {
-    isCameraOn: false
+    isScanQrVisible: false
 };
 
 export const reducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case CAMERA_TOGGLE:
+        case SCAN_QR_MODAL_TOGGLE:
             return {
                 ...state,
-                isCameraOn: action.payload,
+                isScanQrVisible: action.payload,
             };
         default:
             return state;
