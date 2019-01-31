@@ -1,5 +1,5 @@
 import Camera from './Camera';
-import Header from './Header';
+import NavigationBar from './NavigationBar';
 import VerticalSpacer from './VerticalSpacer';
 import StarRating from './StarRating';
 import RectangleList from './RectangleList';
@@ -18,9 +18,10 @@ import Logo from './Logo';
 import MapBox from './MapBox';
 import ErrorBox from './ErrorBox';
 import InputField from './InputField';
+import AvailaImage from './AvailaImage';
 
 export { 
-    Header, 
+    NavigationBar, 
     Camera, 
     RectangleList, 
     SquareList, 
@@ -39,5 +40,6 @@ export {
     Logo,
     MapBox,
     ErrorBox,
-    InputField
+    InputField,
+    AvailaImage
 };

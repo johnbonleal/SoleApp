@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Modal, View, ScrollView, ImageBackground, StatusBar } from 'react-native';
-import Header from './Header';
+import NavigationBar from './NavigationBar';
 import TabularList from './TabularList';
 import { LocationData } from '../utils/Data';
 
@@ -28,7 +28,7 @@ class LocationModal extends PureComponent {
                         backgroundColor={'transparent'}
                         translucent
                     />
-                    <Header
+                    <NavigationBar
                         headerLeft={images.close}
                         headerTitle={"Location"}
                         headerStyle={{position: 'relative'}}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Text, Image, Modal, ImageBackground, TouchableOpacity } from 'react-native';
-import { Header, TabularList } from '../../components';
+import { NavigationBar, TabularList } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
 
 import { images, fonts } from '../../resources';
@@ -39,7 +39,7 @@ class Notification extends Component {
                 <ScrollView
                     scrollEventThrottle={16}
                 >
-                    <Header
+                    <NavigationBar
                         headerTitle={"Notifications"}
                         headerStyle={{ zIndex: 10 }}
                         headerLeft={images.close}

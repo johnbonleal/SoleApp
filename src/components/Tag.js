@@ -1,9 +1,9 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-const Tag = ({ title, style, onPress }) => (
+const Tag = ({ title, style, textStyle, onPress }) => (
     <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={[styles.title, textStyle]}>{title}</Text>
     </TouchableOpacity>
 );
 

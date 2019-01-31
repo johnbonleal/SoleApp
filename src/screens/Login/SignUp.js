@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Image, Text, TextInput, StyleSheet, StatusBar, TouchableOpacity } from 'react-native';
 import CreateProfileForm from './CreateProfileForm';
 import ChangePinForm from './ChangePinForm';
-import { Header } from '../../components';
+import { NavigationBar } from '../../components';
 import { Constants } from '../../configs';
 import { images, fonts } from '../../resources';
 
@@ -30,7 +30,7 @@ class SignUp extends Component {
                     backgroundColor={'transparent'}
                     translucent
                 />
-                <Header
+                <NavigationBar
                     headerStyle={{ position: 'relative' }}
                     headerTitle={current === "Create Profile" ? "Create Profile" : "Change Password"}
                     headerLeft={images.back}

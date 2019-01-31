@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Image, ImageBackground, Text, TouchableOpacity, TouchableWithoutFeedback, FlatList } from 'react-native';
-import { Header, Branch, FixedButton } from '../../components';
+import { NavigationBar, Branch, FixedButton } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
 import BannerModal from './BannerModal';
 import LogoModal from './LogoModal';
@@ -126,7 +126,7 @@ class ViewReward extends Component {
                                     </View>
                                 </View>
                             }
-                            <Header
+                            <NavigationBar
                                 headerLeft={images.back}
                                 onPressHeaderLeft={this._onPressBack}
                             />

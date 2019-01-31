@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, ImageBackground, ScrollView, StatusBar } from 'react-native';
 import RewardsTabNavigator from '../../routes/RewardsTab';
-import { Header } from '../../components';
+import { NavigationBar } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
 import { images } from '../../resources';
 
@@ -19,7 +19,7 @@ class VRewards extends Component {
                     backgroundColor={'transparent'}
                     translucent
                 />
-                <Header
+                <NavigationBar
                     headerLeft={images.back}
                     headerTitle={"V-Rewards"}
                     onPressHeaderLeft={this._onPressBack}

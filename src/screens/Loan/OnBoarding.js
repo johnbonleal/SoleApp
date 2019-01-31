@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text, TouchableOpacity, StatusBar } from 'react-native';
+import { View, Image, Text, TouchableOpacity, StatusBar, StyleSheet } from 'react-native';
 import { NavigationService } from '../../configs';
 import { images } from '../../resources';
 import styles from '../../styles/LoanStyles';

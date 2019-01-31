@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import { View, Image, Text, StatusBar } from 'react-native';
-import LoanCalculatorSliders from './LoanCalculatorSliders';
-import { Header } from '../../components';
-import { Constants } from '../../configs';
+import LoanCalculatorSliders from '../Loan/LoanCalculatorSliders';
+import { NavigationBar, AvailaImage } from '../../components';
+import { Constants, NavigationService } from '../../configs';
 import { images } from '../../resources';
 import styles from '../../styles/LoanStyles';
+import LoanCalculatorSummaryModal from './LoanCalculatorSummaryModal';
 
 var _ = require('lodash');
 
-const AvailaImage = () => (
-    <View style={{ height: 36, width: 138 }}>
-        <Image style={styles.image} source={images.availa_logo} resizeMode={'cover'} />
-    </View>
-)
 class LoanCalculator extends Component {
     constructor(props) {
         super(props);
@@ -33,6 +29,8 @@ class LoanCalculator extends Component {
             maxAmount: 30000,
             minDays: 15,
             maxDays: 90,
+
+            loanSummaryIsVisible: false,
 
             errors: []
         };
@@ -73,16 +71,17 @@ class LoanCalculator extends Component {
             }
         });
     }
+    _toggleLoanSummaryModal = () => this.setState({ loanSummaryIsVisible: !this.state.loanSummaryIsVisible });
+    _onPressModal = () => {
+        this._toggleLoanSummaryModal();
+    }
     render() {
-        const { calculator } = this.state;
+        const { calculator, loanSummaryIsVisible } = this.state;
         const { auth } = this.props;
         return (
             <View style={styles.container}>
-                <StatusBar
-                    backgroundColor={'transparent'}
-                    translucent
-                />
-                <Header
+                <StatusBar translucent />
+                <NavigationBar
                     headerLeft={images.back}
                     headerLeftImageStyle={{ tintColor: Constants.COLOR_AVAILA_SECONDARY }}
                     headerStyle={{ position: 'relative' }}
@@ -99,6 +98,12 @@ class LoanCalculator extends Component {
                     calculateInterest={this._calculateInterest}
                     parent={this}
                     values={calculator}
+                    toggleModal={this._toggleLoanSummaryModal}
+                />
+                <LoanCalculatorSummaryModal
+                    isVisible={loanSummaryIsVisible}
+                    toggleIsVisible={this._toggleLoanSummaryModal}
+                    onPress={this._onPressModal}
                 />
             </View>
         )

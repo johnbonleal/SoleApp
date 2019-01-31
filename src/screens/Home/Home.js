@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Animated, StyleSheet, StatusBar } from 'react-native';
 
-import { Header, ImageLoader, RectangleList, SquareList, CircleList } from '../../components';
+import { NavigationBar, ImageLoader, RectangleList, SquareList, CircleList } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
 import { images } from '../../resources';
 import { RecommendedDealsData } from '../../utils/Data';
@@ -36,7 +36,7 @@ class Home extends Component {
     renderHeader() {
         const { scrollY } = this.state;
         return (
-            <Header
+            <NavigationBar
                 onPressHeaderRight={this._onPressProfileImage}
                 headerStyle={{
                     alignItems: 'flex-end',

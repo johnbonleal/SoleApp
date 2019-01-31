@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Dimensions, View, Text, ScrollView, Image, ImageBackground, TouchableOpacity, FlatList } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Header, CategoryModal } from '../../components';
+import { NavigationBar, CategoryModal } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
 
 import { images, fonts } from '../../resources';
@@ -53,7 +53,7 @@ class ViewAllRewards extends Component {
         const { category, isCategoryModalVisible } = this.state;
         return (
             <View style={{ flex: 1, backgroundColor: '#F3F2F2' }}>
-                <Header
+                <NavigationBar
                     headerLeft={images.back}
                     headerTitle={"Rewards"}
                     onPressHeaderLeft={this._onPressBack}

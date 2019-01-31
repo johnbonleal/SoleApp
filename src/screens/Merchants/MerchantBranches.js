@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Dimensions, Image, StatusBar, ScrollView, TouchableOpacity, Animated } from 'react-native';
 import { connect } from 'react-redux';
-import { Header, StarRating, Branch,  } from '../../components';
+import { NavigationBar, StarRating, Branch,  } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
 import ScanQrModal from '../ScanQR/ScanqrModal';
 import { toggleScanQrModal } from '../../actions/CameraActions';
@@ -48,7 +48,7 @@ class MerchantBranches extends Component {
             extrapolate: 'clamp'
         });
         return (
-            <Header
+            <NavigationBar
                 headerLeft={images.back}
                 imageStyle={{ opacity: animatedHeaderOpacity }}
                 withBackground

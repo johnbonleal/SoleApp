@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 var _ = require('lodash');
 
 // TODO: Fix HeaderRight
-class Header extends PureComponent {
+class NavigationBar extends PureComponent {
     render() {
         const {
             headerLeft,
@@ -63,7 +63,7 @@ class Header extends PureComponent {
     }
 }
 
-Header.propTypes = {
+NavigationBar.propTypes = {
     headerLeft: PropTypes.number,
     headerTitle: PropTypes.oneOf([
         PropTypes.string,
@@ -79,7 +79,7 @@ Header.propTypes = {
     headerStyle: PropTypes.object
 };
 
-export default Header;
+export default NavigationBar;
 
 const styles = StyleSheet.create({
     headerContainer: {

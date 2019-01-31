@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dimensions, Modal, View, Text, Image } from 'react-native';
-import { Header } from '../../components';
+import { NavigationBar } from '../../components';
 
 import { images, fonts } from '../../resources';
 
@@ -27,7 +27,7 @@ class BannerModal extends Component {
                     Alert.alert('Modal has been closed.');
                 }}>
                 <View style={{ flex: 1, backgroundColor: '#000000' }}>
-                    <Header headerLeft={images.close} onPressHeaderLeft={this.props.toggleBannerModal} headerStyle={{ position: 'relative' }} />
+                    <NavigationBar headerLeft={images.close} onPressHeaderLeft={this.props.toggleBannerModal} headerStyle={{ position: 'relative' }} />
                     <Text style={{ fontSize: fonts.REGULAR, color: '#FFFFFF', textAlign: 'right', marginRight: 16 }}>Bamboo House</Text>
                     <View style={{ height: height * 0.6, backgroundColor: '#FFFFFF', marginVertical: 8 }}>
                         <Image style={{ flex: 1, height: null, width: null }} source={images.image2} />

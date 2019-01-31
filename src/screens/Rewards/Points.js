@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { NavigationService } from '../../configs/NavigationService';
 import EarnPointsModal from './EarnPointsModal';
 
-import { Header, CircleList, TabularList } from '../../components';
+import { NavigationBar, CircleList, TabularList } from '../../components';
 import { images, fonts } from '../../resources';
 
 const HEADER_MAX_HEIGHT = 198;
@@ -51,7 +51,7 @@ class Points extends Component {
                     backgroundColor={'transparent'}
                     translucent
                 />
-                <Header
+                <NavigationBar
                     headerLeft={images.close}
                     onPressHeaderLeft={this._onPressClose}
                 />

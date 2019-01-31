@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, Text, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
 import LoanSlider from './LoanSlider';
 import { Constants } from '../../configs';
@@ -42,7 +42,10 @@ class LoanCalculatorSliders extends PureComponent {
                     <Text style={[styles.headerTitle, { width: '100%', marginBottom: 12 }]}>WHERE WILL YOU USE THE LOAN?</Text>
                     <TouchableOpacity style={styles.dropdown} />
                 </View>
-                <TouchableOpacity style={[styles.button, { backgroundColor: Constants.COLOR_AVAILA_SECONDARY, width: '50%' }]} onPress={toggleModal}>
+                <TouchableOpacity
+                    style={[styles.button, { backgroundColor: Constants.COLOR_AVAILA_SECONDARY, width: '50%' }]}
+                    onPress={toggleModal}
+                >
                     <Text style={[styles.buttonText, { color: Constants.COLOR_WHITE }]}>Calculate</Text>
                 </TouchableOpacity>
             </View>

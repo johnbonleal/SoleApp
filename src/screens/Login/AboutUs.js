@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, StatusBar, TouchableOpacity, Text, Dimensions, Image } from 'react-native';
-import { Header } from '../../components';
+import { NavigationBar } from '../../components';
 import { Footer, Button } from '../../components/Login';
 import { NavigationService } from '../../configs/NavigationService';
 
@@ -14,7 +14,7 @@ class AboutUs extends Component {
                     backgroundColor={'transparent'}
                     translucent
                 />
-                <Header
+                <NavigationBar
                     headerLeft={images.back}
                 />
                 <View style={{ ...StyleSheet.absoluteFill }}>

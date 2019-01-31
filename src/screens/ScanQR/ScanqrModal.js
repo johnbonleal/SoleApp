@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, View, Image, Text, ImageBackground, TouchableOpacity, StyleSheet } from 'react-native';
-import { Header } from '../../components';
+import { NavigationBar } from '../../components';
 
 import { images } from '../../resources';
 
@@ -13,7 +13,7 @@ const ScanQRModal = ({ isScanQrVisible, toggleScanQrModal, onPressScanQrProceed 
             Alert.alert('Modal has been closed.');
         }}>
         <View style={{ flex: 1 }}>
-            <Header
+            <NavigationBar
                 headerLeft={images.close}
                 onPressHeaderLeft={toggleScanQrModal}
             />

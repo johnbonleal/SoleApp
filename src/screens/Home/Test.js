@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import { View, Image, Text, StatusBar } from 'react-native';
 import LoanCalculatorSliders from '../Loan/LoanCalculatorSliders';
-import { Header } from '../../components';
+import { NavigationBar } from '../../components';
 import { Constants } from '../../configs';
 import { images } from '../../resources';
 import styles from '../../styles/LoanStyles';
-import LoanCalculatorSummaryModal from './LoanCalculatorSummaryModal';
+
+// import PersonalDetail from './PersonalDetail';
+import LoanCalculatorSummaryModal from '../Loan/LoanCalculatorSummaryModal';
 
 var _ = require('lodash');
 
-const AvailaImage = () => (
-    <View style={{ height: 36, width: 138 }}>
-        <Image style={styles.image} source={images.availa_logo} resizeMode={'cover'} />
-    </View>
-)
+
 class LoanCalculator extends Component {
     constructor(props) {
         super(props);
@@ -35,6 +33,7 @@ class LoanCalculator extends Component {
             minDays: 15,
             maxDays: 90,
 
+            step: 0,
             loanSummaryIsVisible: false,
 
             errors: []
@@ -76,14 +75,19 @@ class LoanCalculator extends Component {
             }
         });
     }
+    _incrementSteps = () => this.setState({ step: this.state.step + 1 });
     _toggleLoanSummaryModal = () => this.setState({ loanSummaryIsVisible: !this.state.loanSummaryIsVisible });
+    _onPressModal = () => {
+        this._incrementSteps();
+        this._toggleLoanSummaryModal();
+    }
     render() {
-        const { calculator, loanSummaryIsVisible } = this.state;
+        const { calculator, loanSummaryIsVisible, step } = this.state;
         const { auth } = this.props;
         return (
             <View style={styles.container}>
                 <StatusBar translucent />
-                <Header
+                <NavigationBar
                     headerLeft={images.back}
                     headerLeftImageStyle={{ tintColor: Constants.COLOR_AVAILA_SECONDARY }}
                     headerStyle={{ position: 'relative' }}
@@ -91,18 +95,32 @@ class LoanCalculator extends Component {
                 />
                 <View style={styles.loanCalculatorHeaderContainer}>
                     <Text style={styles.loanCalculatorTitle}>Loan Calculator</Text>
-                    <Text style={styles.loanCalculatorSubtitle}>Calculator your lorem ipsum</Text>
+                    <Text style={styles.loanCalculatorSubtitle}>Calculate your lorem ipsum</Text>
                 </View>
-                <LoanCalculatorSliders
-                    loan_type={!_.isEmpty(auth) && auth.company.loan_type}
-                    onGetData={this._handleReceive}
-                    onChangeValue={() => this._handleChangeValue('calculator')}
-                    calculateInterest={this._calculateInterest}
-                    parent={this}
-                    values={calculator}
-                    toggleModal={this._toggleLoanSummaryModal}
+                {(() => {
+                    switch (step) {
+                        case 0:
+                            return null;
+                            // return <PersonalDetail step={step} />;
+                        case 1:
+                            return null;
+                        default:
+                            return <LoanCalculatorSliders
+                                loan_type={!_.isEmpty(auth) && auth.company.loan_type}
+                                onGetData={this._handleReceive}
+                                onChangeValue={() => this._handleChangeValue('calculator')}
+                                calculateInterest={this._calculateInterest}
+                                parent={this}
+                                values={calculator}
+                                toggleModal={this._toggleLoanSummaryModal}
+                            />;
+                    }
+                })()}
+                <LoanCalculatorSummaryModal
+                    isVisible={loanSummaryIsVisible}
+                    toggleIsVisible={this._toggleLoanSummaryModal}
+                    onPress={this._onPressModal}
                 />
-                <LoanCalculatorSummaryModal isVisible={loanSummaryIsVisible} toggleIsVisible={this._toggleLoanSummaryModal} />
             </View>
         )
     }

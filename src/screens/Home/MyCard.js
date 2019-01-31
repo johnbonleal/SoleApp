@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dimensions, View, Text, Image, ImageBackground, TouchableOpacity } from 'react-native';
-import { Header } from '../../components';
+import { NavigationBar } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
 
 import { images, fonts } from '../../resources';
@@ -16,7 +16,7 @@ class MyCard extends Component {
     render() {
         return (
             <ImageBackground style={{ flex: 1, justifyContent: 'center' }} source={images.card_bg} resizeMode={'cover'}>
-                <Header headerLeft={images.close}/>
+                <NavigationBar headerLeft={images.close}/>
                 <View style={{ height: '70%' }}>
                     <Text style={{ fontSize: 25, color: '#FFFFFF', fontWeight: 'bold', marginLeft: 20 }}>Prepaid Visa Card</Text>
                     <ImageBackground style={{ height: '79%', paddingHorizontal: 20 }} source={images.prepaid_visa} resizeMode="cover">

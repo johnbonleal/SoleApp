@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, ImageBackground, TouchableOpacity, Text, TextInput, ScrollView, Animated, StatusBar, Dimensions, Image, Platform } from 'react-native';
-import { Header, ImageLoader, RectangleList, SquareList, CircleList, CategoryModal, LocationModal, Tag, TabularList, StarRating } from '../../components';
+import { NavigationBar, ImageLoader, RectangleList, SquareList, CircleList, CategoryModal, LocationModal, Tag, TabularList, StarRating } from '../../components';
 import MerchantList from './MerchantList';
 
 import { images, fonts } from '../../resources';
@@ -78,7 +78,7 @@ class Merchants extends Component {
         });
         return (
             <Animated.View style={{ height: animatedHeaderHeight }}>
-                <Header
+                <NavigationBar
                     headerStyle={{ opacity: animatedOpacity }}
                     headerLeft={images.close}
                     headerTitle={"Perks & Deals"}

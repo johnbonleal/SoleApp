@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StatusBar, View, ImageBackground } from 'react-native';
 import PointHistoryTab from '../../routes/PointHistoryTab';
-import { Header } from '../../components';
+import { NavigationBar } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
 import { images, fonts } from '../../resources';
 
@@ -18,7 +18,7 @@ class PointHistory extends Component {
                     backgroundColor={'transparent'}
                     translucent
                 />
-                <Header
+                <NavigationBar
                     headerLeft={images.back}
                     headerTitle={"Point History"}
                     onPressHeaderLeft={this._onPressBack}

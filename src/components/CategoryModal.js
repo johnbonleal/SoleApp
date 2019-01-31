@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Modal, View, ScrollView, StatusBar } from 'react-native';
-import Header from './Header';
+import NavigationBar from './NavigationBar';
 import TabularList from './TabularList';
 import { CategoryData } from '../utils/Data';
 import { images } from '../resources';
@@ -26,7 +26,7 @@ class CategoryModal extends PureComponent {
                         backgroundColor={'transparent'}
                         translucent
                     />
-                    <Header
+                    <NavigationBar
                         headerLeft={images.close}
                         headerTitle={"Category"}
                         headerStyle={{position: 'relative'}}

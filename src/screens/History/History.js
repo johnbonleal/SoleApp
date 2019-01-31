@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, Dimensions, Image } from 'react-native';
-import { Header } from '../../components';
+import { NavigationBar } from '../../components';
 
 import { images } from '../../resources';
 
@@ -34,7 +34,7 @@ class History extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header headerStyle={{ position: 'relative' }} headerTitle={"History"} headerLeft={images.close} withBackground />
+                <NavigationBar headerStyle={{ position: 'relative' }} headerTitle={"History"} headerLeft={images.close} withBackground />
                 <ScrollView
                     ref={component => { this.scrollView = component }}
                     contentContainerStyle={{ flexGrow: 1, backgroundColor: '#F3F2F2', paddingHorizontal: 16, paddingVertical: 8 }}

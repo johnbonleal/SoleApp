@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, ImageBackground, TouchableOpacity, FlatList, ScrollView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Header } from '../../components';
+import { NavigationBar } from '../../components';
 
 import ProfileInfo from './ProfileInfo';
 import EditProfile from './EditProfile';
@@ -43,7 +43,7 @@ class Profile extends Component {
         const { current, action } = this.state;
         return (
             <View style={{ flex: 1, backgroundColor: 'white' }}>
-                <Header
+                <NavigationBar
                     headerLeft={images.back}
                     headerRight={action}
                     onPressHeaderLeft={this._onPressBack}

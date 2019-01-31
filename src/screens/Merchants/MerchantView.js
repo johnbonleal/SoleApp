@@ -3,7 +3,7 @@ import { View, StatusBar, ScrollView, Dimensions, StyleSheet, Animated } from 'r
 
 import DealSummary from './Perks&Deals/DealSummary';
 import DealContent from './Perks&Deals/DealContent';
-import { Header, ImageSlideshow, FixedButton } from '../../components';
+import { NavigationBar, ImageSlideshow, FixedButton } from '../../components';
 
 import { images } from '../../resources';
 import { MerchantImageData } from '../../utils/Data';
@@ -26,7 +26,7 @@ class MerchantView extends Component {
                     backgroundColor={'transparent'}
                     translucent
                 />
-                <Header
+                <NavigationBar
                     headerLeft={images.back}
                     imageStyle={{
                         opacity: scrollY.interpolate({

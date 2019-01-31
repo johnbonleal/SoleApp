@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Image, Text, TouchableOpacity, Animated, StatusBar } from 'react-native';
+import { View, StyleSheet, Image, Text, Animated, StatusBar } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
-import { Header } from '../../components';
-import { Constants } from '../../configs';
+import { NavigationBar, AvailaImage } from '../../components';
+import { Constants, NavigationService } from '../../configs';
 import ServiceOption from './ServiceOption';
 import { images } from '../../resources';
 import { NearbyMerchantsData } from '../../utils/Data';
 
 class HomeAvaila extends Component {
+    _onPress = () => {
+        NavigationService.navigate('LoanCalculator');
+    }
     _renderItem = ({ item, index }) => {
         return (
             <View key={item.id} style={styles.carouselContainer}>
@@ -28,13 +31,17 @@ class HomeAvaila extends Component {
                     backgroundColor={'transparent'}
                     translucent
                 />
-                <Header
+                <NavigationBar
                     headerLeft={images.back}
                     headerLeftImageStyle={{ tintColor: '#4BBBAE' }}
-                    headerStyle={{ position: 'relative' }}
+                    headerTitle={<AvailaImage />}
+                    headerStyle={{ position: 'relative', elevation: 1 }}
                 />
                 <View style={{ ...StyleSheet.absoluteFill }}>
-                    <Image style={styles.image} source={images.availa_home_bg} />
+                    <Image
+                        style={styles.image}
+                        source={images.availa_home_bg}
+                    />
                 </View>
                 <View style={styles.content}>
                     <Text style={[styles.header, { marginBottom: 24 }]}>What's New</Text>
@@ -49,10 +56,19 @@ class HomeAvaila extends Component {
                     </Animated.View>
                     <Text style={[styles.header, { marginVertical: 12 }]}>Services</Text>
                     <View style={{ flex: 1, justifyContent: 'space-between' }}>
-                        <ServiceOption icon={images.availa_calculator} title={"Loan Calculator"} subtitle={"Calculate your lorem ipsum"} />
-                        <ServiceOption icon={images.availa_loan} title={"Loan Cash"} subtitle={"Borrow money at lorem ipsum rate"} />
+                        <ServiceOption
+                            icon={images.availa_calculator}
+                            title={"Loan Calculator"}
+                            subtitle={"Calculate your lorem ipsum"}
+                            onPress={this._onPress}
+                        />
+                        <ServiceOption
+                            icon={images.availa_loan}
+                            title={"Loan Cash"}
+                            subtitle={"Borrow money at lorem ipsum rate"}
+                            onPress={this._onPress}
+                        />
                     </View>
-
                 </View>
             </View>
         )
@@ -86,12 +102,12 @@ const styles = StyleSheet.create({
         marginLeft: 24
     },
     carouselItemImage: {
-        height: '70%', 
-        borderRadius: 12, 
+        height: '70%',
+        borderRadius: 12,
         overflow: 'hidden'
     },
     carouselItemDescription: {
-        height: '30%', 
+        height: '30%',
         justifyContent: 'center'
     },
     title: {
@@ -100,7 +116,7 @@ const styles = StyleSheet.create({
         color: '#4A4A4A'
     },
     subtitle: {
-        fontSize: 15, 
+        fontSize: 15,
         color: '#9B9B9B'
     }
 })

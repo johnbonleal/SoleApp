@@ -16,7 +16,7 @@ const AppNavigator = createStackNavigator(
         Test: { screen: TestScreen }
     },
     {
-        initialRouteName: 'Test',
+        initialRouteName: 'Home',
         headerMode: 'none'
     }
 )

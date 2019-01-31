@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Image, Alert } from 'react-native';
-import { Header } from '../../components';
+import { NavigationBar } from '../../components';
 
 import ContactMain from './ContactMain';
 import SendMessage from './SendMessage';
@@ -38,7 +38,7 @@ class ContactUs extends Component {
                     contentContainerStyle={{ flexGrow: 1 }}
                     scrollEventThrottle={16}
                 >
-                    <Header
+                    <NavigationBar
                         headerTitle={"Contact Us"}
                         headerLeft={images.back}
                         headerLeftImageStyle={!isAuthenticated && { tintColor: '#F9960F' }}
