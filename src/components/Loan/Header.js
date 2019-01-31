@@ -4,8 +4,8 @@ import styles from '../../styles/LoanStyles';
 
 const Header = ({title, subtitle}) => (
     <View style={styles.loanCalculatorHeaderContainer}>
-        <Text style={styles.loanCalculatorTitle}>{title}</Text>
-        <Text style={styles.loanCalculatorSubtitle}>Calculate your lorem ipsum</Text>
+        <Text style={styles.loanHeaderTitle}>{title}</Text>
+        <Text style={styles.loanHeaderSubtitle}>Calculate your lorem ipsum</Text>
     </View>
 );
 

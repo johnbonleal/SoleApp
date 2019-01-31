@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Image, Text, StatusBar } from 'react-native';
 import LoanCalculatorSliders from '../Loan/LoanCalculatorSliders';
 import { NavigationBar, AvailaImage } from '../../components';
+import { Header } from '../../components/Loan';
 import { Constants, NavigationService } from '../../configs';
 import { images } from '../../resources';
 import styles from '../../styles/LoanStyles';
@@ -74,6 +75,7 @@ class LoanCalculator extends Component {
     _toggleLoanSummaryModal = () => this.setState({ loanSummaryIsVisible: !this.state.loanSummaryIsVisible });
     _onPressModal = () => {
         this._toggleLoanSummaryModal();
+        NavigationService.navigate('LoanCash');
     }
     render() {
         const { calculator, loanSummaryIsVisible } = this.state;
@@ -87,10 +89,10 @@ class LoanCalculator extends Component {
                     headerStyle={{ position: 'relative' }}
                     headerTitle={<AvailaImage />}
                 />
-                <View style={styles.loanCalculatorHeaderContainer}>
-                    <Text style={styles.loanCalculatorTitle}>Loan Calculator</Text>
-                    <Text style={styles.loanCalculatorSubtitle}>Calculator your lorem ipsum</Text>
-                </View>
+                <Header
+                    title={"Loan Calculator"}
+                    subtitle={"Calculator your lorem ipsum"}
+                />
                 <LoanCalculatorSliders
                     loan_type={!_.isEmpty(auth) && auth.company.loan_type}
                     onGetData={this._handleReceive}
