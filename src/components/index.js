@@ -19,6 +19,8 @@ import MapBox from './MapBox';
 import ErrorBox from './ErrorBox';
 import InputField from './InputField';
 import AvailaImage from './AvailaImage';
+import FloatingTextInput from './FloatingTextInput';
+import Dropdown from './Dropdown';
 
 export { 
     NavigationBar, 
@@ -41,5 +43,7 @@ export {
     MapBox,
     ErrorBox,
     InputField,
-    AvailaImage
+    AvailaImage,
+    FloatingTextInput,
+    Dropdown
 };

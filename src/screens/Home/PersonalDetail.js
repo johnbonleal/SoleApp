@@ -1,14 +1,15 @@
 import React, { PureComponent } from 'react';
 import { View, Text } from 'react-native';
-import { Constants } from '../../configs';
-import { LoanCashTitle, FieldCreator } from '../../components/Loan';
+import { Dropdown } from '../../components';
+import { LoanCashTitle, RoundedFields } from '../../components/Loan';
 import StepIndicator from 'react-native-step-indicator';
 import StepIndicatorStyles from '../../styles/StepIndicatorStyle';
 import styles from '../../styles/LoanStyles';
+import { Constants } from '../../configs';
 
 class PersonalDetail extends PureComponent {
     render() {
-        const { step } = this.props;
+        const { step, onChangeValue, personal } = this.props;
         return (
             <View style={[styles.container, { padding: 24 }]}>
                 <LoanCashTitle title={"Personal Details"} />
@@ -23,10 +24,20 @@ class PersonalDetail extends PureComponent {
                     <Text style={{ color: 'red' }}>* </Text>
                     Indicates Required Field
                 </Text>
-                <FieldCreator
+                <RoundedFields
                     data={["First Name", "Middle Name", "Last Name"]}
+                    value={personal}
                     style={{ marginTop: 16 }}
+                    onChangeValue={onChangeValue}
                 />
+                <View style={{ height: Constants.BUTTON_HEIGHT }}>
+                    <Dropdown
+                        onChangeValue={onChangeValue}
+                        data={["Male", "Female"]}
+                        name={"gender"}
+                        value={personal}
+                    />
+                </View>
             </View>
         )
     }

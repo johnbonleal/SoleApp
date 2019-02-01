@@ -23,9 +23,13 @@ class LoanCash extends Component {
         };
     }
     _incrementSteps = () => this.setState({ step: this.state.step + 1 });
+    _handleChangeValue = (section, data, field) => {
+        return this.setState({ [section]: { ...this.state[section], [field]: data } });
+    }
     render() {
-        const { step } = this.state;
+        const { step, personalDetails } = this.state;
         const { auth } = this.props;
+        console.log("State: ", this.state);
         return (
             <View style={styles.container}>
                 <StatusBar
@@ -45,7 +49,12 @@ class LoanCash extends Component {
                 {(() => {
                     switch (step) {
                         case 0:
-                            return <PersonalDetail step={step} />;
+                            return <PersonalDetail
+                                onChangeValue={this._handleChangeValue.bind(this, 'personalDetails')}
+                                personal={personalDetails}
+                                parent={this}
+                                step={step}
+                            />;
                         case 1:
                             return null;
                         default:
