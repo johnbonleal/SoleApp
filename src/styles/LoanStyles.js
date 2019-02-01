@@ -64,12 +64,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#F2F2F2',
         padding: 16
     },
-    loanCalculatorTitle: {
+    loanHeaderTitle: {
         fontSize: 20,
         fontWeight: 'bold',
         color: Constants.COLOR_DARK_GRAY
     },
-    loanCalculatorSubtitle: {
+    loanHeaderSubtitle: {
         fontSize: 15,
         color: Constants.COLOR_DARK_GRAY
     },
@@ -172,6 +172,14 @@ const styles = StyleSheet.create({
         borderRadius: 5, 
         backgroundColor: Constants.COLOR_AVAILA_LIGHT,
         marginVertical: 12
+    },
+
+    // personal detail
+
+    instruction: {
+        fontSize: 15, 
+        fontWeight: 'bold', 
+        textAlign: 'center'
     }
 });
 

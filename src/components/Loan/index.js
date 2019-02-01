@@ -1,3 +1,9 @@
 import Header from './Header';
+import LoanCashTitle from './LoanCashTitle';
+import RoundedFields from './RoundedFields';
 
-export { Header };
+export { 
+    Header,
+    LoanCashTitle,
+    RoundedFields
+};

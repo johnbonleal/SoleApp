@@ -4,10 +4,11 @@ const StepIndicatorStyles = {
 
     // container
 
-    stepIndicatorSize       : 37,
-    currentStepIndicatorSize: 40,
-    separatorStrokeWidth    : 2,
-    stepStrokeWidth         : 2,
+    stepIndicatorSize         : 37,
+    currentStepIndicatorSize  : 40,
+    separatorStrokeWidth      : 2,
+    stepStrokeWidth           : 2,
+    stepIndicatorLabelFontSize: 18,
 
     // unfinished
 
