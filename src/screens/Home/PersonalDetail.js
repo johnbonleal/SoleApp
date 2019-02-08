@@ -32,6 +32,7 @@ class PersonalDetail extends PureComponent {
                 />
                 <View style={{ height: Constants.BUTTON_HEIGHT }}>
                     <Dropdown
+                        title={"Gender"}
                         onChangeValue={onChangeValue}
                         data={["Male", "Female"]}
                         name={"gender"}
