@@ -21,6 +21,7 @@ const COLOR_WHITE             = '#FFFFFF';
 const COLOR_BLACK             = '#000000';
 const COLOR_DARK_GRAY         = '#4A4A4A';
 const COLOR_LIGHT_GRAY        = '#9B9B9B';
+const COLOR_SUPER_LIGHT_GRAY  = '#D8D8D8';
 const COLOR_ERROR             = '#9B9B9B';
 const COLOR_VENTENY_PRIMARY   = '#FFA701';
 const COLOR_VENTENY_SECONDARY = '';
@@ -49,6 +50,7 @@ export default {
     COLOR_BLACK,
     COLOR_DARK_GRAY,
     COLOR_LIGHT_GRAY,
+    COLOR_SUPER_LIGHT_GRAY,
     COLOR_VENTENY_PRIMARY,
     COLOR_VENTENY_SECONDARY,
     COLOR_AVAILA_PRIMARY,

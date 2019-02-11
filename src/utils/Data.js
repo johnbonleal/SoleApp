@@ -73,3 +73,15 @@ export const OnBoardingData = [
     { id: 2, src: images.splash_2, type: 'img' },
 ];
 
+export const GenderData = [
+    { id: "1", name: "Male" },
+    { id: "2", name: "Female" },
+];
+
+export const MaritalStatusData = [
+    { id: "1", name: "Single" },
+    { id: "2", name: "Married" },
+    { id: "3", name: "Widowed" },
+    { id: "4", name: "Separated" },
+];
+

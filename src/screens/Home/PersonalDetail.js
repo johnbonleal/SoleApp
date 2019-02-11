@@ -1,46 +1,68 @@
 import React, { PureComponent } from 'react';
 import { View, Text } from 'react-native';
 import { Dropdown } from '../../components';
-import { LoanCashTitle, RoundedFields } from '../../components/Loan';
-import StepIndicator from 'react-native-step-indicator';
-import StepIndicatorStyles from '../../styles/StepIndicatorStyle';
-import styles from '../../styles/LoanStyles';
+import { RoundedFields } from '../../components/Loan';
 import { Constants } from '../../configs';
+import { GenderData, MaritalStatusData } from '../../utils/Data';
 
 class PersonalDetail extends PureComponent {
     render() {
-        const { step, onChangeValue, personal } = this.props;
+        const { onChangeValuePersonal, onChangeValueContact, personal, contact } = this.props;
         return (
-            <View style={[styles.container, { padding: 24 }]}>
-                <LoanCashTitle title={"Personal Details"} />
-                <View style={{ marginVertical: 16 }}>
-                    <StepIndicator
-                        customStyles={StepIndicatorStyles}
-                        currentPosition={step}
-                        stepCount={6}
-                    />
-                </View>
-                <Text style={styles.instruction}>
-                    <Text style={{ color: 'red' }}>* </Text>
-                    Indicates Required Field
-                </Text>
+            <View>
                 <RoundedFields
                     data={["First Name", "Middle Name", "Last Name"]}
                     value={personal}
                     style={{ marginTop: 16 }}
-                    onChangeValue={onChangeValue}
+                    onChangeValue={onChangeValuePersonal}
+                    withDropdown
                 />
-                <View style={{ height: Constants.BUTTON_HEIGHT }}>
+                <RoundedFields
+                    data={["Birthdate"]}
+                    value={contact}
+                    style={{ marginTop: 16 }}
+                    onChangeValue={onChangeValueContact}
+                />
+                <View style={{ flexDirection: 'row', marginTop: 16 }}>
                     <Dropdown
                         title={"Gender"}
-                        onChangeValue={onChangeValue}
-                        data={["Male", "Female"]}
+                        onChangeValue={onChangeValuePersonal}
+                        data={GenderData}
                         name={"gender"}
                         value={personal}
+                        style={{ flex: 1 }}
+                    />
+                    <View style={{ height: Constants.BUTTON_HEIGHT, width: 24 }} />
+                    <Dropdown
+                        title={"Marital Status"}
+                        onChangeValue={onChangeValuePersonal}
+                        data={MaritalStatusData}
+                        name={"maritalStatus"}
+                        value={personal}
+                        style={{ flex: 1 }}
                     />
                 </View>
+                <RoundedFields
+                    data={["Mobile Number", "Alternate Contact Number", "Personal Email Address"]}
+                    value={personal}
+                    style={{ marginTop: 16 }}
+                    onChangeValue={onChangeValuePersonal}
+                />
+                <RoundedFields
+                    data={["Facebook Url"]}
+                    value={contact}
+                    style={{ marginTop: 16 }}
+                    onChangeValue={onChangeValueContact}
+                />
+                <Text style={{ fontSize: 12, marginTop: 3 }}>* copy and paste the link of your profile page to this section</Text>
+                <RoundedFields
+                    data={["Address (Present)", "Address (Permanent)"]}
+                    value={personal}
+                    style={{ marginTop: 16 }}
+                    onChangeValue={onChangeValuePersonal}
+                />
             </View>
-        )
+        );
     }
 }
 

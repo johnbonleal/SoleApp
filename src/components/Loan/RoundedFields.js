@@ -6,7 +6,7 @@ var _ = require('lodash');
 
 class RoundedFields extends PureComponent {
     render() {
-        const { data, style, value, onChangeValue } = this.props;
+        const { data, style, value, onChangeValue, withDropdown } = this.props;
         return (
             <View style={style}>
                 {data.length > 0 &&
@@ -19,6 +19,7 @@ class RoundedFields extends PureComponent {
                             name={_.camelCase(item)}
                             value={value}
                             onChangeValue={onChangeValue}
+                            withDropdown={withDropdown}
                         />
                     ))
                 }

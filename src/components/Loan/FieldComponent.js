@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import { View, StyleSheet, TextInput, Text } from 'react-native';
 import { Constants } from '../../configs';
+import Dropdown from '../Dropdown';
+import { GenderData } from '../../utils/Data';
 
 class FieldComponent extends PureComponent {
     state = {
@@ -14,7 +16,8 @@ class FieldComponent extends PureComponent {
             onChangeValue,
             value,
             length,
-            name
+            name,
+            withDropdown
         } = this.props;
         return (
             <View>
@@ -39,6 +42,7 @@ class FieldComponent extends PureComponent {
                         styles.container,
                         index === 0 && styles.top,
                         index === length - 1 && styles.bottom,
+                        (index === 0 && length === 1) && { borderTopWidth: 1 },
                         currentIndex === index - 1 && { borderTopWidth: 0 },
                         currentIndex === index + 1 && { borderBottomWidth: 0 },
                         currentIndex === index && { borderColor: Constants.COLOR_AVAILA_SECONDARY, borderTopWidth: 1, borderBottomWidth: 1 }
@@ -51,7 +55,7 @@ class FieldComponent extends PureComponent {
                         onFocus={() => this.setState({ currentIndex: index })}
                         onBlur={() => this.setState({ currentIndex: null })}
                     />
-                    {value && !value[name] && <Text style={{ color: 'red', textAlignVertical: 'center' }}>*</Text>}
+                    {value && !value[name] && <Text style={{ fontWeight: 'bold', color: 'red', textAlignVertical: 'center' }}>*</Text>}
                 </View>
             </View>
         )

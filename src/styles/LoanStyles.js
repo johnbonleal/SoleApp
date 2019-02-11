@@ -180,6 +180,20 @@ const styles = StyleSheet.create({
         fontSize: 15, 
         fontWeight: 'bold', 
         textAlign: 'center'
+    },
+    personalDetailButtonContainer: {
+        flex: 1, 
+        height: Constants.BUTTON_HEIGHT, 
+        borderRadius: 8, 
+        borderWidth: 1, 
+        borderColor: Constants.COLOR_SUPER_LIGHT_GRAY, 
+        backgroundColor: Constants.COLOR_LIGHT_GRAY, 
+        justifyContent: 'center', 
+        alignItems: 'center'
+    },
+    personalDetailButtonText: {
+        fontSize: 15,
+        fontWeight: 'bold'
     }
 });
 
