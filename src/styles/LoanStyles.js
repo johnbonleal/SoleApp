@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     loanCalculatorHeaderContainer: {
         backgroundColor: '#F2F2F2',
         justifyContent: 'center',
-        paddingHorizontal: 16
+        // paddingHorizontal: 16
     },
     loanHeaderTitle: {
         fontSize: 20,

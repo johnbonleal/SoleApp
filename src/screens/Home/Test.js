@@ -13,7 +13,6 @@ import EmploymentDetail from './EmploymentDetail';
 import DocumentaryRequirement from './DocumentaryRequirement';
 import PersonalReference from './PersonalReference';
 import BankAccount from './BankAccount';
-import { AnimatedRegion } from 'react-native-maps';
 
 var _ = require('lodash');
 
@@ -40,7 +39,8 @@ class LoanCash extends Component {
             step: 0,
             errors: [],
             enableScrollViewScroll: true,
-            scrollY: new Animated.Value(0)
+            scrollY: new Animated.Value(0),
+            animateHeight: new Animated.Value(64)
         };
     }
     _decrementSteps = () => this.setState({ step: this.state.step === 0 ? 0 : this.state.step - 1 });
@@ -81,6 +81,15 @@ class LoanCash extends Component {
         }
         return <LoanCashTitle title={title} />;
     }
+    _setAnimation = disable => {
+        Animated.timing(this.state.animateHeight, {
+            duration: 100,
+            toValue: disable ? 0 : 64
+        }).start();
+    };
+    _handleScroll = event => {
+        this._setAnimation(event.nativeEvent.contentOffset.y > 64);
+    }
     render() {
         const {
             step,
@@ -95,7 +104,7 @@ class LoanCash extends Component {
         } = this.state;
         const headerAnimated = scrollY.interpolate({
             inputRange: [0, 50],
-            outputRange: [Constants.LOAN_HEADER_HEIGHT, 0.1],
+            outputRange: [1, 0],
             extrapolate: 'clamp'
         });
         const stepsAnimated = scrollY.interpolate({
@@ -115,11 +124,14 @@ class LoanCash extends Component {
                     headerStyle={{ position: 'relative' }}
                     headerTitle={<AvailaImage />}
                 />
-                <Header
+                {/* <Header
                     title={"Loan Cash"}
                     subtitle={"Fill out lorem ipsum"}
-                    containerStyle={{ height: headerAnimated }}
-                />
+                    containerStyle={{ height: 0 }}
+                /> */}
+                <Animated.View style={{ height: this.state.animateHeight, backgroundColor: 'tomato' }}>
+                    <Text>Hey</Text>
+                </Animated.View>
                 <View style={{ padding: 24 }}>
                     <Animated.View>
                         {this._renderCashTitle()}
@@ -135,16 +147,16 @@ class LoanCash extends Component {
                             Indicates Required Field
                         </Text>
                     </Animated.View>
-
                     <Animated.ScrollView
                         ref={component => { this.scrollView = component }}
                         contentContainerStyle={{ flexGrow: 1 }}
                         scrollEventThrottle={16}
                         showsVerticalScrollIndicator={false}
                         scrollEnabled={enableScrollViewScroll}
-                        onScroll={Animated.event(
-                            [{ nativeEvent: { contentOffset: { y: scrollY } } }]
-                        )}
+                        // onScroll={Animated.event(
+                        //     [{ nativeEvent: { contentOffset: { y: scrollY } } }]
+                        // )}
+                        onScroll={this._handleScroll}
                     >
                         {(() => {
                             switch (step) {
