@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Animated } from 'react-native';
 import styles from '../../styles/LoanStyles';
 
-const Header = ({title, subtitle}) => (
-    <View style={styles.loanCalculatorHeaderContainer}>
+const Header = ({title, subtitle, containerStyle}) => (
+    <Animated.View style={[styles.loanCalculatorHeaderContainer, containerStyle]}>
         <Text style={styles.loanHeaderTitle}>{title}</Text>
-        <Text style={styles.loanHeaderSubtitle}>Calculate your lorem ipsum</Text>
-    </View>
+        <Text style={styles.loanHeaderSubtitle}>{subtitle}</Text>
+    </Animated.View>
 );
 
 export default Header;

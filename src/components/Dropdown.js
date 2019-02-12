@@ -18,10 +18,9 @@ class Dropdown extends PureComponent {
         }).start();
     }
     _dismissAnimation = () => {
-        Animated.spring(this.state.animateY, {
+        Animated.timing(this.state.animateY, {
             toValue: 0,
-            friction: 5,
-            tension: 30
+            duration: 150
         }).start();
     }
     _onPressDropdown = () => {
@@ -34,10 +33,11 @@ class Dropdown extends PureComponent {
     _onPressChild = item => {
         this._dismissAnimation();
         this.setState({ selectedValue: item });
+        this.props.parent.setState({ enableScrollViewScroll: true });
     }
     render() {
         const { selectedValue, animateY } = this.state;
-        const { title, data, style } = this.props;
+        const { title, data, style, parent } = this.props;
         const animateRotation = animateY.interpolate({
             inputRange: [0, 100],
             outputRange: ['0 deg', '180 deg'],
@@ -45,22 +45,29 @@ class Dropdown extends PureComponent {
         });
         return (
             <View style={[{ flex: 1 }, style]}>
-                <Text style={[styles.text, { marginBottom: 8 }]}>{title} <Text style={{ color: 'red' }}>*</Text></Text>
+                {title && <Text style={[styles.text, { marginBottom: 8 }]}>{title} <Text style={{ color: 'red' }}>*</Text></Text>}
                 <TouchableOpacity style={styles.inputBox} onPress={this._onPressDropdown}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Text style={styles.text}>{selectedValue}</Text>
-                        <Animated.View style={{ justifyContent: 'center', transform: [{ rotate: animateRotation }] }}>
-                            <Icon name="caretdown" size={20} color={Constants.COLOR_DARK_GRAY} />
-                        </Animated.View>
-                    </View>
+                    <Text style={styles.text}>{selectedValue}</Text>
+                    <Animated.View style={{ justifyContent: 'center', transform: [{ rotate: animateRotation }] }}>
+                        <Icon name="caretdown" size={20} color={Constants.COLOR_DARK_GRAY} />
+                    </Animated.View>
                 </TouchableOpacity>
                 <Animated.FlatList
                     ref={ref => { this.FlatList = ref }}
                     data={data}
                     keyExtractor={(item, index) => !_.isEmpty(item) && item.id}
-                    showsVerticalScrollIndicator={false}
-                    style={[styles.overlay, { height: animateY }]}
-                    renderItem={({ item, index }) => <TouchableOpacity key={!_.isEmpty(item) && item.id} style={{ padding: 16 }} onPress={() => this._onPressChild(!_.isEmpty(item) && item.name)}><Text style={styles.text}>{!_.isEmpty(item) && item.name}</Text></TouchableOpacity>}
+                    style={[styles.overlay, { top: title ? Constants.BUTTON_HEIGHT + 24 : Constants.BUTTON_HEIGHT, height: animateY }]}
+                    onTouchStart={() => parent.setState({ enableScrollViewScroll: false })}
+                    onScrollEndDrag={() => parent.setState({ enableScrollViewScroll: true })}
+                    onMomentumScrollEnd={() => parent.setState({ enableScrollViewScroll: true })}
+                    renderItem={({ item, index }) => (
+                        <TouchableOpacity
+                            key={!_.isEmpty(item) && item.id}
+                            style={{ padding: 16 }}
+                            onPress={() => this._onPressChild(!_.isEmpty(item) && item.name)}>
+                            <Text style={styles.text}>{!_.isEmpty(item) && item.name}</Text>
+                        </TouchableOpacity>
+                    )}
                 />
             </View>
         )
@@ -71,10 +78,13 @@ export default Dropdown;
 
 const styles = StyleSheet.create({
     inputBox: {
+        flex: 1,
+        flexDirection: 'row',
         backgroundColor: '#E5E5E5',
         height: Constants.BUTTON_HEIGHT,
         paddingHorizontal: 16,
-        justifyContent: 'center',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         borderRadius: 3
     },
     dropdown: {
@@ -85,8 +95,9 @@ const styles = StyleSheet.create({
     },
     overlay: {
         maxHeight: 450,
+        zIndex: 98,
         position: 'absolute',
-        top: Constants.BUTTON_HEIGHT + 12,
+        top: 0,
         left: 0,
         right: 0,
         backgroundColor: Constants.COLOR_WHITE,

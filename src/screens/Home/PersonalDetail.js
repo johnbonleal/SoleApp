@@ -7,7 +7,13 @@ import { GenderData, MaritalStatusData } from '../../utils/Data';
 
 class PersonalDetail extends PureComponent {
     render() {
-        const { onChangeValuePersonal, onChangeValueContact, personal, contact } = this.props;
+        const {
+            onChangeValuePersonal,
+            onChangeValueContact,
+            personal,
+            contact,
+            parent
+        } = this.props;
         return (
             <View>
                 <RoundedFields
@@ -15,7 +21,6 @@ class PersonalDetail extends PureComponent {
                     value={personal}
                     style={{ marginTop: 16 }}
                     onChangeValue={onChangeValuePersonal}
-                    withDropdown
                 />
                 <RoundedFields
                     data={["Birthdate"]}
@@ -30,6 +35,7 @@ class PersonalDetail extends PureComponent {
                         data={GenderData}
                         name={"gender"}
                         value={personal}
+                        parent={parent}
                         style={{ flex: 1 }}
                     />
                     <View style={{ height: Constants.BUTTON_HEIGHT, width: 24 }} />
@@ -39,6 +45,7 @@ class PersonalDetail extends PureComponent {
                         data={MaritalStatusData}
                         name={"maritalStatus"}
                         value={personal}
+                        parent={parent}
                         style={{ flex: 1 }}
                     />
                 </View>

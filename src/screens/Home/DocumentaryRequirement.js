@@ -20,7 +20,7 @@ const DocumentaryField = ({ data, title, style }) => (
                 >
                     <Text style={[styles.labelStyle, { flex: 1 }]}>{item}</Text>
                     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
-                        <TouchableOpacity style={{ width: '70%', paddingVertical: 8, backgroundColor: '#E5E5E5', justifyContent: 'center', alignItems: 'center', borderRadius: 3, marginRight: 5 }}>
+                        <TouchableOpacity style={{ width: '75%', paddingVertical: 8, backgroundColor: '#E5E5E5', justifyContent: 'center', alignItems: 'center', borderRadius: 3, marginRight: 5 }}>
                             <Text style={{ fontSize: 15, fontWeight: 'bold', color: Constants.COLOR_DARK_GRAY }}>Upload</Text>
                         </TouchableOpacity>
                         <Text style={{ fontWeight: 'bold', color: 'red' }}>*</Text>

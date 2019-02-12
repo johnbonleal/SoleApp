@@ -62,7 +62,8 @@ const styles = StyleSheet.create({
 
     loanCalculatorHeaderContainer: {
         backgroundColor: '#F2F2F2',
-        padding: 16
+        justifyContent: 'center',
+        paddingHorizontal: 16
     },
     loanHeaderTitle: {
         fontSize: 20,
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
     // LoanSummaryModal
 
     close: {
-        height: 14, 
+        height: 14,
         width: 14
     },
     modalContent: {
@@ -152,8 +153,8 @@ const styles = StyleSheet.create({
         borderRadius: 24,
     },
     modalTitle: {
-        fontSize: 16, 
-        fontWeight: 'bold', 
+        fontSize: 16,
+        fontWeight: 'bold',
         color: Constants.COLOR_DARK_GRAY
     },
     modalHeaderText: {
@@ -162,14 +163,14 @@ const styles = StyleSheet.create({
         color: Constants.COLOR_DARK_GRAY
     },
     rowContainer: {
-        flexDirection: 'row', 
+        flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center', 
+        alignItems: 'center',
         marginVertical: 3
     },
     paymentBreakdownContainer: {
-        height: Constants.SCREEN_HEIGHT / 10, 
-        borderRadius: 5, 
+        height: Constants.SCREEN_HEIGHT / 10,
+        borderRadius: 5,
         backgroundColor: Constants.COLOR_AVAILA_LIGHT,
         marginVertical: 12
     },
@@ -177,18 +178,18 @@ const styles = StyleSheet.create({
     // personal detail
 
     instruction: {
-        fontSize: 15, 
-        fontWeight: 'bold', 
+        fontSize: 15,
+        fontWeight: 'bold',
         textAlign: 'center'
     },
     personalDetailButtonContainer: {
-        flex: 1, 
-        height: Constants.BUTTON_HEIGHT, 
-        borderRadius: 8, 
-        borderWidth: 1, 
-        borderColor: Constants.COLOR_SUPER_LIGHT_GRAY, 
-        backgroundColor: Constants.COLOR_LIGHT_GRAY, 
-        justifyContent: 'center', 
+        flex: 1,
+        height: Constants.BUTTON_HEIGHT,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: Constants.COLOR_SUPER_LIGHT_GRAY,
+        backgroundColor: Constants.COLOR_LIGHT_GRAY,
+        justifyContent: 'center',
         alignItems: 'center'
     },
     personalDetailButtonText: {

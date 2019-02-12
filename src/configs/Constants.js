@@ -9,6 +9,7 @@ const SCREEN_WIDTH         = width;
 const BUTTON_HEIGHT        = 56;
 const DROPDOWN_HEIGHT      = 42;
 const DEALS_SUMMARY_HEIGHT = SCREEN_HEIGHT / 5;
+const LOAN_HEADER_HEIGHT   = SCREEN_HEIGHT / 9;
 
 const SLIDER_WIDTH    = width;
 const ITEM_WIDTH      = width * 0.85;
@@ -42,6 +43,7 @@ export default {
     BUTTON_HEIGHT,
     DROPDOWN_HEIGHT,
     DEALS_SUMMARY_HEIGHT,
+    LOAN_HEADER_HEIGHT,
     SLIDER_WIDTH,
     ITEM_WIDTH,
     CAROUSEL_HEIGHT,
