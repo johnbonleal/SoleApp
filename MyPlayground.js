@@ -2,12 +2,12 @@ var _ = require('lodash')
 
 var str = "Full Name"
 
-function convertToCamelCase(str) {
-    let removeSpace = str.replace(/\s/g, '');
-    console.log(removeSpace)
-}
+// function convertToCamelCase(str) {
+//     let removeSpace = str.replace(/\s/g, '');
+//     console.log(removeSpace)
+// }
 
-console.log(_.camelCase(str))
+// console.log(_.camelCase(str))
 
 // var Carousel = (function() {
 //     let currentIndex = 0
@@ -32,6 +32,6 @@ console.log(_.camelCase(str))
 //     }
 // })();
 
-console.log(autorun());
+// console.log(autorun());
 
 

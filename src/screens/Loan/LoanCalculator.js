@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { View, Image, Text, StatusBar } from 'react-native';
-import LoanCalculatorSliders from '../Loan/LoanCalculatorSliders';
 import { NavigationBar, AvailaImage } from '../../components';
-import { Header } from '../../components/Loan';
+import {
+    Header,
+    LoanCalculatorSliders,
+    LoanCalculatorSummaryModal
+} from '../../components/Loan';
 import { Constants, NavigationService } from '../../configs';
 import { images } from '../../resources';
 import styles from '../../styles/LoanStyles';
-import LoanCalculatorSummaryModal from './LoanCalculatorSummaryModal';
 
 var _ = require('lodash');
 

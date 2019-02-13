@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { View, Text } from 'react-native';
-import { Dropdown } from '../../components';
-import { RoundedFields } from '../../components/Loan';
+import { Dropdown } from '..';
+import { RoundedFields } from '.';
 import { Constants } from '../../configs';
 import { GenderData, MaritalStatusData } from '../../utils/Data';
 

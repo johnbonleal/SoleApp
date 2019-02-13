@@ -21,22 +21,23 @@ import InputField from './InputField';
 import AvailaImage from './AvailaImage';
 import FloatingTextInput from './FloatingTextInput';
 import Dropdown from './Dropdown';
+import CheckBox from './CheckBox';
 
-export { 
-    NavigationBar, 
-    Camera, 
-    RectangleList, 
-    SquareList, 
-    CircleList, 
-    TabularList, 
-    StarRating, 
-    VerticalSpacer, 
+export {
+    NavigationBar,
+    Camera,
+    RectangleList,
+    SquareList,
+    CircleList,
+    TabularList,
+    StarRating,
+    VerticalSpacer,
     ImageLoader,
     CategoryModal,
     LocationModal,
     Tag,
     Branch,
-    Indicator, 
+    Indicator,
     ImageSlideshow,
     FixedButton,
     Logo,
@@ -45,5 +46,6 @@ export {
     InputField,
     AvailaImage,
     FloatingTextInput,
-    Dropdown
+    Dropdown,
+    CheckBox
 };

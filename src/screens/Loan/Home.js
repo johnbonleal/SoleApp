@@ -3,14 +3,11 @@ import { View, StyleSheet, Image, Text, Animated, StatusBar } from 'react-native
 import Carousel from 'react-native-snap-carousel';
 import { NavigationBar, AvailaImage } from '../../components';
 import { Constants, NavigationService } from '../../configs';
-import ServiceOption from './ServiceOption';
+import { ServiceOption } from '../../components/Loan';
 import { images } from '../../resources';
 import { NearbyMerchantsData } from '../../utils/Data';
 
 class HomeAvaila extends Component {
-    _onPress = () => {
-        NavigationService.navigate('LoanCalculator');
-    }
     _renderItem = ({ item, index }) => {
         return (
             <View key={item.id} style={styles.carouselContainer}>
@@ -60,13 +57,13 @@ class HomeAvaila extends Component {
                             icon={images.availa_calculator}
                             title={"Loan Calculator"}
                             subtitle={"Calculate your lorem ipsum"}
-                            onPress={this._onPress}
+                            onPress={() => NavigationService.navigate('LoanCalculator')}
                         />
                         <ServiceOption
                             icon={images.availa_loan}
                             title={"Loan Cash"}
                             subtitle={"Borrow money at lorem ipsum rate"}
-                            onPress={this._onPress}
+                            onPress={() => NavigationService.navigate('LoanCash')}
                         />
                     </View>
                 </View>

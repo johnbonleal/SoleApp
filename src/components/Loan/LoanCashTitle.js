@@ -1,17 +1,18 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, Animated } from 'react-native';
 import { Constants } from '../../configs';
 import styles from '../../styles/LoanStyles';
 
-const LoanCashTitle = ({ title }) => (
-    <Text
+const LoanCashTitle = ({ title, style }) => (
+    <Animated.Text
         style={[
             styles.loanHeaderTitle,
-            { color: Constants.COLOR_AVAILA_PRIMARY }
+            { color: Constants.COLOR_AVAILA_PRIMARY },
+            style
         ]}
     >
         {title}
-    </Text>
+    </Animated.Text>
 );
 
 export default LoanCashTitle;

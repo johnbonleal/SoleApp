@@ -1,9 +1,13 @@
 import React, { PureComponent } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { RoundedFields } from '../../components/Loan';
+import { RoundedFields } from '.';
 import { Constants } from '../../configs';
 
-const DocumentaryField = ({ data, title, style }) => (
+const DocumentaryField = ({
+    data,
+    title,
+    style
+}) => (
     <View style={[{ marginVertical: 8 }, style]}>
         <Text style={[styles.title, { marginBottom: 8 }]}>{title}</Text>
         {

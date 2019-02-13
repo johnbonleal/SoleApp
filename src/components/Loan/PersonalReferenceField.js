@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
-import Dropdown from '../../components/Dropdown';
+import Dropdown from '../Dropdown';
 import { Constants } from '../../configs';
 import { GenderData } from '../../utils/Data';
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, View, Text, TouchableOpacity, Image } from 'react-native';
-import { Logo, Tag } from '../../components';
+import { Logo, Tag } from '..';
 import { Constants } from '../../configs';
 import { images } from '../../resources';
 import { numberFormat } from '../../utils/DataFormatter';

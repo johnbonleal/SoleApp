@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View } from 'react-native';
-import { RoundedFields } from '../../components/Loan';
+import { RoundedFields } from '.';
 
 class BankAccount extends PureComponent {
     render() {

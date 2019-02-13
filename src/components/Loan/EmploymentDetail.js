@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
 import { View } from 'react-native';
-import { RoundedFields } from '../../components/Loan';
+import { RoundedFields } from '.';
 
 class EmploymentDetail extends PureComponent {
     render() {
-        const { 
-            onChangeValueEmployment, 
+        const {
+            onChangeValueEmployment,
             employmentDetails
         } = this.props;
         return (

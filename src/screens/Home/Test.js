@@ -8,11 +8,12 @@ import StepIndicator from 'react-native-step-indicator';
 import StepIndicatorStyles from '../../styles/StepIndicatorStyle';
 import styles from '../../styles/LoanStyles';
 
-import PersonalDetail from './PersonalDetail';
-import EmploymentDetail from './EmploymentDetail';
-import DocumentaryRequirement from './DocumentaryRequirement';
-import PersonalReference from './PersonalReference';
-import BankAccount from './BankAccount';
+import PersonalDetail from '../../components/Loan/PersonalDetail';
+import EmploymentDetail from '../../components/Loan/EmploymentDetail';
+import DocumentaryRequirement from '../../components/Loan/DocumentaryRequirement';
+import PersonalReference from '../../components/Loan/PersonalReference';
+import BankAccount from '../../components/Loan/BankAccount';
+import SubmitLoan from '../../components/Loan/SubmitLoan';
 
 var _ = require('lodash');
 
@@ -22,7 +23,6 @@ const Button = ({ title, containerStyle, textStyle, onPress }) => (
     </TouchableOpacity>
 );
 
-const STEP_CONTAINER_MIN_HEIGHT = 50;
 class LoanCash extends Component {
     constructor(props) {
         super(props);
@@ -40,7 +40,7 @@ class LoanCash extends Component {
             errors: [],
             enableScrollViewScroll: true,
             scrollY: new Animated.Value(0),
-            animateHeight: new Animated.Value(64)
+            checkBoxes: {},
         };
     }
     _decrementSteps = () => this.setState({ step: this.state.step === 0 ? 0 : this.state.step - 1 });
@@ -81,20 +81,12 @@ class LoanCash extends Component {
         }
         return <LoanCashTitle title={title} />;
     }
-    _setAnimation = disable => {
-        Animated.timing(this.state.animateHeight, {
-            duration: 100,
-            toValue: disable ? 0 : 64
-        }).start();
-    };
-    _handleScroll = event => {
-        this._setAnimation(event.nativeEvent.contentOffset.y > 64);
-    }
     render() {
         const {
             step,
             enableScrollViewScroll,
             scrollY,
+            checkBoxes,
             personalDetails,
             contactDetails,
             employmentDetails,
@@ -102,16 +94,7 @@ class LoanCash extends Component {
             documents,
             bankAccounts
         } = this.state;
-        const headerAnimated = scrollY.interpolate({
-            inputRange: [0, 50],
-            outputRange: [1, 0],
-            extrapolate: 'clamp'
-        });
-        const stepsAnimated = scrollY.interpolate({
-            inputRange: [0, 50],
-            outputRange: [STEP_CONTAINER_MIN_HEIGHT, STEP_CONTAINER_MIN_HEIGHT],
-            extrapolate: 'clamp'
-        });
+        console.log("CheckBoxes: ", this.state.checkBoxes)
         return (
             <View style={styles.container}>
                 <StatusBar
@@ -121,43 +104,37 @@ class LoanCash extends Component {
                 <NavigationBar
                     headerLeft={images.back}
                     headerLeftImageStyle={{ tintColor: Constants.COLOR_AVAILA_SECONDARY }}
-                    headerStyle={{ position: 'relative' }}
+                    headerStyle={{ position: 'relative', backgroundColor: Constants.COLOR_WHITE }}
                     headerTitle={<AvailaImage />}
                 />
-                {/* <Header
-                    title={"Loan Cash"}
-                    subtitle={"Fill out lorem ipsum"}
-                    containerStyle={{ height: 0 }}
-                /> */}
-                <Animated.View style={{ height: this.state.animateHeight, backgroundColor: 'tomato' }}>
-                    <Text>Hey</Text>
-                </Animated.View>
-                <View style={{ padding: 24 }}>
-                    <Animated.View>
+                <Animated.ScrollView
+                    ref={component => { this.scrollView = component }}
+                    contentContainerStyle={{ flexGrow: 1 }}
+                    scrollEventThrottle={16}
+                    showsVerticalScrollIndicator={false}
+                    scrollEnabled={enableScrollViewScroll}
+                    onScroll={Animated.event(
+                        [{ nativeEvent: { contentOffset: { y: scrollY } } }]
+                    )}
+                >
+                    <Header
+                        title={"Loan Cash"}
+                        subtitle={"Fill out lorem ipsum"}
+                        containerStyle={{ padding: 16 }}
+                    />
+                    <View style={{ padding: 24 }}>
                         {this._renderCashTitle()}
-                        <View style={{ marginVertical: 16 }}>
+                        <Animated.View style={{ marginVertical: 16 }}>
                             <StepIndicator
                                 customStyles={StepIndicatorStyles}
                                 currentPosition={step}
                                 stepCount={6}
                             />
-                        </View>
-                        <Text style={styles.instruction}>
+                        </Animated.View>
+                        <Animated.Text style={styles.instruction}>
                             <Text style={{ color: 'red' }}>* </Text>
                             Indicates Required Field
-                        </Text>
-                    </Animated.View>
-                    <Animated.ScrollView
-                        ref={component => { this.scrollView = component }}
-                        contentContainerStyle={{ flexGrow: 1 }}
-                        scrollEventThrottle={16}
-                        showsVerticalScrollIndicator={false}
-                        scrollEnabled={enableScrollViewScroll}
-                        // onScroll={Animated.event(
-                        //     [{ nativeEvent: { contentOffset: { y: scrollY } } }]
-                        // )}
-                        onScroll={this._handleScroll}
-                    >
+                        </Animated.Text>
                         {(() => {
                             switch (step) {
                                 case 0:
@@ -189,6 +166,10 @@ class LoanCash extends Component {
                                         onChangeValue={this._handleChangeValue.bind(this, 'bankAccounts')}
                                         value={bankAccounts}
                                     />;
+                                case 5:
+                                    return <SubmitLoan
+                                        handleChangeValue={this._handleChangeValue.bind(this, 'checkBoxes')}
+                                    />;
                                 default:
                                     return null;
                             }
@@ -202,14 +183,14 @@ class LoanCash extends Component {
                             />
                             <View style={{ height: Constants.BUTTON_HEIGHT, width: 24 }} />
                             <Button
-                                title={"Next"}
-                                containerStyle={[styles.buttonContainer, { backgroundColor: Constants.COLOR_LIGHT_GRAY }]}
+                                title={step === 5 ? "Submit" : "Next"}
+                                containerStyle={[styles.buttonContainer, { backgroundColor: Constants.COLOR_LIGHT_GRAY }, (checkBoxes && checkBoxes.checkbox1 === true && checkBoxes.checkbox2 === true) && { backgroundColor: Constants.COLOR_AVAILA_SECONDARY }]}
                                 textStyle={{ color: Constants.COLOR_WHITE }}
                                 onPress={this._incrementSteps}
                             />
                         </View>
-                    </Animated.ScrollView>
-                </View>
+                    </View>
+                </Animated.ScrollView>
             </View>
         )
     }
