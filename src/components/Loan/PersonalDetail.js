@@ -1,12 +1,16 @@
 import React, { PureComponent } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView, Animated } from 'react-native';
 import { Dropdown } from '..';
 import { RoundedFields } from '.';
 import { Constants } from '../../configs';
 import { GenderData, MaritalStatusData } from '../../utils/Data';
 
 class PersonalDetail extends PureComponent {
+    state = {
+        enableScrollViewScroll: true,
+    }
     render() {
+        const { enableScrollViewScroll } = this.state;
         const {
             onChangeValuePersonal,
             onChangeValueContact,
@@ -15,7 +19,13 @@ class PersonalDetail extends PureComponent {
             parent
         } = this.props;
         return (
-            <View>
+            <Animated.ScrollView
+                ref={component => { this.scrollView = component }}
+                contentContainerStyle={{ flexGrow: 1 }}
+                scrollEventThrottle={16}
+                showsVerticalScrollIndicator={false}
+                scrollEnabled={enableScrollViewScroll}
+            >
                 <RoundedFields
                     data={["First Name", "Middle Name", "Last Name"]}
                     value={personal}
@@ -68,7 +78,7 @@ class PersonalDetail extends PureComponent {
                     style={{ marginTop: 16 }}
                     onChangeValue={onChangeValuePersonal}
                 />
-            </View>
+            </Animated.ScrollView>
         );
     }
 }

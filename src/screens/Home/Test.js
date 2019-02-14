@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Text, StatusBar, TouchableOpacity, Animated } from 'react-native';
 import { NavigationBar, AvailaImage } from '../../components';
-import { Header, LoanCashTitle } from '../../components/Loan';
+import { Header, StepIndicatorContainer } from '../../components/Loan';
 import { Constants } from '../../configs';
 import { images } from '../../resources';
-import StepIndicator from 'react-native-step-indicator';
-import StepIndicatorStyles from '../../styles/StepIndicatorStyle';
 import styles from '../../styles/LoanStyles';
 
 import PersonalDetail from '../../components/Loan/PersonalDetail';
@@ -23,6 +21,10 @@ const Button = ({ title, containerStyle, textStyle, onPress }) => (
     </TouchableOpacity>
 );
 
+const HEADER_CONTAINER_MAX_HEIGHT = Constants.SCREEN_HEIGHT / 3.5;
+const HEADER_CONTAINER_MIN_HEIGHT = 50;
+const HEADER_SCROLL_DISTANCE = HEADER_CONTAINER_MAX_HEIGHT - HEADER_CONTAINER_MIN_HEIGHT;
+
 class LoanCash extends Component {
     constructor(props) {
         super(props);
@@ -38,7 +40,6 @@ class LoanCash extends Component {
 
             step: 0,
             errors: [],
-            enableScrollViewScroll: true,
             scrollY: new Animated.Value(0),
             checkBoxes: {},
         };
@@ -48,45 +49,19 @@ class LoanCash extends Component {
     _handleReceive = (data, field) => {
         let state = {};
         state[_.toString(field)] = data;
-
         return this.setState(state);
     }
     _handleChangeValue = (section, data, field) => {
         return this.setState({ [section]: { ...this.state[section], [field]: data } });
     }
-    _renderCashTitle = () => {
-        let title = "";
-        switch (this.state.step) {
-            case 0:
-                title = "Personal Details";
-                break;
-            case 1:
-                title = "Employment Details";
-                break;
-            case 2:
-                title = "Documentary Requirements";
-                break;
-            case 3:
-                title = "Personal References";
-                break;
-            case 4:
-                title = "Bank Account";
-                break;
-            case 5:
-                title = "Submit Loan Application";
-                break;
-            default:
-                title = "";
-                break;
-        }
-        return <LoanCashTitle title={title} />;
+    _handleScroll = event => {
+        const { scrollY } = this.state;
+        console.log("Scroll: ", event.nativeEvent.contentOffset.y);
     }
     render() {
         const {
             step,
-            enableScrollViewScroll,
             scrollY,
-            checkBoxes,
             personalDetails,
             contactDetails,
             employmentDetails,
@@ -94,7 +69,27 @@ class LoanCash extends Component {
             documents,
             bankAccounts
         } = this.state;
-        console.log("CheckBoxes: ", this.state.checkBoxes)
+
+        // Container Animation
+
+        const topContainerHeight = scrollY.interpolate({
+            inputRange: [0, 50],
+            outputRange: [HEADER_CONTAINER_MAX_HEIGHT, HEADER_CONTAINER_MIN_HEIGHT],
+            extrapolate: 'clamp',
+        });
+
+        // Header Animations
+
+        const headerHeight = scrollY.interpolate({
+            inputRange: [0, 30],
+            outputRange: [Constants.LOAN_HEADER_HEIGHT, 0],
+            extrapolate: 'clamp',
+        });
+        const headerOpacity = scrollY.interpolate({
+            inputRange: [0, 10],
+            outputRange: [1, 0],
+            extrapolate: 'clamp'
+        });
         return (
             <View style={styles.container}>
                 <StatusBar
@@ -107,90 +102,91 @@ class LoanCash extends Component {
                     headerStyle={{ position: 'relative', backgroundColor: Constants.COLOR_WHITE }}
                     headerTitle={<AvailaImage />}
                 />
-                <Animated.ScrollView
-                    ref={component => { this.scrollView = component }}
-                    contentContainerStyle={{ flexGrow: 1 }}
-                    scrollEventThrottle={16}
-                    showsVerticalScrollIndicator={false}
-                    scrollEnabled={enableScrollViewScroll}
-                    onScroll={Animated.event(
-                        [{ nativeEvent: { contentOffset: { y: scrollY } } }]
-                    )}
+                <Animated.View
+                    style={{
+                        height: topContainerHeight,
+                        backgroundColor: Constants.COLOR_WHITE,
+                    }}
                 >
                     <Header
                         title={"Loan Cash"}
                         subtitle={"Fill out lorem ipsum"}
-                        containerStyle={{ padding: 16 }}
+                        containerStyle={{
+                            height: headerHeight,
+                            opacity: headerOpacity
+                        }}
                     />
-                    <View style={{ padding: 24 }}>
-                        {this._renderCashTitle()}
-                        <Animated.View style={{ marginVertical: 16 }}>
-                            <StepIndicator
-                                customStyles={StepIndicatorStyles}
-                                currentPosition={step}
-                                stepCount={6}
-                            />
-                        </Animated.View>
-                        <Animated.Text style={styles.instruction}>
-                            <Text style={{ color: 'red' }}>* </Text>
-                            Indicates Required Field
-                        </Animated.Text>
-                        {(() => {
-                            switch (step) {
-                                case 0:
-                                    return <PersonalDetail
-                                        onChangeValuePersonal={this._handleChangeValue.bind(this, 'personalDetails')}
-                                        onChangeValueContact={this._handleChangeValue.bind(this, 'contactDetails')}
-                                        personal={personalDetails}
-                                        contact={contactDetails}
-                                        parent={this}
-                                    />;
-                                case 1:
-                                    return <EmploymentDetail
-                                        onChangeValueEmployment={this._handleChangeValue.bind(this, 'employmentDetails')}
-                                        employmentDetails={employmentDetails}
-                                        parent={this}
-                                    />;
-                                case 2:
-                                    return <DocumentaryRequirement
-                                        onGetData={this._handleReceive}
-                                        documents={documents}
-                                    />;
-                                case 3:
-                                    return <PersonalReference
-                                        onChangeValue={this._handleChangeValue.bind(this, 'personalReferences')}
-                                        value={personalReferences}
-                                    />;
-                                case 4:
-                                    return <BankAccount
-                                        onChangeValue={this._handleChangeValue.bind(this, 'bankAccounts')}
-                                        value={bankAccounts}
-                                    />;
-                                case 5:
-                                    return <SubmitLoan
-                                        handleChangeValue={this._handleChangeValue.bind(this, 'checkBoxes')}
-                                    />;
-                                default:
-                                    return null;
-                            }
-                        })()}
-                        <View style={{ flexDirection: 'row', marginTop: 24, zIndex: 1 }}>
-                            <Button
-                                title={"Back"}
-                                containerStyle={{ borderColor: Constants.COLOR_SUPER_LIGHT_GRAY, backgroundColor: Constants.COLOR_WHITE }}
-                                textStyle={{ color: Constants.COLOR_AVAILA_SECONDARY }}
-                                onPress={this._decrementSteps}
-                            />
-                            <View style={{ height: Constants.BUTTON_HEIGHT, width: 24 }} />
-                            <Button
-                                title={step === 5 ? "Submit" : "Next"}
-                                containerStyle={[styles.buttonContainer, { backgroundColor: Constants.COLOR_LIGHT_GRAY }, (checkBoxes && checkBoxes.checkbox1 === true && checkBoxes.checkbox2 === true) && { backgroundColor: Constants.COLOR_AVAILA_SECONDARY }]}
-                                textStyle={{ color: Constants.COLOR_WHITE }}
-                                onPress={this._incrementSteps}
-                            />
-                        </View>
-                    </View>
-                </Animated.ScrollView>
+                    <StepIndicatorContainer scrollY={scrollY} step={step} />
+                </Animated.View>
+                <View style={{ padding: 16 }}>
+                    {(() => {
+                        switch (step) {
+                            case 0:
+                                return <PersonalDetail
+                                    onChangeValuePersonal={this._handleChangeValue.bind(this, 'personalDetails')}
+                                    onChangeValueContact={this._handleChangeValue.bind(this, 'contactDetails')}
+                                    personal={personalDetails}
+                                    contact={contactDetails}
+                                    parent={this}
+                                />;
+                            case 1:
+                                return <EmploymentDetail
+                                    onChangeValueEmployment={this._handleChangeValue.bind(this, 'employmentDetails')}
+                                    employmentDetails={employmentDetails}
+                                    parent={this}
+                                />;
+                            case 2:
+                                return <DocumentaryRequirement
+                                    onGetData={this._handleReceive}
+                                    documents={documents}
+                                />;
+                            case 3:
+                                return <PersonalReference
+                                    onChangeValue={this._handleChangeValue.bind(this, 'personalReferences')}
+                                    value={personalReferences}
+                                />;
+                            case 4:
+                                return <BankAccount
+                                    onChangeValue={this._handleChangeValue.bind(this, 'bankAccounts')}
+                                    value={bankAccounts}
+                                />;
+                            case 5:
+                                return <SubmitLoan
+                                    handleChangeValue={this._handleChangeValue.bind(this, 'checkBoxes')}
+                                />;
+                            default:
+                                return null;
+                        }
+                    })()}
+                </View>
+                {/* <View style={{ flexDirection: 'row', marginTop: 24, zIndex: 1 }}>
+                        <Button
+                            title={"Back"}
+                            containerStyle={{ borderColor: Constants.COLOR_SUPER_LIGHT_GRAY, backgroundColor: Constants.COLOR_WHITE }}
+                            textStyle={{ color: Constants.COLOR_AVAILA_SECONDARY }}
+                            onPress={this._decrementSteps}
+                        />
+                        <View style={{ height: Constants.BUTTON_HEIGHT, width: 24 }} />
+                        <Button
+                            title={step === 5 ? "Submit" : "Next"}
+                            containerStyle={[styles.buttonContainer, { backgroundColor: Constants.COLOR_LIGHT_GRAY }, (checkBoxes && checkBoxes.checkbox1 === true && checkBoxes.checkbox2 === true) && { backgroundColor: Constants.COLOR_AVAILA_SECONDARY }]}
+                            textStyle={{ color: Constants.COLOR_WHITE }}
+                            onPress={this._incrementSteps}
+                        />
+                    </View> */}
+                <View style={{ backgroundColor: 'rgba(255,255,255,0.3)', paddingTop: 16 }}>
+                    <TouchableOpacity
+                        onPress={this._incrementSteps}
+                        style={{
+                            height: Constants.BUTTON_HEIGHT,
+                            backgroundColor: Constants.COLOR_AVAILA_SECONDARY,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', color: Constants.COLOR_WHITE }}>{step === 5 ? "Submit" : "Next"}</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { TouchableNativeFeedback, View, StyleSheet, Image } from 'react-native';
+import { TouchableNativeFeedback, View, StyleSheet, Image, TouchableOpacity, Platform } from 'react-native';
 import { Constants } from '../configs';
 import { images } from '../resources';
 
@@ -21,14 +21,15 @@ class CheckBox extends PureComponent {
             imageStyle
         } = this.props;
         const { isChecked } = this.state;
+        const Button = Platform.OS === 'android' ? TouchableNativeFeedback: TouchableOpacity
         return (
-            <TouchableNativeFeedback onPress={this._handleOnPress}>
+            <Button onPress={this._handleOnPress}>
                 <View style={[styles.container, containerStyle]}>
                     {isChecked && <View style={styles.checkIcon}>
                         <Image style={styles.image} resizeMode={"contain"} source={images.checkbox} />
                     </View>}
                 </View>
-            </TouchableNativeFeedback>
+            </Button>
         )
     }
 }

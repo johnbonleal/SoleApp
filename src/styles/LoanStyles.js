@@ -61,9 +61,9 @@ const styles = StyleSheet.create({
     // LoanCalculatorSliders
 
     loanCalculatorHeaderContainer: {
+        height: Constants.LOAN_HEADER_HEIGHT,
         backgroundColor: '#F2F2F2',
-        justifyContent: 'center',
-        // paddingHorizontal: 16
+        // justifyContent: 'center',
     },
     loanHeaderTitle: {
         fontSize: 20,

@@ -12,6 +12,7 @@ import LoanSlider from './LoanSlider';
 import PersonalDetail from './PersonalDetail';
 import PersonalReference from './PersonalReference';
 import SubmitLoan from './SubmitLoan';
+import StepIndicatorContainer from './StepIndicatorContainer';
 
 export {
     Header,
@@ -26,5 +27,6 @@ export {
     LoanSlider,
     PersonalDetail,
     PersonalReference,
-    SubmitLoan
+    SubmitLoan,
+    StepIndicatorContainer
 };

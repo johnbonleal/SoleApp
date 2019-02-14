@@ -9,6 +9,7 @@ const StepIndicatorStyles = {
     separatorStrokeWidth      : 2,
     stepStrokeWidth           : 2,
     stepIndicatorLabelFontSize: 18,
+    stepIndicatorLabelUnFinishedColor: '#D8D8D8',
 
     // unfinished
 
@@ -19,7 +20,7 @@ const StepIndicatorStyles = {
     // current step
 
     currentStepStrokeWidth           : 3,
-    currentStepIndicatorLabelFontSize: 13,
+    currentStepIndicatorLabelFontSize: 20,
     stepIndicatorCurrentColor        : Constants.COLOR_AVAILA_SECONDARY,
     stepIndicatorLabelCurrentColor   : Constants.COLOR_WHITE,
     stepStrokeCurrentColor           : Constants.COLOR_AVAILA_SECONDARY,
