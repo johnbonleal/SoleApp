@@ -7,10 +7,41 @@ import { GenderData, MaritalStatusData } from '../../utils/Data';
 
 class PersonalDetail extends PureComponent {
     state = {
-        enableScrollViewScroll: true,
+        translateX: new Animated.Value(Constants.SCREEN_WIDTH * 2),
+        opacity: new Animated.Value(0)
+    }
+    componentDidMount() {
+        this._startAnimation();
+    }
+    componentWillUnmount() {
+        this._dismissAnimation();
+    }
+    _startAnimation = () => {
+        const { translateX, opacity } = this.state;
+        Animated.parallel([
+            Animated.spring(translateX, {
+                toValue: 0,
+                friction: 5,
+                tension: 5
+            }),
+            Animated.timing(opacity, {
+                toValue: 1
+            })
+        ]).start();
+    }
+    _dismissAnimation = () => {
+        const { translateX, opacity } = this.state;
+        Animated.parallel([
+            Animated.spring(translateX, {
+                toValue: -(Constants.SCREEN_WIDTH * 2)
+            }),
+            Animated.timing(opacity, {
+                toValue: 0
+            })
+        ]).start();
     }
     render() {
-        const { enableScrollViewScroll } = this.state;
+        const { translateX, opacity } = this.state;
         const {
             onChangeValuePersonal,
             onChangeValueContact,
@@ -19,17 +50,10 @@ class PersonalDetail extends PureComponent {
             parent
         } = this.props;
         return (
-            <Animated.ScrollView
-                ref={component => { this.scrollView = component }}
-                contentContainerStyle={{ flexGrow: 1 }}
-                scrollEventThrottle={16}
-                showsVerticalScrollIndicator={false}
-                scrollEnabled={enableScrollViewScroll}
-            >
+            <Animated.View style={{ flex: 1, transform: [{ translateX }], opacity }}>
                 <RoundedFields
                     data={["First Name", "Middle Name", "Last Name"]}
                     value={personal}
-                    style={{ marginTop: 16 }}
                     onChangeValue={onChangeValuePersonal}
                 />
                 <RoundedFields
@@ -78,7 +102,7 @@ class PersonalDetail extends PureComponent {
                     style={{ marginTop: 16 }}
                     onChangeValue={onChangeValuePersonal}
                 />
-            </Animated.ScrollView>
+            </Animated.View>
         );
     }
 }

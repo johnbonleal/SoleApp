@@ -13,6 +13,7 @@ import PersonalDetail from './PersonalDetail';
 import PersonalReference from './PersonalReference';
 import SubmitLoan from './SubmitLoan';
 import StepIndicatorContainer from './StepIndicatorContainer';
+import LoanNotification from './LoanNotification';
 
 export {
     Header,
@@ -28,5 +29,6 @@ export {
     PersonalDetail,
     PersonalReference,
     SubmitLoan,
-    StepIndicatorContainer
+    StepIndicatorContainer,
+    LoanNotification
 };

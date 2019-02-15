@@ -195,7 +195,11 @@ const styles = StyleSheet.create({
     personalDetailButtonText: {
         fontSize: 15,
         fontWeight: 'bold'
-    }
+    },
+
+    // LoanComplete
+
+    
 });
 
 export default styles;

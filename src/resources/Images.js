@@ -14,6 +14,7 @@ const images = {
     back: require('../assets/images/back.png'),
     bank: require('../assets/images/bank.png'),
     bank_name: require('../assets/images/bank_name.png'),
+    bank_number: require('../assets/images/bank_number.png'),
     banner_correct: require('../assets/images/banner_correct.png'),
     banner_error: require('../assets/images/banner_error.png'),
     beach_1: require('../assets/images/beach_1.png'),

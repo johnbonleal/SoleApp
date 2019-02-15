@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Text, StatusBar, TouchableOpacity, Animated } from 'react-native';
 import { NavigationBar, AvailaImage } from '../../components';
+import { Header, StepIndicatorContainer } from '../../components/Loan';
 import { Constants } from '../../configs';
 import { images } from '../../resources';
-import StepIndicator from 'react-native-step-indicator';
-import StepIndicatorStyles from '../../styles/StepIndicatorStyle';
 import styles from '../../styles/LoanStyles';
 
-import {
-    Header,
-    LoanCashTitle,
-    PersonalDetail,
-    EmploymentDetail,
-    DocumentaryRequirement,
-    PersonalReference,
-    BankAccount,
-    SubmitLoan
-} from '../../components/Loan';
+import PersonalDetail from '../../components/Loan/PersonalDetail';
+import EmploymentDetail from '../../components/Loan/EmploymentDetail';
+import DocumentaryRequirement from '../../components/Loan/DocumentaryRequirement';
+import PersonalReference from '../../components/Loan/PersonalReference';
+import BankAccount from '../../components/Loan/BankAccount';
+import SubmitLoan from '../../components/Loan/SubmitLoan';
 
 var _ = require('lodash');
 
@@ -37,13 +32,13 @@ class LoanCash extends Component {
             personalReferences: {},
             documents: {},
             bankAccounts: {},
+            checkBoxes: {},
             photos: [],
 
             step: 0,
             errors: [],
-            enableScrollViewScroll: true,
             scrollY: new Animated.Value(0),
-            checkBoxes: {},
+            enableScrollViewScroll: true
         };
     }
     _decrementSteps = () => this.setState({ step: this.state.step === 0 ? 0 : this.state.step - 1 });
@@ -51,52 +46,41 @@ class LoanCash extends Component {
     _handleReceive = (data, field) => {
         let state = {};
         state[_.toString(field)] = data;
-
         return this.setState(state);
     }
     _handleChangeValue = (section, data, field) => {
         return this.setState({ [section]: { ...this.state[section], [field]: data } });
     }
-    _renderCashTitle = () => {
-        let title = "";
-        switch (this.state.step) {
-            case 0:
-                title = "Personal Details";
-                break;
-            case 1:
-                title = "Employment Details";
-                break;
-            case 2:
-                title = "Documentary Requirements";
-                break;
-            case 3:
-                title = "Personal References";
-                break;
-            case 4:
-                title = "Bank Account";
-                break;
-            case 5:
-                title = "Submit Loan Application";
-                break;
-            default:
-                title = "";
-                break;
-        }
-        return <LoanCashTitle title={title} />;
+    _handleScroll = event => {
+        const { scrollY } = this.state;
+        console.log("Scroll: ", event.nativeEvent.contentOffset.y);
     }
     render() {
         const {
             step,
-            enableScrollViewScroll,
             scrollY,
-            checkBoxes,
+            enableScrollViewScroll,
             personalDetails,
             contactDetails,
             employmentDetails,
             personalReferences,
             documents,
-            bankAccounts
+            bankAccounts,
+            checkBoxes
         } = this.state;
+
+        // Header Animations
+
+        const headerHeight = scrollY.interpolate({
+            inputRange: [0, 30],
+            outputRange: [Constants.LOAN_HEADER_HEIGHT, 0],
+            extrapolate: 'clamp',
+        });
+        const headerOpacity = scrollY.interpolate({
+            inputRange: [0, 10],
+            outputRange: [1, 0],
+            extrapolate: 'clamp'
+        });
         return (
             <View style={styles.container}>
                 <StatusBar
@@ -109,34 +93,25 @@ class LoanCash extends Component {
                     headerStyle={{ position: 'relative', backgroundColor: Constants.COLOR_WHITE }}
                     headerTitle={<AvailaImage />}
                 />
-                <Animated.ScrollView
+                <ScrollView
                     ref={component => { this.scrollView = component }}
                     contentContainerStyle={{ flexGrow: 1 }}
                     scrollEventThrottle={16}
                     showsVerticalScrollIndicator={false}
                     scrollEnabled={enableScrollViewScroll}
-                    onScroll={Animated.event(
-                        [{ nativeEvent: { contentOffset: { y: scrollY } } }]
-                    )}
                 >
-                    <Header
-                        title={"Loan Cash"}
-                        subtitle={"Fill out lorem ipsum"}
-                        containerStyle={{ padding: 16 }}
-                    />
-                    <View style={{ padding: 24 }}>
-                        {this._renderCashTitle()}
-                        <Animated.View style={{ marginVertical: 16 }}>
-                            <StepIndicator
-                                customStyles={StepIndicatorStyles}
-                                currentPosition={step}
-                                stepCount={6}
-                            />
-                        </Animated.View>
-                        <Animated.Text style={styles.instruction}>
-                            <Text style={{ color: 'red' }}>* </Text>
-                            Indicates Required Field
-                        </Animated.Text>
+                    <Animated.View style={{ backgroundColor: Constants.COLOR_WHITE }}>
+                        <Header
+                            title={"Loan Cash"}
+                            subtitle={"Fill out lorem ipsum"}
+                            containerStyle={{
+                                height: headerHeight,
+                                opacity: headerOpacity
+                            }}
+                        />
+                        <StepIndicatorContainer scrollY={scrollY} step={step} />
+                    </Animated.View>
+                    <Animated.View style={{ padding: 16 }}>
                         {(() => {
                             switch (step) {
                                 case 0:
@@ -191,8 +166,8 @@ class LoanCash extends Component {
                                 onPress={this._incrementSteps}
                             />
                         </View>
-                    </View>
-                </Animated.ScrollView>
+                    </Animated.View>
+                </ScrollView>
             </View>
         )
     }
