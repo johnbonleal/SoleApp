@@ -3,7 +3,7 @@ import { TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { Constants } from '../configs';
 
 const SquareListItem = ({ item, index, onPress }) => (
-    <TouchableOpacity key={item.id} style={styles.container} onPress={onPress}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
         <Image style={styles.image} source={item.src} />
     </TouchableOpacity>
 );

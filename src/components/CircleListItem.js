@@ -1,10 +1,9 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View, Text, Image } from 'react-native';
 import { images, fonts } from '../resources';
-import ListItemStyles from '../styles/ListItemStyle';
 
-const CircleListItem = props => (
-    <TouchableOpacity id={props.item.id} key={props.index} style={styles.container} onPress={props.onPressItem} >
+const CircleListItem = ({ index, item, onPressItem }) => (
+    <TouchableOpacity style={styles.container} onPress={onPressItem} >
         <View style={styles.imageContainer}>
             <Image style={styles.image} source={images.image2} />
         </View>

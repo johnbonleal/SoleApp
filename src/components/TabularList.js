@@ -12,7 +12,7 @@ class TabularList extends PureComponent {
             <FlatList
                 style={style}
                 data={data}
-                keyExtractor={(item, index) => item.id}
+                keyExtractor={(item, index) => `item-${index}`}
                 renderItem={({ item, index }) => <View key={item.id} style={styles.tabContainer} >
                     <TouchableOpacity style={styles.button} onPress={(() => onPressItem(item.title))}>
                         <View style={{ flexDirection: 'row' }}>

@@ -16,7 +16,7 @@ class SquareList extends PureComponent {
                     horizontal
                     data={data}
                     showsHorizontalScrollIndicator={false}
-                    keyExtractor={(item, index) => item.id}
+                    keyExtractor={(item, index) => `item-${index}`}
                     renderItem={({ item, index }) => <SquareListItem item={item} index={index} onPress={onPress} />}
                 />
             </View>

@@ -19,8 +19,8 @@ class RectangleList extends PureComponent {
                     horizontal
                     data={data}
                     showsHorizontalScrollIndicator={false}
-                    keyExtractor={(item, index) => item.id}
-                    renderItem={({ item, index }) => <RectangleListItem key={index} item={item} onPressItem={onPressItem} withIcon={withIcon} />}
+                    keyExtractor={(item, index) => `item-${index}`}
+                    renderItem={({ item, index }) => <RectangleListItem item={item} onPressItem={onPressItem} withIcon={withIcon} />}
                 />
             </View>
         )
