@@ -47,6 +47,8 @@ target 'SoleApp' do
 
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
+  pod 'react-native-spinkit', :path => '../node_modules/react-native-spinkit'
+
   target 'SoleAppTests' do
     inherit! :search_paths
     # Pods for testing
