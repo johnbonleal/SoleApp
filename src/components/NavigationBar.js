@@ -32,13 +32,14 @@ class NavigationBar extends PureComponent {
                 </Animated.View>}
                 <View style={styles.header}>
                     <View>
-                        {headerLeft &&
+                        {_.isString(headerLeft) ?
+                            <Text style={{ color: Constants.COLOR_WHITE }}>{headerLeft}</Text> :
                             <TouchableOpacity onPress={onPressHeaderLeft || NavigationService.back} style={[styles.imageContainer, headerLeftStyle]} >
                                 <ImageLoader style={[styles.image, { tintColor: Constants.COLOR_WHITE }, headerLeftImageStyle]} source={headerLeft} />
                             </TouchableOpacity>
                         }
                     </View>
-                    <View style={{ alignItems: 'center' }}>
+                    <View style={{ flex: 1, alignItems: 'center' }}>
                         {headerTitle && _.isString(headerTitle) ?
                             <Text style={[styles.headerTitle, headerTitleStyle]}>{headerTitle}</Text> :
                             headerTitle
@@ -50,7 +51,7 @@ class NavigationBar extends PureComponent {
                                 <Text style={{ color: Constants.COLOR_WHITE }}>{headerRight}</Text> :
                                 <View style={[styles.imageContainer, !_.isString(headerRight) && headerRightStyle]}>
                                     <ImageLoader
-                                        style={[styles.image, { tintColor: Constants.COLOR_WHITE }, headerRightImageStyle]}
+                                        style={[styles.image, headerRightImageStyle]}
                                         source={headerRight}
                                     />
                                 </View>
@@ -64,12 +65,18 @@ class NavigationBar extends PureComponent {
 }
 
 NavigationBar.propTypes = {
-    headerLeft: PropTypes.number,
-    headerTitle: PropTypes.oneOf([
+    headerLeft: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
+    headerTitle: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.element
     ]),
-    headerRight: PropTypes.string,
+    headerRight: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
     headerLeftStyle: PropTypes.object,
     headerTitleStyle: PropTypes.object,
     headerRightStyle: PropTypes.object,
@@ -77,6 +84,19 @@ NavigationBar.propTypes = {
     headerRightImageStyle: PropTypes.object,
     imageStyle: PropTypes.object,
     headerStyle: PropTypes.object
+};
+
+NavigationBar.defaultProps = {
+    headerLeft: null,
+    headerTitle: null,
+    headerRight: null,
+    headerLeftStyle: {},
+    headerTitleStyle: {},
+    headerRightStyle: {},
+    headerLeftImageStyle: {},
+    headerRightImageStyle: {},
+    imageStyle: {},
+    headerStyle: {}
 };
 
 export default NavigationBar;

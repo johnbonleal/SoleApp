@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Animated, StyleSheet, StatusBar } from 'react-native';
+import { connect } from 'react-redux';
 
 import { NavigationBar, ImageLoader, RectangleList, SquareList, CircleList } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
@@ -9,7 +10,8 @@ import Dashboard from './Dashboard';
 import styles from '../../styles/HomeStyle';
 
 const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
-const TOP_CONTAINER_MAX_HEIGHT = 200;
+var _ = require('lodash');
+
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -17,6 +19,12 @@ class Home extends Component {
         this.state = {
             scrollY: new Animated.Value(0)
         };
+    }
+    _getFirstName = name => {
+        if (_.isString(name)) {
+            let splitNameIntoArray = name.split(' ');
+            return splitNameIntoArray[0];
+        }
     }
     _onPressItem = item => {
         NavigationService.navigate("MerchantView");
@@ -32,6 +40,11 @@ class Home extends Component {
     }
     _onPressProfileImage = () => {
         NavigationService.toggleDrawer();
+    }
+    _onPressLoan = () => {
+        let route = 'OnBoarding';
+        if (this.props.loan && this.props.loan.isOnBoardingDismissed) route = 'HomeAvaila';
+        NavigationService.navigate(route);
     }
     renderHeader() {
         const { scrollY } = this.state;
@@ -64,6 +77,8 @@ class Home extends Component {
     }
     render() {
         const { scrollY } = this.state;
+        const { auth } = this.props;
+        let firstName = auth && auth.data.user.first_name;
         return (
             <View style={styles.container}>
                 <StatusBar
@@ -81,7 +96,7 @@ class Home extends Component {
                     showsVerticalScrollIndicator={false}
                 >
                     {this.renderBackgroundImage()}
-                    <Text style={styles.greetings}>Hi, John</Text>
+                    <Text style={styles.greetings}>{`Hi, ${this._getFirstName(firstName)}`}</Text>
                     <View style={styles.dashboardContainer}>
                         <Dashboard />
                     </View>
@@ -99,7 +114,7 @@ class Home extends Component {
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={styles.button}
-                                onPress={() => NavigationService.navigate('Loan')}
+                                onPress={this._onPressLoan}
                             >
                                 <View style={styles.imageContainer}>
                                     <ImageLoader style={styles.image} source={images.loan} />
@@ -138,4 +153,17 @@ class Home extends Component {
     }
 }
 
-export default Home;
+const mapStateToProps = state => {
+    return {
+        auth: state.auth,
+        loan: state.loan
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

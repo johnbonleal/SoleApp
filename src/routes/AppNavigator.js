@@ -12,11 +12,11 @@ const AppNavigator = createStackNavigator(
         Home: { screen: HomeRoutes },
         Perk: { screen: PerkRoutes },
         Loan: { screen: LoanRoutes },
-        // Test Routes
+        // Test Route
         Test: { screen: TestScreen }
     },
     {
-        initialRouteName: 'Test',
+        initialRouteName: 'Home',
         headerMode: 'none'
     }
 )

@@ -5,7 +5,7 @@ import { all, takeLatest } from 'redux-saga/effects';
 import { LoginTypes } from '../actions/LoginActions';
 
 // Sagas
-import { handleLogin } from './LoginSaga';
+import { handleLogin } from './AuthSaga';
 
 export function* rootSaga() {
     yield all([

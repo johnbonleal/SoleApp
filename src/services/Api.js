@@ -1,5 +1,5 @@
 import { create } from 'axios';
-import { API_URL } from '../configs/Constants';
+import { Constants } from '../configs';
 
 const removeEmpty = (obj) => {
     Object.keys(obj).forEach((key) => {
@@ -12,12 +12,12 @@ const removeEmpty = (obj) => {
 const transformParams = params => JSON.stringify(params);
 
 const headers = {
-    Accept: 'application/json',
+    'Accept': 'application/json',
     'Content-Type': 'application/json'
 };
 
 const config = {
-    baseURL: API_URL,
+    baseURL: Constants.API_URL,
     timeOut: 10000,
     headers,
     transformRequest: [transformParams]
@@ -25,47 +25,14 @@ const config = {
 
 export const axios = create(config);
 
-const get = (url, params) => {
-    const customParams = removeEmpty({
-        params: {
-            ...params,
-            token: null
-        },
-        headers: {
-            Authorization: (params.token) ? `Bearer ${params.token}` : null
-        }
-    })
-    return axios.get(url, customParams)
-}
-
-const post = (url, params) => {
-    const customParams = {
-        ...params,
-        token: null
-    }
-    return axios.post(url, customParams, {
-        headers: {
-            Authorization: (params.token) ? `Bearer ${params.token}` : null
-        }
-    });
-}
-
-const put = (url, params) => {
-    const customParams = {
-        ...params,
-        token: null
-    }
-    return axios.put(url, customParams, {
-        headers: {
-            Authorization: (params.token) ? `Bearer ${params.token}` : null
-        }
-    });
-}
+const get = (url, params) => axios.get(url, params);
+const post = (url, params) => axios.post(url, params);
+const put = (url, params) => axios.put(url, customParams);
 
 const api = {
-    USER_LOGIN: params => post('/sign_in', params),
-    SUBMIT_BATCH: params => put(`/acu_schedules/${params.member_id}/submit_batch`, params),
-    VIEW_SOA: params => get(`/acu_schedules/${params.batch_no}/view_soa`, params)
+    USER_LOGIN: params => post('/users/login', params),
+    // SUBMIT_BATCH: params => put(`/acu_schedules/${params.member_id}/submit_batch`, params),
+    // VIEW_SOA: params => get(`/acu_schedules/${params.batch_no}/view_soa`, params)
 };
 
 export default api;

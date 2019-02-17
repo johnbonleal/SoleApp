@@ -2,6 +2,9 @@ var _ = require('lodash')
 
 var str = "Full Name"
 
+let splitIntoArray = str.split(' ')[0];
+
+console.log(str.length)
 // function convertToCamelCase(str) {
 //     let removeSpace = str.replace(/\s/g, '');
 //     console.log(removeSpace)
@@ -33,5 +36,3 @@ var str = "Full Name"
 // })();
 
 // console.log(autorun());
-
-

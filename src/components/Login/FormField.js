@@ -3,7 +3,7 @@ import { View, TextInput, StyleSheet, Image } from 'react-native';
 
 const TEXTINPUT_HEIGHT = 56;
 
-const FormField = ({ icon, placeholder }) => (
+const FormField = ({ icon, placeholder, value, onChangeText }) => (
     <View style={styles.container}>
         <View style={styles.imageContainer}>
             <Image style={styles.image} source={icon} resizeMode={'contain'} />
@@ -12,6 +12,8 @@ const FormField = ({ icon, placeholder }) => (
             placeholder={placeholder}
             placeholderTextColor={"#FFFFFF"}
             style={styles.input}
+            onChangeText={() => onChangeText()}
+            value={value}
         />
     </View>
 );

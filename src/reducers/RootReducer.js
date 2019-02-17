@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 export default RootReducers = combineReducers({
-    user: require('./UserReducer').reducer,
-    camera: require('./CameraReducer').reducer
+    auth: require('./AuthReducer').reducer,
+    camera: require('./CameraReducer').reducer,
+    loan: require('./LoanReducer').reducer,
 });

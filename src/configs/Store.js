@@ -5,7 +5,7 @@ import axiosMiddleware from 'redux-axios-middleware';
 import createSagaMiddleware from 'redux-saga';
 import storage from 'redux-persist/lib/storage';
 import rootReducers from '../reducers/RootReducer';
-import rootSaga from '../sagas/RootSaga';
+import { rootSaga } from '../sagas/RootSaga';
 import { axios } from '../services/Api';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -28,9 +28,7 @@ export default () => {
     const store = compose(applyMiddleware(...middlewares))(createStore)(persistedReducer);
     const persistor = persistStore(store);
 
-    store.runSagaTask = () => {
-        store.sagaTask = sagaMiddleware.run(rootSaga);
-    };
+    sagaMiddleware.run(rootSaga);
 
     return { store, persistor };
 };

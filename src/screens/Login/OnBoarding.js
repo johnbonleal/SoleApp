@@ -6,8 +6,8 @@ import SecondScreen from './SecondScreen';
 import Swiper from 'react-native-swiper';
 import { NavigationService, Constants } from '../../configs';
 
-const Dot = ({style}) => (
-    <View style={[{backgroundColor:'rgba(255,255,255,0.7)', width: 10, height: 10,borderRadius: 5, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3}, style]} />
+const Dot = ({ style }) => (
+    <View style={[{ backgroundColor: 'rgba(255,255,255,0.7)', width: 10, height: 10, borderRadius: 5, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3 }, style]} />
 );
 
 class OnBoarding extends Component {
@@ -23,8 +23,8 @@ class OnBoarding extends Component {
                     autoplay
                     autoplayTimeout={5}
                     paginationStyle={{ marginBottom: Constants.SCREEN_HEIGHT / 5 }}
-                    dot={<Dot style={{backgroundColor: 'rgba(255,255,255,0.7)'}} />}
-                    activeDot={<Dot style={{backgroundColor: '#F3721C'}} />}
+                    dot={<Dot style={{ backgroundColor: 'rgba(255,255,255,0.7)' }} />}
+                    activeDot={<Dot style={{ backgroundColor: '#F3721C' }} />}
                 >
                     <FirstScreen />
                     <SecondScreen />
@@ -32,16 +32,16 @@ class OnBoarding extends Component {
                 <View style={styles.contentBottom}>
                     <View style={styles.buttonContainer}>
                         <Button
-                            style={[styles.button, {  backgroundColor: '#F3721C' }]}
-                            textStyle={{color: '#FFFFFF'}}
+                            style={[styles.button, { backgroundColor: '#F3721C' }]}
+                            textStyle={{ color: '#FFFFFF' }}
                             text={"Join Venteny"}
-                            onPress={()=>NavigationService.navigate('AboutUs')}
+                            onPress={() => NavigationService.navigate('AboutUs')}
                         />
                         <Button
                             style={[styles.button, { backgroundColor: '#FFFFFF' }]}
-                            textStyle={{color: '#F3721C'}}
+                            textStyle={{ color: '#F3721C' }}
                             text={"Log In"}
-                            onPress={()=>NavigationService.navigate('SignIn')}
+                            onPress={() => NavigationService.navigate('SignIn')}
                         />
                     </View>
                     <Footer style={{ position: 'relative', bottom: 0 }} />

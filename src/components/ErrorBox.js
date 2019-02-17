@@ -1,13 +1,11 @@
 import React, { PureComponent } from 'react';
 import { View, Image, Text, StyleSheet, Dimensions, Animated } from 'react-native';
 import { images } from '../resources';
-
-const SCREEN_HEIGHT = Dimensions.get('window').height;
-const ERROR_BOX_HEIGHT = SCREEN_HEIGHT / 7;
+import { Constants } from '../configs';
 
 class ErrorBox extends PureComponent {
     state = {
-        transLateY: new Animated.Value(-ERROR_BOX_HEIGHT)
+        transLateY: new Animated.Value(-Constants.ERROR_BOX_HEIGHT)
     }
     componentDidMount() {
         this._startAnimation();
@@ -23,19 +21,19 @@ class ErrorBox extends PureComponent {
     }
     _dismissAnimation = () => {
         Animated.timing(this.state.transLateY, {
-            toValue: -ERROR_BOX_HEIGHT,
+            toValue: -Constants.ERROR_BOX_HEIGHT,
             duration: 1000
         }).start();
     }
     render() {
         const { transLateY } = this.state;
-        const { errorMessage } = this.props;
+        const { text } = this.props;
         return (
             <Animated.View style={[styles.container, { transform: [{ translateY: transLateY }] }]}>
                 <View style={{ ...StyleSheet.absoluteFill }}>
                     <Image style={styles.image} source={images.banner_error} resizeMode={"cover"} />
                 </View>
-                <Text style={styles.text}>Invalid username or password</Text>
+                <Text style={styles.text}>{text}</Text>
             </Animated.View>
         )
     }
@@ -45,7 +43,7 @@ export default ErrorBox;
 
 const styles = StyleSheet.create({
     container: {
-        height: ERROR_BOX_HEIGHT,
+        height: Constants.ERROR_BOX_HEIGHT,
         position: 'absolute',
         left: 0,
         right: 0,
@@ -61,6 +59,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 22,
         fontWeight: 'bold',
-        color: '#FFFFFF'
+        color: '#FFFFFF',
+        textAlign: 'center'
     }
 });

@@ -22,6 +22,7 @@ import AvailaImage from './AvailaImage';
 import FloatingTextInput from './FloatingTextInput';
 import Dropdown from './Dropdown';
 import CheckBox from './CheckBox';
+import Loading from './Loading';
 
 export {
     NavigationBar,
@@ -47,5 +48,6 @@ export {
     AvailaImage,
     FloatingTextInput,
     Dropdown,
-    CheckBox
+    CheckBox,
+    Loading
 };
