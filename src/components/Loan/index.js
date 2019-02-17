@@ -1,3 +1,4 @@
+import Button from './Button';
 import Header from './Header';
 import LoanCashTitle from './LoanCashTitle';
 import RoundedFields from './RoundedFields';
@@ -14,8 +15,14 @@ import PersonalReference from './PersonalReference';
 import SubmitLoan from './SubmitLoan';
 import StepIndicatorContainer from './StepIndicatorContainer';
 import LoanNotification from './LoanNotification';
+import LoanDetail from './LoanDetail';
+import LoanCancel from './LoanCancel';
+import LoanComplete from './LoanComplete';
+import BankAccountSummaryDetail from './BankAccountSummaryDetail';
+import LoanTag from './LoanTag';
 
 export {
+    Button,
     Header,
     LoanCashTitle,
     RoundedFields,
@@ -30,5 +37,10 @@ export {
     PersonalReference,
     SubmitLoan,
     StepIndicatorContainer,
-    LoanNotification
+    LoanNotification,
+    LoanDetail,
+    LoanCancel,
+    LoanComplete,
+    LoanTag,
+    BankAccountSummaryDetail
 };

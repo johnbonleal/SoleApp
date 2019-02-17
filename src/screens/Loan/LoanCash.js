@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text, StatusBar, TouchableOpacity, Animated } from 'react-native';
+import { View, ScrollView, StatusBar, Animated } from 'react-native';
 import { NavigationBar, AvailaImage } from '../../components';
-import { Header, StepIndicatorContainer } from '../../components/Loan';
-import { Constants } from '../../configs';
+import { Header, StepIndicatorContainer, Button } from '../../components/Loan';
+import { Constants, NavigationService } from '../../configs';
 import { images } from '../../resources';
 import styles from '../../styles/LoanStyles';
 
@@ -14,12 +14,6 @@ import BankAccount from '../../components/Loan/BankAccount';
 import SubmitLoan from '../../components/Loan/SubmitLoan';
 
 var _ = require('lodash');
-
-const Button = ({ title, containerStyle, textStyle, onPress }) => (
-    <TouchableOpacity style={[styles.personalDetailButtonContainer, containerStyle]} onPress={onPress}>
-        <Text style={[styles.personalDetailButtonText, textStyle]}>{title}</Text>
-    </TouchableOpacity>
-);
 
 class LoanCash extends Component {
     constructor(props) {
@@ -54,6 +48,13 @@ class LoanCash extends Component {
     _handleScroll = event => {
         const { scrollY } = this.state;
         console.log("Scroll: ", event.nativeEvent.contentOffset.y);
+    }
+    _onPress = () => {
+        if (this.state.step === 5) {
+            NavigationService.navigate('LoanSummary');
+        } else {
+            this._incrementSteps();
+        }
     }
     render() {
         const {
@@ -163,7 +164,7 @@ class LoanCash extends Component {
                                 title={step === 5 ? "Submit" : "Next"}
                                 containerStyle={[styles.buttonContainer, { backgroundColor: Constants.COLOR_LIGHT_GRAY }, (checkBoxes && checkBoxes.checkbox1 === true && checkBoxes.checkbox2 === true) && { backgroundColor: Constants.COLOR_AVAILA_SECONDARY }]}
                                 textStyle={{ color: Constants.COLOR_WHITE }}
-                                onPress={this._incrementSteps}
+                                onPress={this._onPress}
                             />
                         </View>
                     </Animated.View>

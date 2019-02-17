@@ -3,7 +3,6 @@ import { View, Text } from 'react-native';
 import Slider from 'react-native-slider';
 import styles from '../../styles/LoanStyles';
 import { numberFormat } from '../../utils/DataFormatter';
-import { images } from '../../resources';
 
 const LoanSlider = ({
     isAmount,

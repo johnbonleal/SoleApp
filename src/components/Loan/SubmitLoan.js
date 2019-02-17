@@ -1,17 +1,7 @@
 import React, { PureComponent } from 'react';
 import { View, Text, Animated } from 'react-native';
 import { Constants } from '../../configs';
-import { CheckBox } from '..';
-
-const LoanTerms = ({ name, text, handleChangeValue }) => (
-    <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 16 }}>
-        <CheckBox name={name} handleChangeValue={handleChangeValue} />
-        <View style={{ flexDirection: 'row' }}>
-            <Text style={{ fontSize: 16, color: 'red', marginHorizontal: 8 }}>*</Text>
-            <Text style={{ flex: 1, fontSize: 16 }}>{text}</Text>
-        </View>
-    </View>
-);
+import LoanTerm from './LoanTerm';
 
 class SubmitLoan extends PureComponent {
     state = {
@@ -53,8 +43,8 @@ class SubmitLoan extends PureComponent {
         const { handleChangeValue } = this.props;
         return (
             <Animated.View style={{ padding: 16, transform: [{ translateX }], opacity }}>
-                <LoanTerms name={"checkbox1"} text={"I hereby declare that all the information provided are complete, valid and truthful."} handleChangeValue={handleChangeValue} />
-                <LoanTerms name={"checkbox2"} text={"I hereby agree with the privacy policy of DELTAPEAK Lending Inc."} handleChangeValue={handleChangeValue} />
+                <LoanTerm name={"checkbox1"} text={"I hereby declare that all the information provided are complete, valid and truthful."} handleChangeValue={handleChangeValue} />
+                <LoanTerm name={"checkbox2"} text={"I hereby agree with the privacy policy of DELTAPEAK Lending Inc."} handleChangeValue={handleChangeValue} />
             </Animated.View>
         )
     }
