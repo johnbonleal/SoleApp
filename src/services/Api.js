@@ -31,6 +31,7 @@ const put = (url, params) => axios.put(url, customParams);
 
 const api = {
     USER_LOGIN: params => post('/users/login', params),
+    USER_LOGOUT: params => post('/users/logout', params)
     // SUBMIT_BATCH: params => put(`/acu_schedules/${params.member_id}/submit_batch`, params),
     // VIEW_SOA: params => get(`/acu_schedules/${params.batch_no}/view_soa`, params)
 };

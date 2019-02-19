@@ -8,7 +8,7 @@ import LoanSummary from '../screens/Loan/LoanSummary';
 
 const LoanRoutes = createStackNavigator(
     {
-        OnBoarding: { screen: OnBoardingScreen },
+        OnBoardingAvaila: { screen: OnBoardingScreen },
         HomeAvaila: { screen: HomeAvailaScreen },
         LoanCalculator: { screen: LoanCalculatorScreen },
         LoanCash: { screen: LoanCashScreen },

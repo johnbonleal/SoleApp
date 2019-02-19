@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import * as LoginActions from '../actions/LoginActions';
+import * as LoginActions from '../actions/AuthActions';
 import api from '../services/Api';
 import { NavigationService } from '../configs';
 
@@ -7,7 +7,19 @@ export function* handleLogin(action) {
     try {
         const response = yield call(api.USER_LOGIN, action.params);
         yield put(LoginActions.successLogin(response.data));
-        yield (NavigationService.navigate('AppDrawer'));
+        if (response.data.status === 200) {
+            yield (NavigationService.navigate('Main'));
+        } else if (response.data.user.pin.length < 6) {
+            yield (NavigationService.navigate('ChangePin'));
+        } else if (
+            response.data.user.first_name === null ||
+            (response.data.user.contact_number === null || response.data.user.contact_number === '') ||
+            response.data.user.email === null
+        ) {
+            yield (NavigationService.navigate('CreateProfile'));
+        } else {
+
+        }
     } catch (error) {
         let errorMessage = '';
         console.log("Login error: ", error)
@@ -33,6 +45,25 @@ export function* handleLogin(action) {
             errorMessage = 'Something went wrong. Please try again later.';
         }
         yield put(LoginActions.failureLogin(errorMessage));
+    }
+}
+
+export function* handleLogout(action) {
+    try {
+        console.log("Logout action: ", action);
+        yield call(api.USER_LOGOUT, action.params);
+        yield (NavigationService.navigate('Login'));
+    } catch (error) {
+        let errorMessage = '';
+        console.log("Logout error: ", error);
+        if (error.response) {
+            console.log("Logout error in response: ", error.response)
+        } else if (error.request) {
+            console.log("Logout error in request: ", error.request)
+            errorMessage = "Request Error";
+        } else {
+            errorMessage = 'Something went wrong. Please try again later.';
+        }
     }
 }
 

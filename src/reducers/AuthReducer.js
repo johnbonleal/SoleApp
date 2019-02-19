@@ -1,4 +1,4 @@
-import { LoginTypes } from '../actions/LoginActions';
+import { LoginTypes } from '../actions/AuthActions';
 
 const INITIAL_STATE = {
     isLoading: false,
@@ -23,6 +23,7 @@ export const reducer = (state = INITIAL_STATE, action) => {
                 isLoading: false,
                 isSuccess: true,
                 hasError: false,
+                errorMessage: '',
                 data: action.data,
             };
         case LoginTypes.FAILURE:
@@ -33,6 +34,8 @@ export const reducer = (state = INITIAL_STATE, action) => {
                 hasError: true,
                 errorMessage: action.error,
             };
+        case LoginTypes.RESET:
+            return state;
         default:
             return state;
     }

@@ -1,37 +1,57 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet, StatusBar } from 'react-native';
-import { Form, Field } from 'react-native-validate-form';
-import { InputField, ErrorBox, Loading } from '../../components';
-import { Button, Footer, FormField } from '../../components/Login';
+import { View, Image, StyleSheet, StatusBar, Keyboard, Animated } from 'react-native';
+import { Field, reduxForm, reset } from 'redux-form';
+import { InputField, ErrorBox } from '../../components';
+import { Button, Footer } from '../../components/Login';
 import { connect } from 'react-redux';
-import { requestLogin } from '../../actions/LoginActions';
-import { NavigationService, Constants } from '../../configs';
-import { required } from '../../utils/Validations';
+import { requestLogin } from '../../actions/AuthActions';
+import { Constants } from '../../configs';
 import { LoginImageData } from '../../utils/Data';
 import { images } from '../../resources';
 import Carousel from '../../utils/Carousel';
 import styles from '../../styles/LoginStyle';
+import { uniqueKeyValidator, passwordValidator } from '../../validations/HomeValidator';
+
+var _ = require('lodash');
 
 class Login extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            login: {}
+            isDisabled: false,
+            footerOpacity: new Animated.Value(1),
+            errors: []
         };
     }
-    _handleChangeValue = (section, data, field) => {
-        return this.setState({ [section]: { ...this.state[section], [field]: data } });
+    componentDidMount() {
+        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
     }
-    _handleLogin = () => {
+    componentWillUnmount() {
+        this.keyboardDidShowListener.remove();
+        this.keyboardDidHideListener.remove();
+    }
+    _keyboardDidShow = () => {
+        Animated.timing(this.state.footerOpacity, {
+            toValue: 0
+        }).start();
+    }
+    _keyboardDidHide = () => {
+        Animated.timing(this.state.footerOpacity, {
+            toValue: 1
+        }).start();
+    }
+    _handleSubmit = () => {
+        const { LoginForm } = this.props.form;
         this.props.requestLogin({
-            ...this.state.login,
+            ...LoginForm.values,
             platform: 'Venteny',
             source: 'mobile'
         });
     }
     render() {
-        const { login } = this.state;
+        const { isDisabled, footerOpacity } = this.state;
         const { auth } = this.props;
         return (
             <View style={styles.loginContainer}>
@@ -44,16 +64,11 @@ class Login extends Component {
                     <View style={{ height: Constants.SCREEN_HEIGHT / 9, width: Constants.SCREEN_WIDTH * 0.7 }}>
                         <Image style={styles.image} source={images.venteny_logo} resizeMode={'contain'} />
                     </View>
-                    <Form
+                    <View
                         ref={(ref) => this.LoginForm = ref}
                         style={{ width: '100%' }}
-                        validate
-                    // submit={submit}
-                    // errors={errors}
                     >
                         <Field
-                            required
-                            validations={required}
                             component={InputField}
                             name="unique_key"
                             placeholder="Membership ID Number"
@@ -61,12 +76,9 @@ class Login extends Component {
                             containerStyle={styles.loginTextFieldContainer}
                             iconStyle={styles.loginTextFieldIcon}
                             inputStyle={styles.loginTextField}
-                            onChangeText={this._handleChangeValue.bind(this, 'login')}
-                            value={login && login.membership_id}
+                            validate={uniqueKeyValidator}
                         />
                         <Field
-                            required
-                            validations={required}
                             component={InputField}
                             name="password"
                             placeholder="Password"
@@ -74,34 +86,37 @@ class Login extends Component {
                             containerStyle={styles.loginTextFieldContainer}
                             iconStyle={styles.loginTextFieldIcon}
                             inputStyle={styles.loginTextField}
-                            onChangeText={this._handleChangeValue.bind(this, 'login')}
-                            value={login && login.password}
+                            validate={passwordValidator}
                             secureTextEntry
                         />
                         <Button
                             style={styles.loginButton}
                             text={"Log In"}
-                            onPress={this._handleLogin}
+                            disabled={isDisabled}
+                            isLoading={auth.isLoading}
+                            onPress={this._handleSubmit}
                         />
-                    </Form>
+                    </View>
                 </View>
-                <Footer />
+                <Footer style={{ opacity: footerOpacity }} />
                 {
                     auth && auth.hasError &&
                     <ErrorBox text={auth.errorMessage} />
                 }
-                {
-                    auth.isLoading &&
-                    <Loading />
-                }
-            </View >
+            </View>
         )
     }
 }
 
+const reduxFormConfig = {
+    form: 'LoginForm',
+    onSubmitSuccess: (result, dispatch) => dispatch(reset('LoginForm'))
+};
+
 const mapStateToProps = state => {
     return {
-        auth: state.auth
+        auth: state.auth,
+        form: state.form
     }
 };
 
@@ -111,4 +126,6 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+const LoginForm = reduxForm(reduxFormConfig)(Login);
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

@@ -27,7 +27,9 @@ const InputField = ({
     iconStyle,
     inputStyle,
     imageStyle,
-    containerStyle
+    containerStyle,
+    input,
+    meta
 }) => (
         <View style={containerStyle}>
             {
@@ -36,11 +38,11 @@ const InputField = ({
                 </View>
             }
             <TextInput
-                svalue={value && value}
+                value={input.value}
                 secureTextEntry={secureTextEntry}
                 defaultValue={defaultValue && defaultValue}
-                onChangeText={onChangeText ? (val) => onChangeText(val, name) : null}
-                onEndEditing={onEndEditing ? (val) => onEndEditing(val, name) : null}
+                onChangeText={input.onChange}
+                // onEndEditing={onEndEditing ? (val) => onEndEditing(val, name) : null}
 
                 keyboardType={keyboardType}
                 autoCorrect={autoCorrect}

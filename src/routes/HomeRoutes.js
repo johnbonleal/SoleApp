@@ -3,7 +3,8 @@ import { createStackNavigator } from 'react-navigation';
 import OnBoardingScreen from '../screens/Login/OnBoarding';
 import AboutUsScreen from '../screens/Login/AboutUs';
 import LoginScreen from '../screens/Login/Login';
-import SignUpScreen from '../screens/Login/SignUp';
+import CreateProfileScreen from '../screens/Login/CreateProfile';
+import ChangePinScreen from '../screens/Login/ChangePin';
 
 import ProfileScreen from '../screens/Profile/Profile';
 import EditProfileScreen from '../screens/Profile/EditProfile';
@@ -20,7 +21,8 @@ const LoginRoutes = createStackNavigator(
         OnBoarding: { screen: OnBoardingScreen },
         AboutUs: { screen: AboutUsScreen },
         SignIn: { screen: LoginScreen },
-        SignUp: { screen: SignUpScreen }
+        CreateProfile: { screen: CreateProfileScreen },
+        ChangePin: { screen: ChangePinScreen }
     },
     {
         headerMode: 'none'

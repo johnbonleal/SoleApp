@@ -1,26 +1,41 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { Constants } from '../../configs';
+import Spinner from 'react-native-spinkit';
 
-const BUTTON_HEIGHT = 56;
-
-const Button = ({ style, text, textStyle, onPress }) => (
-    <TouchableOpacity style={[styles.button, style]} onPress={onPress}>
-        <Text style={[styles.buttonText, textStyle]}>{text}</Text>
-    </TouchableOpacity>
-);
+const Button = ({
+    style,
+    text,
+    textStyle,
+    isLoading,
+    disabled,
+    onPress
+}) => (
+        <TouchableOpacity
+            style={[styles.button, style, disabled && { backgroundColor: '#5E5E5E' }]}
+            disabled={disabled}
+            onPress={onPress}
+        >
+            {
+                isLoading ?
+                    <Spinner type="ThreeBounce" size={50} color="#EFB881" /> :
+                    <Text style={[styles.buttonText, textStyle]}>{text}</Text>
+            }
+        </TouchableOpacity>
+    );
 
 export default Button;
 
 const styles = StyleSheet.create({
     button: {
-        height: BUTTON_HEIGHT,
-        justifyContent: 'center', 
+        height: Constants.BUTTON_HEIGHT,
+        justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: BUTTON_HEIGHT / 2
+        borderRadius: Constants.BUTTON_HEIGHT / 2
     },
     buttonText: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#FFFFFF'
+        color: Constants.COLOR_WHITE
     },
 });

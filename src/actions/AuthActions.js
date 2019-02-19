@@ -17,6 +17,7 @@ export const failureLogin = error => ({
     error
 });
 
-export const logout = () => ({
-    type: LoginTypes.LOGOUT
+export const logout = params => ({
+    type: LoginTypes.RESET,
+    params
 });

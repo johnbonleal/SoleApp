@@ -1,41 +1,122 @@
 import React, { Component } from 'react';
-import { View, Text, Image, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, Text, Image, ImageBackground, TouchableOpacity, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 import { DrawerItems } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { NavigationService } from '../configs/NavigationService';
+import { NavigationService, Constants } from '../configs';
+import { logout } from '../actions/AuthActions';
 
 import { images, fonts } from '../resources';
 
 const HEADER_MAX_HEIGHT = 200;
 
-export default class SideMenu extends Component {
+class SideMenu extends Component {
     _onPressProfileImage = () => {
         NavigationService.closeDrawer();
         NavigationService.navigate('Profile');
     }
+    _handleLogout = () => {
+        const { auth } = this.props;
+        if (auth && auth.data && auth.data.access_token) {
+            this.props.handleLogout({
+                access_token: auth.data.access_token,
+                platform: 'Venteny'
+            });
+        }
+    }
     render() {
         return (
-            <View style={{ flex: 1, backgroundColor: 'white' }}>
-                <ImageBackground style={{ height: HEADER_MAX_HEIGHT, padding: 16, justifyContent: 'space-around', alignItems: 'flex-start' }} source={images.header_bg} >
-                    <TouchableOpacity style={{ height: 80, width: 80, borderRadius: 40, overflow: 'hidden' }} onPress={this._onPressProfileImage}>
-                        <Image style={{ height: null, width: null, flex: 1 }} source={images.profile} />
+            <View style={styles.container}>
+                <ImageBackground style={styles.headerBackground} source={images.header_bg} >
+                    <TouchableOpacity style={styles.profilePictureContainer} onPress={this._onPressProfileImage}>
+                        <Image style={styles.image} source={images.profile} />
                     </TouchableOpacity>
                     <View>
-                        <Text style={{ fontSize: fonts.LARGE, fontWeight: 'bold', color: 'white' }}>John Leal</Text>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={{ fontSize: fonts.SMALL, color: 'white', marginRight: 5 }}>1,800 Available Points</Text>
-                            <Ionicons name={"ios-arrow-forward"} size={13} color={'white'} />
+                        <Text style={styles.name}>John Leal</Text>
+                        <View style={styles.subtitleContainer}>
+                            <Text style={styles.subtitleText}>1,800 Available Points</Text>
+                            <Ionicons name={"ios-arrow-forward"} size={13} color={Constants.COLOR_WHITE} />
                         </View>
                     </View>
                 </ImageBackground>
                 <DrawerItems {...this.props} />
-                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', position: 'absolute', bottom: 10 }}>
-                    <View style={{ height: 20, width: 20, marginHorizontal: 16 }}>
-                        <Image style={{ flex: 1, width: null, height: null, resizeMode: 'contain' }} source={images.logout} />
+                <TouchableOpacity
+                    style={styles.logoutContainer}
+                    onPress={this._handleLogout}
+                >
+                    <View style={styles.logoutIcon}>
+                        <Image style={styles.image} source={images.logout} />
                     </View>
-                    <Text style={{ color: 'black', marginLeft: 16 }}>Logout</Text>
+                    <Text style={styles.logoutText}>Logout</Text>
                 </TouchableOpacity>
             </View>
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        auth: state.auth
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        handleLogout: params => dispatch(logout(params))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideMenu);
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: Constants.COLOR_WHITE
+    },
+    headerBackground: {
+        height: HEADER_MAX_HEIGHT,
+        padding: 16,
+        justifyContent: 'space-around',
+        alignItems: 'flex-start'
+    },
+    profilePictureContainer: {
+        height: 80,
+        width: 80,
+        borderRadius: 40,
+        overflow: 'hidden'
+    },
+    image: {
+        flex: 1,
+        height: null,
+        width: null
+    },
+    name: {
+        fontSize: fonts.LARGE,
+        fontWeight: 'bold',
+        color: Constants.COLOR_WHITE
+    },
+    subtitleContainer: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    subtitleText: {
+        fontSize: fonts.SMALL,
+        color: Constants.COLOR_WHITE,
+        marginRight: 5
+    },
+    logoutContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 10
+    },
+    logoutIcon: {
+        height: 20,
+        width: 20,
+        marginHorizontal: 16
+    },
+    logoutText: {
+        color: Constants.COLOR_BLACK,
+        marginLeft: 16
+    }
+});

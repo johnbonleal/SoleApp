@@ -22,8 +22,12 @@ class Home extends Component {
     }
     _getFirstName = name => {
         if (_.isString(name)) {
-            let splitNameIntoArray = name.split(' ');
-            return splitNameIntoArray[0];
+            const splitNameIntoArray = name.split(' ');
+            let firstName = splitNameIntoArray[0];
+            if (splitNameIntoArray[0] === 'Ma.' || splitNameIntoArray[0] === 'Ma') {
+                firstName = `${splitNameIntoArray[0]} ${splitNameIntoArray[1]}`;
+            }
+            return firstName;
         }
     }
     _onPressItem = item => {
@@ -42,7 +46,7 @@ class Home extends Component {
         NavigationService.toggleDrawer();
     }
     _onPressLoan = () => {
-        let route = 'OnBoarding';
+        let route = 'OnBoardingAvaila';
         if (this.props.loan && this.props.loan.isOnBoardingDismissed) route = 'HomeAvaila';
         NavigationService.navigate(route);
     }

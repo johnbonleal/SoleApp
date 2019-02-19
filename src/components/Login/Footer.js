@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Animated } from 'react-native';
 
 class Footer extends Component {
     render() {
         const { style } = this.props;
         return (
-            <View style={[styles.footer, style]}>
+            <Animated.View style={[styles.footer, style]}>
                 <Text style={styles.footerTitle}>NOT READY TO SIGN UP?</Text>
                 <Text style={styles.footerDescription}>EXPLORE NOW</Text>
-            </View>
+            </Animated.View>
         )
     }
 }
