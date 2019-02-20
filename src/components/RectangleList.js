@@ -1,16 +1,26 @@
 import React, { PureComponent } from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet, Image } from 'react-native';
 import RectangleListItem from './RectangleListItem';
+import { NavigationService } from '../configs';
 import { fonts, images } from '../resources';
 
 class RectangleList extends PureComponent {
+    _onPressAllItems = data => {
+        NavigationService.navigate("MerchantList", data);
+    }
     render() {
-        const { title, isCollapsible, onPressAll, onPressItem, data, withIcon, style } = this.props;
+        const {
+            title,
+            isCollapsible,
+            data,
+            withIcon,
+            style
+        } = this.props;
         return (
             <View style={[styles.container, style]} >
                 <View style={styles.header}>
                     {title && <Text style={styles.title}>{title}</Text>}
-                    {isCollapsible && <TouchableOpacity style={styles.headerRightContainer} onPress={onPressAll} >
+                    {isCollapsible && <TouchableOpacity style={styles.headerRightContainer} onPress={()=> this._onPressAllItems(data)} >
                         <Image style={styles.image} source={images.forward} />
                     </TouchableOpacity>}
                 </View>
@@ -20,7 +30,7 @@ class RectangleList extends PureComponent {
                     data={data}
                     showsHorizontalScrollIndicator={false}
                     keyExtractor={(item, index) => `item-${index}`}
-                    renderItem={({ item, index }) => <RectangleListItem item={item} onPressItem={onPressItem} withIcon={withIcon} />}
+                    renderItem={({ item, index }) => <RectangleListItem item={item} withIcon={withIcon} />}
                 />
             </View>
         )

@@ -1,4 +1,4 @@
-import { isRequired } from './validation';
+import { isRequired } from './Validations';
 
 export const uniqueKeyValidator = [isRequired('unique_key')];
 

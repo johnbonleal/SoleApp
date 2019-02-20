@@ -40,8 +40,6 @@ const BASE_URL = 'http://venteny.com';
 const API_URL  = `${BASE_URL}/api/v1`;
 const VENTENY_FORGOT_PASSWORD_KEY = 'http://www.venteny.com/users/password/new';
 
-
-
 export default {
     SCREEN_HEIGHT,
     SCREEN_WIDTH,

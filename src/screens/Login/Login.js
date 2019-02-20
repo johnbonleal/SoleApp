@@ -42,17 +42,16 @@ class Login extends Component {
             toValue: 1
         }).start();
     }
-    _handleSubmit = () => {
-        const { LoginForm } = this.props.form;
+    _handleLogin = values => {
         this.props.requestLogin({
-            ...LoginForm.values,
+            ...values,
             platform: 'Venteny',
             source: 'mobile'
         });
     }
     render() {
         const { isDisabled, footerOpacity } = this.state;
-        const { auth } = this.props;
+        const { auth, handleSubmit } = this.props;
         return (
             <View style={styles.loginContainer}>
                 <StatusBar
@@ -64,15 +63,13 @@ class Login extends Component {
                     <View style={{ height: Constants.SCREEN_HEIGHT / 9, width: Constants.SCREEN_WIDTH * 0.7 }}>
                         <Image style={styles.image} source={images.venteny_logo} resizeMode={'contain'} />
                     </View>
-                    <View
-                        ref={(ref) => this.LoginForm = ref}
-                        style={{ width: '100%' }}
-                    >
+                    <View style={{ width: '100%' }}>
                         <Field
                             component={InputField}
                             name="unique_key"
                             placeholder="Membership ID Number"
                             icon={images.login_username}
+                            textInputStyle={styles.loginTextInput}
                             containerStyle={styles.loginTextFieldContainer}
                             iconStyle={styles.loginTextFieldIcon}
                             inputStyle={styles.loginTextField}
@@ -83,6 +80,7 @@ class Login extends Component {
                             name="password"
                             placeholder="Password"
                             icon={images.login_password}
+                            textInputStyle={styles.loginTextInput}
                             containerStyle={styles.loginTextFieldContainer}
                             iconStyle={styles.loginTextFieldIcon}
                             inputStyle={styles.loginTextField}
@@ -94,7 +92,7 @@ class Login extends Component {
                             text={"Log In"}
                             disabled={isDisabled}
                             isLoading={auth.isLoading}
-                            onPress={this._handleSubmit}
+                            onPress={handleSubmit(this._handleLogin)}
                         />
                     </View>
                 </View>
@@ -115,8 +113,7 @@ const reduxFormConfig = {
 
 const mapStateToProps = state => {
     return {
-        auth: state.auth,
-        form: state.form
+        auth: state.auth
     }
 };
 

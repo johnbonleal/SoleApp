@@ -1,9 +1,9 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Spinner from 'react-native-spinkit';
 
 const Loading = () => (
-    <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'center' }}>
+    <View style={{ ...StyleSheet.absoluteFill, alignItems: 'center', justifyContent: 'center'}}>
         <Spinner type="ThreeBounce" size={50} color="#EFB881" />
     </View>
 );

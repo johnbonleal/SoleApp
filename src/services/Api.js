@@ -1,5 +1,6 @@
 import { create } from 'axios';
 import { Constants } from '../configs';
+import parseErrorStack from 'react-native/Libraries/Core/Devtools/parseErrorStack';
 
 const removeEmpty = (obj) => {
     Object.keys(obj).forEach((key) => {
@@ -25,13 +26,43 @@ const config = {
 
 export const axios = create(config);
 
-const get = (url, params) => axios.get(url, params);
+const get = (url, params) => {
+    console.log("URL: ", url);
+    console.log("Params: ", params);
+    const customParams = removeEmpty({
+        params: {
+            ...params,
+            access_token: null
+        },
+        headers: {
+            'X-Access-Token': params.access_token ? params.access_token : null
+        }
+    })
+    return axios.get(url, customParams)
+}
+
 const post = (url, params) => axios.post(url, params);
-const put = (url, params) => axios.put(url, customParams);
+
+const put = (url, params) => {
+    const customParams = removeEmpty({
+        params: {
+            ...params,
+            access_token: null
+        },
+        headers: {
+            'X-Access-Token': params.access_token ? params.access_token : null
+        }
+    })
+    return axios.put(url, customParams)
+}
 
 const api = {
     USER_LOGIN: params => post('/users/login', params),
-    USER_LOGOUT: params => post('/users/logout', params)
+    USER_LOGOUT: params => post('/users/logout', params),
+    FETCH_MERCHANT: params => get('/merchants', params),
+    FETCH_MERCHANT_BY_PAGE: params => get(`/merchant_paginated?page=${params.page}&location=${params.location}&category_id=${params.category}&limit=${params.limit}`, params),
+    FETCH_NEW_MERCHANT: params => get('/new_merchants', params),
+    FETCH_TOP_DEAL: params => get('/top_deals', params),
     // SUBMIT_BATCH: params => put(`/acu_schedules/${params.member_id}/submit_batch`, params),
     // VIEW_SOA: params => get(`/acu_schedules/${params.batch_no}/view_soa`, params)
 };

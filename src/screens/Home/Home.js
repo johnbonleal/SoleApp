@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Animated, StyleSheet, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 
-import { NavigationBar, ImageLoader, RectangleList, SquareList, CircleList } from '../../components';
+import { NavigationBar, ImageLoader, RectangleList, SquareList, CircleList, Loading } from '../../components';
 import { NavigationService } from '../../configs/NavigationService';
+import { requestFetchNewMerchant, requestFetchTopDeal } from '../../actions/MerchantActions';
 import { images } from '../../resources';
 import { RecommendedDealsData } from '../../utils/Data';
 import Dashboard from './Dashboard';
@@ -11,6 +12,7 @@ import styles from '../../styles/HomeStyle';
 
 const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
 var _ = require('lodash');
+var moment = require('moment');
 
 class Home extends Component {
     constructor(props) {
@@ -19,6 +21,15 @@ class Home extends Component {
         this.state = {
             scrollY: new Animated.Value(0)
         };
+    }
+    componentDidMount() {
+        const { auth } = this.props;
+        this.props.fetchNewMerchants({
+            access_token: auth.data && auth.data.access_token
+        });
+        this.props.fetchTopDeals({
+            access_token: auth.data && auth.data.access_token
+        });
     }
     _getFirstName = name => {
         if (_.isString(name)) {
@@ -52,6 +63,7 @@ class Home extends Component {
     }
     renderHeader() {
         const { scrollY } = this.state;
+        const { auth } = this.props;
         return (
             <NavigationBar
                 onPressHeaderRight={this._onPressProfileImage}
@@ -64,7 +76,7 @@ class Home extends Component {
                     }),
                     top: 0
                 }}
-                headerRight={images.profile}
+                headerRight={{ uri: `${auth.data && auth.data.user.avatar.url}?${moment()}` }}
                 headerRightStyle={{ height: 36, width: 36, borderRadius: 18, backgroundColor: 'white', overflow: 'hidden' }}
             />
         )
@@ -81,10 +93,13 @@ class Home extends Component {
     }
     render() {
         const { scrollY } = this.state;
-        const { auth } = this.props;
+        const { auth, merchant } = this.props;
         let firstName = auth && auth.data.user.first_name;
         return (
             <View style={styles.container}>
+                {
+                    (merchant && merchant.isLoading) && <Loading />
+                }
                 <StatusBar
                     backgroundColor={'transparent'}
                     translucent
@@ -128,7 +143,7 @@ class Home extends Component {
                         </View>
                     </View>
                     <RectangleList
-                        data={sampleData}
+                        data={merchant && merchant.newMerchants}
                         title={"New Merchants"}
                         isCollapsible
                     />
@@ -138,7 +153,7 @@ class Home extends Component {
                         onPressCategoryItem={this._onPressCategoryItem}
                     />
                     <RectangleList
-                        data={sampleData}
+                        data={merchant && merchant.topDeals}
                         title={"Top Deals"}
                         isCollapsible
                         onPressItem={this._onPressItem}
@@ -160,13 +175,15 @@ class Home extends Component {
 const mapStateToProps = state => {
     return {
         auth: state.auth,
-        loan: state.loan
+        loan: state.loan,
+        merchant: state.merchant
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        fetchNewMerchants: params => dispatch(requestFetchNewMerchant(params)),
+        fetchTopDeals: params => dispatch(requestFetchTopDeal(params))
     }
 }
 

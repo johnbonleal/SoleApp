@@ -134,6 +134,13 @@ const images = {
     recommended_3: require('../assets/images/recommended_3.png'),
     recommended_4: require('../assets/images/recommended_4.png'),
     recommended_5: require('../assets/images/recommended_5.png'),
+
+    // categories
+
+    accessories_and_apparels: require('../assets/images/accessories_and_apparels.png'),
+    hotels_and_resorts: require('../assets/images/hotels_and_resorts.png'),
+    restaurant_and_bars: require('../assets/images/restaurant_and_bars.png'),
+    things_to_do: require('../assets/images/things_to_do.png'),
 };
 
 export { images };

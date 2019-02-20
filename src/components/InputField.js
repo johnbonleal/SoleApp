@@ -28,39 +28,40 @@ const InputField = ({
     inputStyle,
     imageStyle,
     containerStyle,
+    textInputStyle,
     input,
     meta
 }) => (
         <View style={containerStyle}>
+            <View style={textInputStyle}>
+                {
+                    icon && <View style={iconStyle}>
+                        <Image style={imageStyle} source={icon} resizeMode={'contain'} />
+                    </View>
+                }
+                <TextInput
+                    value={input.value}
+                    secureTextEntry={secureTextEntry}
+                    defaultValue={defaultValue && defaultValue}
+                    onChangeText={input.onChange}
+                    // onEndEditing={onEndEditing ? (val) => onEndEditing(val, name) : null}
+
+                    keyboardType={keyboardType}
+                    autoCorrect={autoCorrect}
+                    placeholder={placeholder}
+                    placeholderTextColor={placeholderTextColor ? placeholderTextColor : Constants.COLOR_WHITE}
+                    autoCapitalize={autoCapitalize}
+                    disabled={disabled}
+
+                    style={inputStyle}
+                    underlineColorAndroid={underlineColorAndroid ? underlineColorAndroid : "transparent"}
+                />
+            </View>
             {
-                icon && <View style={iconStyle}>
-                    <Image style={imageStyle} source={icon} resizeMode={'contain'} />
-                </View>
-            }
-            <TextInput
-                value={input.value}
-                secureTextEntry={secureTextEntry}
-                defaultValue={defaultValue && defaultValue}
-                onChangeText={input.onChange}
-                // onEndEditing={onEndEditing ? (val) => onEndEditing(val, name) : null}
-
-                keyboardType={keyboardType}
-                autoCorrect={autoCorrect}
-                placeholder={placeholder}
-                placeholderTextColor={placeholderTextColor ? placeholderTextColor : Constants.COLOR_WHITE}
-                autoCapitalize={autoCapitalize}
-                disabled={disabled}
-
-                style={inputStyle}
-                underlineColorAndroid={underlineColorAndroid ? underlineColorAndroid : "transparent"}
-            />
-            {errors && errors.length > 0 && errors.map((item, index) =>
-                item.field === name && item.error ?
-                    <Text key={index} style={{ color: 'red', fontSize: 10, fontStyle: 'italic', marginLeft: 10 }}>
-                        {item.error}
-                    </Text>
-                    : <View key={index} />
-            )
+                meta && meta.touched &&
+                <Text style={{ color: Constants.COLOR_WHITE, fontSize: 10, fontStyle: 'italic', marginLeft: 10 }}>
+                    {meta.error}
+                </Text>
             }
         </View>
     );

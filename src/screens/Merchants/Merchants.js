@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ImageBackground, TouchableOpacity, Text, TextInput, ScrollView, Animated, StatusBar, Dimensions, Image, Platform } from 'react-native';
-import { NavigationBar, ImageLoader, RectangleList, SquareList, CircleList, CategoryModal, LocationModal, Tag, TabularList, StarRating } from '../../components';
+import { View, StyleSheet, ImageBackground, TextInput, ScrollView, Animated, StatusBar } from 'react-native';
+import { connect } from 'react-redux';
+import {
+    NavigationBar,
+    ImageLoader,
+    RectangleList,
+    SquareList,
+    CircleList,
+    CategoryModal,
+    LocationModal,
+    Tag,
+    TabularList
+} from '../../components';
 import MerchantList from './MerchantList';
 
 import { images, fonts } from '../../resources';
-import { NavigationService } from '../../configs/NavigationService';
+import { TopCategoriesData } from '../../utils/Data';
+import { NavigationService, Constants } from '../../configs';
 
-const { width, height } = Dimensions.get('window');
-
-const HEADER_MAX_HEIGHT = height / 3.7;
-const HEADER_MIN_HEIGHT = height / 7.5;
+const HEADER_MAX_HEIGHT = Constants.SCREEN_HEIGHT / 3.7;
+const HEADER_MIN_HEIGHT = Constants.SCREEN_HEIGHT / 7.5;
 
 const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
 class Merchants extends Component {
@@ -43,9 +53,6 @@ class Merchants extends Component {
     }
     _onPressLocationModalClose = () => {
         this._toggleLocationModal();
-    }
-    _onPressMerchantItem = () => {
-        NavigationService.navigate('MerchantView');
     }
     _toggleIsSearching = () => {
         this.setState({ isSearching: !this.state.isSearching });
@@ -117,7 +124,15 @@ class Merchants extends Component {
         )
     }
     render() {
-        const { scrollY, isCategoryModalVisible, isLocationModalVisible, isSearching, category, location } = this.state;
+        const {
+            scrollY,
+            isCategoryModalVisible,
+            isLocationModalVisible,
+            isSearching,
+            category,
+            location
+        } = this.state;
+        const { merchant } = this.props;
         return (
             <View style={styles.container}>
                 <StatusBar
@@ -138,14 +153,12 @@ class Merchants extends Component {
                         :
                         <View>
                             <RectangleList
-                                data={sampleData}
+                                data={TopCategoriesData}
                                 title={"Top Categories"}
-                                onPressItem={this._onPressItem}
-                                onPressAll={this._onPressAllItems}
                                 style={{ backgroundColor: '#FFFFFF', marginVertical: 6, paddingVertical: 16 }}
                             />
                             <RectangleList
-                                data={sampleData}
+                                data={merchant && merchant.topDeals}
                                 title={"Top Deals"}
                                 isCollapsible
                                 onPressItem={this._onPressItem}
@@ -206,7 +219,12 @@ class Merchants extends Component {
     }
 }
 
-export default Merchants;
+const mapStateToProps = state => {
+    return {
+        merchant: state.merchant
+    }
+}
+export default connect(mapStateToProps)(Merchants);
 
 const styles = StyleSheet.create({
     container: {

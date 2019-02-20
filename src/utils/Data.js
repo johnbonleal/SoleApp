@@ -8,6 +8,13 @@ export const RecommendedDealsData = [
     { id: 5, src: images.recommended_5 },
 ];
 
+export const TopCategoriesData = [
+    { id: 1, src: images.accessories_and_apparels },
+    { id: 2, src: images.hotels_and_resorts },
+    { id: 3, src: images.restaurant_and_bars },
+    { id: 4, src: images.things_to_do }
+];
+
 export const CategoryData = [
     { id: 1, title: "All", avatar: images.image2 },
     { id: 2, title: "Accessories & Apparels", avatar: images.accessories_and_apparels_light },

@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16
     },
     loginTextFieldContainer: {
+        marginVertical: 12
+    },
+    loginTextInput: {
         height: Constants.BUTTON_HEIGHT,
         flexDirection: 'row',
         backgroundColor: 'rgba(255,255,255,0.3)',
@@ -25,17 +28,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 8,
         paddingHorizontal: 16,
-        marginVertical: 12
     },
     loginTextFieldIcon: {
-        height: 24, 
-        width: 24, 
+        height: 24,
+        width: 24,
         marginRight: 8
     },
     loginTextField: {
-        flex: 1, 
-        fontSize: 16, 
-        fontWeight: 'bold', 
+        flex: 1,
+        fontSize: 16,
+        fontWeight: 'bold',
         color: Constants.COLOR_WHITE
     },
     image: {
