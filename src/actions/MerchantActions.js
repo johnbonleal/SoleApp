@@ -67,3 +67,20 @@ export const failureFetchTopDeal = error => ({
     type: FetchTopDealTypes.FAILURE,
     error
 });
+
+export const FetchNearbyMerchantTypes = createRequestTypes('NEARBY_MERCHANT');
+
+export const requestFetchNearbyMerchant = params => ({
+    type: FetchNearbyMerchantTypes.REQUEST,
+    params
+});
+
+export const successFetchNearbyMerchant = data => ({
+    type: FetchNearbyMerchantTypes.SUCCESS,
+    data
+});
+
+export const failureFetchNearbyMerchant = error => ({
+    type: FetchNearbyMerchantTypes.FAILURE,
+    error
+});

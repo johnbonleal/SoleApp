@@ -56,17 +56,51 @@ export const LoginImageData = [
     { id: 4, src: images.login_4, type: 'img' }
 ];
 
-export const MerchantImageData = [
-    {
-        id: 1,
-        items: [
-            { id: 1, src: images.beach_1, type: 'img' },
-            { id: 2, src: images.beach_2, type: 'img' },
-            { id: 3, src: images.beach_3, type: 'img' },
-            { id: 4, src: images.beach_4, type: 'img' }
-        ]
-    }
-];
+export const MerchantImageData = {
+    category: "Hotels and Services",
+    best_deal: "50% OFF",
+    blank_stars: 0,
+    description: "One night staycation",
+    name: "Sandpoint Gourmet Burgers",
+    average_rate: "5.0",
+    logo: {
+        url: images.image2
+    },
+    merchant_galleries: [
+        {
+            id: 1,
+            image: {
+                medium: {
+                    url: images.beach_1
+                }
+            }
+        },
+        {
+            id: 2,
+            image: {
+                medium: {
+                    url: images.beach_2
+                }
+            }
+        },
+        {
+            id: 3,
+            image: {
+                medium: {
+                    url: images.beach_3
+                }
+            }
+        },
+        {
+            id: 4,
+            image: {
+                medium: {
+                    url: images.beach_4
+                }
+            }
+        }
+    ]
+};
 
 export const NearbyMerchantsData = [
     { id: 1, name: 'SM Mall of Asia', address: 'Main Mall SM Central Business Park, SM Mall of Asia, Seaside Blvd, 123, Pasay, 1300 Metro Manila', src: images.beach_1, region: { latitude: 14.53128, longitude: 120.98352 }, distance: '300 m', rating: { ratings: 3 } },

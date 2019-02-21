@@ -11,9 +11,9 @@ export function* fetchAllMerchant(action) {
         let errorMessage = '';
         console.log("Fetch all merchant error: ", error)
         if (error.response) {
-            console.log("Fetch all merchant error in response: ", error.response)
+            console.log("Fetch all merchant error in response: ", error.response);
         } else if (error.request) {
-            console.log("Fetch all merchant error in request: ", error.request)
+            console.log("Fetch all merchant error in request: ", error.request);
             errorMessage = "Request Error";
         } else {
             errorMessage = 'Something went wrong. Please try again later.';
@@ -30,9 +30,9 @@ export function* fetchMerchantByPage(action) {
         let errorMessage = '';
         console.log("Fetch merchant by page error: ", error)
         if (error.response) {
-            console.log("Fetch merchant by page error in response: ", error.response)
+            console.log("Fetch merchant by page error in response: ", error.response);
         } else if (error.request) {
-            console.log("Fetch merchant by page error in request: ", error.request)
+            console.log("Fetch merchant by page error in request: ", error.request);
             errorMessage = "Request Error";
         } else {
             errorMessage = 'Something went wrong. Please try again later.';
@@ -43,16 +43,16 @@ export function* fetchMerchantByPage(action) {
 
 export function* fetchNewMerchant(action) {
     try {
-        const response = yield call(api.FETCH_NEW_MERCHANT, action.params);
+        const response = yield call(api.FETCH_MERCHANT_NEW, action.params);
         console.log("Response Data: ", response.data);
         yield put(MerchantActions.successFetchNewMerchant(response.data.data.data));
     } catch (error) {
         let errorMessage = '';
-        console.log("Fetch new merchant error: ", error)
+        console.log("Fetch new merchant error: ", error);
         if (error.response) {
-            console.log("Fetch new merchant error in response: ", error.response)
+            console.log("Fetch new merchant error in response: ", error.response);
         } else if (error.request) {
-            console.log("Fetch new merchant error in request: ", error.request)
+            console.log("Fetch new merchant error in request: ", error.request);
             errorMessage = "Request Error";
         } else {
             errorMessage = 'Something went wrong. Please try again later.';
@@ -68,16 +68,35 @@ export function* fetchTopDeal(action) {
         yield put(MerchantActions.successFetchTopDeal(response.data.data));
     } catch (error) {
         let errorMessage = '';
-        console.log("Fetch top deal error: ", error)
+        console.log("Fetch top deal error: ", error);
         if (error.response) {
-            console.log("Fetch top deal error in response: ", error.response)
+            console.log("Fetch top deal error in response: ", error.response);
         } else if (error.request) {
-            console.log("Fetch top deal error in request: ", error.request)
+            console.log("Fetch top deal error in request: ", error.request);
             errorMessage = "Request Error";
         } else {
             errorMessage = 'Something went wrong. Please try again later.';
         }
         yield put(MerchantActions.failureFetchTopDeal(errorMessage));
+    }
+}
+
+export function* fetchNearbyMerchant(action) {
+    try {
+        const response = yield call(api.FETCH_MERCHANT_NEARBY, action.params);
+        yield put(MerchantActions.successFetchNearbyMerchant(response.data.data.data));
+    } catch (error) {
+        let errorMessage = '';
+        console.log("Fetch nearby merchant error: ", error);
+        if (error.response) {
+            console.log("Fetch nearby merchant error in response: ", error.response);
+        } else if (error.request) {
+            console.log("Fetch nearby merchant error in request: ", error.request);
+            errorMessage = "Request Error";
+        } else {
+            errorMessage = 'Something went wrong. Please try again later.';
+        }
+        yield put(MerchantActions.failureFetchNearbyMerchant(errorMessage));
     }
 }
 

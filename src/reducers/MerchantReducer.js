@@ -2,7 +2,8 @@ import {
     FetchAllMerchantTypes,
     FetchNewMerchantTypes,
     FetchMerchantByPageTypes,
-    FetchTopDealTypes
+    FetchTopDealTypes,
+    FetchNearbyMerchantTypes
 } from '../actions/MerchantActions';
 
 const INITIAL_STATE = {
@@ -13,7 +14,8 @@ const INITIAL_STATE = {
     allMerchants: [],
     newMerchants: [],
     merchantsByPage: [],
-    topDeals: []
+    topDeals: [],
+    nearbyMerchants: []
 };
 
 export const reducer = (state = INITIAL_STATE, action) => {
@@ -107,6 +109,30 @@ export const reducer = (state = INITIAL_STATE, action) => {
                 topDeals: action.data,
             };
         case FetchTopDealTypes.FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                isSuccess: false,
+                hasError: true,
+                errorMessage: action.error,
+            };
+        case FetchNearbyMerchantTypes.REQUEST:
+            return {
+                ...state,
+                isLoading: true,
+                isSuccess: false,
+                hasError: false,
+            };
+        case FetchNearbyMerchantTypes.SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                isSuccess: true,
+                hasError: false,
+                errorMessage: '',
+                nearbyMerchants: action.data,
+            };
+        case FetchNearbyMerchantTypes.FAILURE:
             return {
                 ...state,
                 isLoading: false,

@@ -15,8 +15,9 @@ import {
 import MerchantList from './MerchantList';
 
 import { images, fonts } from '../../resources';
-import { TopCategoriesData } from '../../utils/Data';
+import { TopCategoriesData, RecommendedDealsData } from '../../utils/Data';
 import { NavigationService, Constants } from '../../configs';
+import { requestFetchNearbyMerchant } from '../../actions/MerchantActions';
 
 const HEADER_MAX_HEIGHT = Constants.SCREEN_HEIGHT / 3.7;
 const HEADER_MIN_HEIGHT = Constants.SCREEN_HEIGHT / 7.5;
@@ -28,13 +29,39 @@ class Merchants extends Component {
 
         this.state = {
             searchInput: '',
-            isCategoryModalVisible: false,
             category: 'Category',
-            isLocationModalVisible: false,
             location: 'Location',
+            isCategoryModalVisible: false,
+            isLocationModalVisible: false,
             isSearching: false,
-            scrollY: new Animated.Value(0)
+            scrollY: new Animated.Value(0),
+            region: {
+                latitude: Constants.LATITUDE,
+                longitude: Constants.LONGITUDE,
+                latitudeDelta: Constants.LATITUDE_DELTA,
+                longitudeDelta: Constants.LONGITUDE_DELTA,
+            }
         };
+    }
+    componentDidMount() {
+        const { auth } = this.props;
+        this.props.fetchNearbyMerchant({
+            latitude: this.state.region.latitude,
+            longitude: this.state.region.longitude,
+            access_token: auth && auth.data.access_token
+        });
+        // navigator.geolocation.getCurrentPosition(
+        //     position => {
+        //         const { latitude, longitude } = position.coords;
+        //         this.props.fetchNearbyMerchant({
+        //             latitude,
+        //             longitude,
+        //             access_token: auth && auth.data.access_token
+        //         });
+        //     },
+        //     (error) => console.log(error.message),
+        //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+        // );
     }
     _onPressCategoryItem = (item) => {
         this.setState({ category: item });
@@ -155,7 +182,8 @@ class Merchants extends Component {
                             <RectangleList
                                 data={TopCategoriesData}
                                 title={"Top Categories"}
-                                style={{ backgroundColor: '#FFFFFF', marginVertical: 6, paddingVertical: 16 }}
+                                plain
+                                style={{ backgroundColor: Constants.COLOR_WHITE, marginVertical: 6, paddingVertical: 16 }}
                             />
                             <RectangleList
                                 data={merchant && merchant.topDeals}
@@ -163,13 +191,13 @@ class Merchants extends Component {
                                 isCollapsible
                                 onPressItem={this._onPressItem}
                                 onPressAll={this._onPressAllItems}
-                                style={{ backgroundColor: '#FFFFFF', marginVertical: 6, paddingVertical: 16 }}
+                                style={{ backgroundColor: Constants.COLOR_WHITE, marginVertical: 6, paddingVertical: 16 }}
                             />
                             <SquareList
-                                data={sampleData}
+                                data={RecommendedDealsData}
                                 title={"Recommended Deals"}
                                 onPressCategoryItem={this._onPressCategoryItem}
-                                style={{ backgroundColor: '#FFFFFF', marginVertical: 4, paddingVertical: 16 }}
+                                style={{ backgroundColor: Constants.COLOR_WHITE, marginVertical: 4, paddingVertical: 16 }}
                             />
                             <RectangleList
                                 data={sampleData}
@@ -177,15 +205,15 @@ class Merchants extends Component {
                                 isCollapsible
                                 onPressItem={this._onPressItem}
                                 onPressAll={this._onPressAllItems}
-                                style={{ backgroundColor: '#FFFFFF', marginVertical: 6, paddingVertical: 16 }}
+                                style={{ backgroundColor: Constants.COLOR_WHITE, marginVertical: 6, paddingVertical: 16 }}
                             />
                             <RectangleList
-                                data={sampleData}
+                                data={merchant && merchant.nearbyMerchants}
                                 title={"Merchants Nearby"}
                                 isCollapsible
                                 onPressItem={this._onPressItem}
                                 onPressAll={() => NavigationService.navigate('MerchantNearby')}
-                                style={{ backgroundColor: '#FFFFFF', marginVertical: 6, paddingVertical: 16 }}
+                                style={{ backgroundColor: Constants.COLOR_WHITE, marginVertical: 6, paddingVertical: 16 }}
                             />
                             <RectangleList
                                 data={sampleData}
@@ -193,14 +221,14 @@ class Merchants extends Component {
                                 isCollapsible
                                 onPressItem={this._onPressItem}
                                 onPressAll={this._onPressAllItems}
-                                style={{ backgroundColor: '#FFFFFF', marginVertical: 4, paddingVertical: 16 }}
+                                style={{ backgroundColor: Constants.COLOR_WHITE, marginVertical: 4, paddingVertical: 16 }}
                             />
                             <CircleList
                                 listStyle={{ marginLeft: 8, marginTop: 8 }}
                                 data={sampleData}
                                 title={"Merchant Partners"}
                                 onPressItem={this._onPressMerchantItem}
-                                style={{ backgroundColor: '#FFFFFF', marginVertical: 4, paddingVertical: 16 }}
+                                style={{ backgroundColor: Constants.COLOR_WHITE, marginVertical: 4, paddingVertical: 16 }}
                             />
                         </View>}
                 </Animated.ScrollView>
@@ -221,15 +249,23 @@ class Merchants extends Component {
 
 const mapStateToProps = state => {
     return {
-        merchant: state.merchant
+        merchant: state.merchant,
+        auth: state.auth
     }
-}
-export default connect(mapStateToProps)(Merchants);
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchNearbyMerchant: params => dispatch(requestFetchNearbyMerchant(params))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Merchants);
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F2F2F2'
+        backgroundColor: Constants.COLOR_BACKGROUND
     },
     backgroundImage: {
         height: HEADER_MAX_HEIGHT,
@@ -248,7 +284,7 @@ const styles = StyleSheet.create({
     },
     searchBox: {
         height: 41,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: Constants.COLOR_WHITE,
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 8,

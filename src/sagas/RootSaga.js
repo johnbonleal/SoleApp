@@ -7,7 +7,8 @@ import {
     FetchAllMerchantTypes,
     FetchMerchantByPageTypes,
     FetchNewMerchantTypes,
-    FetchTopDealTypes
+    FetchTopDealTypes,
+    FetchNearbyMerchantTypes
 } from '../actions/MerchantActions';
 
 // Sagas
@@ -19,7 +20,8 @@ import {
     fetchAllMerchant,
     fetchMerchantByPage,
     fetchNewMerchant,
-    fetchTopDeal
+    fetchTopDeal,
+    fetchNearbyMerchant
 } from './MerchantSaga';
 
 export function* rootSaga() {
@@ -30,6 +32,7 @@ export function* rootSaga() {
         takeLatest(FetchMerchantByPageTypes.REQUEST, fetchMerchantByPage),
         takeLatest(FetchNewMerchantTypes.REQUEST, fetchNewMerchant),
         takeLatest(FetchTopDealTypes.REQUEST, fetchTopDeal),
+        takeLatest(FetchNearbyMerchantTypes.REQUEST, fetchNearbyMerchant),
         // fork(networkEventsListenerSaga, { timeout: 8000, checkConnectionInterval: 15000, }),
     ]);
 }

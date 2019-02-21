@@ -98,7 +98,8 @@ class Home extends Component {
         return (
             <View style={styles.container}>
                 {
-                    (merchant && merchant.isLoading) && <Loading />
+                    (merchant && merchant.isLoading) &&
+                    <Loading />
                 }
                 <StatusBar
                     backgroundColor={'transparent'}

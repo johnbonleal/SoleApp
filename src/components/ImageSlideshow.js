@@ -3,13 +3,13 @@ import { View, Animated, Text, Image, StyleSheet, Dimensions } from 'react-nativ
 import Indicator from './Indicator';
 import StarRating from './StarRating';
 
+import { Constants } from '../configs';
 import { images } from '../resources';
 
 const ICON_HEIGHT = 25;
 const ratingObj = { ratings: 3 };
 
-const SCREEN_HEIGHT = Dimensions.get('window').height;
-const MERCHANT_BACKGROUND_HEIGHT = SCREEN_HEIGHT * 0.9;
+const MERCHANT_BACKGROUND_HEIGHT = Constants.SCREEN_HEIGHT * 0.9;
 class ImageSlideshow extends PureComponent {
     constructor(props) {
         super(props);
@@ -25,7 +25,7 @@ class ImageSlideshow extends PureComponent {
     _increment = () => {
         const { data } = this.props;
         this.setState(prevState => ({
-            currentIndex: prevState.currentIndex < data[0].items.length - 1 ? prevState.currentIndex + 1 : 0
+            currentIndex: prevState.currentIndex < data.merchant_galleries.length - 1 ? prevState.currentIndex + 1 : 0
         }));
     }
     _animateIndicator = (reset = true) => {
@@ -52,14 +52,20 @@ class ImageSlideshow extends PureComponent {
         const { data } = this.props;
         return (
             <View style={styles.indicators}>
-                {data[0].items.map((item, i) => (
-                    <Indicator
-                        key={i} i={i}
-                        animate={currentIndex === i}
-                        currentIndex={currentIndex}
-                        indicatorAnim={indicatorAnim}
-                    />
-                ))}
+                {
+                    (
+                        data &&
+                        data.merchant_galleries.length > 0
+                    ) &&
+                    data.merchant_galleries.map((item, i) => (
+                        <Indicator
+                            key={i} i={i}
+                            animate={currentIndex === i}
+                            currentIndex={currentIndex}
+                            indicatorAnim={indicatorAnim}
+                        />
+                    ))
+                }
             </View>
         )
     }
@@ -70,19 +76,19 @@ class ImageSlideshow extends PureComponent {
             <View style={{ height: MERCHANT_BACKGROUND_HEIGHT }}>
                 <View style={styles.container}>
                     <View style={{ ...StyleSheet.absoluteFill }} >
-                        <Image style={styles.image} source={data[0].items[currentIndex].src} />
+                        <Image style={styles.image} source={(data && data.merchant_galleries.length > 0) && data.merchant_galleries[currentIndex].image.medium.url} />
                     </View>
                     <View style={{ ...StyleSheet.absoluteFill }}>
                         <Image style={styles.image} source={images.gradient_3} />
                     </View>
                     <View style={styles.content}>
-                        <Text style={styles.title}>HOTELS & RESORT</Text>
-                        <Text style={styles.description}>One night staycation</Text>
+                        <Text style={styles.title}>{data && data.category.toUpperCase()}</Text>
+                        <Text style={styles.description}>{data && data.description.toUpperCase()}</Text>
                         <View style={{ flexDirection: 'row', marginVertical: 8 }}>
                             <View style={styles.logo}>
                                 <Image style={styles.image} source={images.image2} />
                             </View>
-                            <Text style={styles.companyName}>BEACH HOUSE</Text>
+                            <Text style={styles.companyName}>{data && data.name.toUpperCase()}</Text>
                         </View>
                         <View style={{ flexDirection: 'row' }}>
                             <StarRating style={{ marginRight: 5 }} ratingObj={ratingObj} />
@@ -135,8 +141,8 @@ const styles = StyleSheet.create({
         color: '#FFFFFF'
     },
     reviewCount: {
-        fontSize: 12, 
-        fontWeight: 'bold', 
+        fontSize: 12,
+        fontWeight: 'bold',
         color: '#FFFFFF'
     },
     indicatorWrap: {

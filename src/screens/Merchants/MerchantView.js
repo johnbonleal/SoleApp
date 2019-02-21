@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { View, StatusBar, ScrollView, Dimensions, StyleSheet, Animated } from 'react-native';
+import { View, StatusBar, ScrollView, StyleSheet, Animated } from 'react-native';
 
 import DealSummary from './Perks&Deals/DealSummary';
 import DealContent from './Perks&Deals/DealContent';
 import { NavigationBar, ImageSlideshow, FixedButton } from '../../components';
 
+import { Constants } from '../../configs';
 import { images } from '../../resources';
 import { MerchantImageData } from '../../utils/Data';
-
-const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 class MerchantView extends Component {
     constructor(props) {
@@ -20,6 +19,7 @@ class MerchantView extends Component {
     }
     render() {
         const { scrollY } = this.state;
+        const { navigation } = this.props;
         return (
             <View style={styles.container}>
                 <StatusBar
@@ -30,7 +30,7 @@ class MerchantView extends Component {
                     headerLeft={images.back}
                     imageStyle={{
                         opacity: scrollY.interpolate({
-                            inputRange: [SCREEN_HEIGHT + 28, SCREEN_HEIGHT + 29],
+                            inputRange: [Constants.SCREEN_HEIGHT + 28, Constants.SCREEN_HEIGHT + 29],
                             outputRange: [0, 1],
                             extrapolate: 'clamp'
                         })
@@ -45,7 +45,16 @@ class MerchantView extends Component {
                         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
                     )}
                 >
-                    <ImageSlideshow data={MerchantImageData} />
+                    {
+                        (
+                            navigation &&
+                            navigation.state.params &&
+                            navigation.state.params.attributes &&
+                            navigation.state.params.attributes.merchant_galleries.length > 0
+                        ) ?
+                        <ImageSlideshow data={navigation.state.params.attributes} />:
+                        <ImageSlideshow data={MerchantImageData} />
+                    }
                     <DealSummary />
                     <DealContent />
                 </ScrollView>
@@ -53,7 +62,7 @@ class MerchantView extends Component {
                     style={{
                         backgroundColor: scrollY.interpolate({
                             inputRange: [120, 121],
-                            outputRange: ['#000000', '#FFFFFF'],
+                            outputRange: [Constants.COLOR_BLACK, Constants.COLOR_WHITE],
                             extrapolate: 'clamp'
                         })
                     }}

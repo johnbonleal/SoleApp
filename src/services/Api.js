@@ -1,6 +1,5 @@
 import { create } from 'axios';
 import { Constants } from '../configs';
-import parseErrorStack from 'react-native/Libraries/Core/Devtools/parseErrorStack';
 
 const removeEmpty = (obj) => {
     Object.keys(obj).forEach((key) => {
@@ -61,7 +60,8 @@ const api = {
     USER_LOGOUT: params => post('/users/logout', params),
     FETCH_MERCHANT: params => get('/merchants', params),
     FETCH_MERCHANT_BY_PAGE: params => get(`/merchant_paginated?page=${params.page}&location=${params.location}&category_id=${params.category}&limit=${params.limit}`, params),
-    FETCH_NEW_MERCHANT: params => get('/new_merchants', params),
+    FETCH_MERCHANT_NEW: params => get('/new_merchants', params),
+    FETCH_MERCHANT_NEARBY: params => get(`/merchant_nearby?latitude=${params.latitude}&longitude=${params.longitude}`, params),
     FETCH_TOP_DEAL: params => get('/top_deals', params),
     // SUBMIT_BATCH: params => put(`/acu_schedules/${params.member_id}/submit_batch`, params),
     // VIEW_SOA: params => get(`/acu_schedules/${params.batch_no}/view_soa`, params)

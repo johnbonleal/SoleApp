@@ -12,6 +12,7 @@ class RectangleList extends PureComponent {
         const {
             title,
             isCollapsible,
+            plain,
             data,
             withIcon,
             style
@@ -30,7 +31,7 @@ class RectangleList extends PureComponent {
                     data={data}
                     showsHorizontalScrollIndicator={false}
                     keyExtractor={(item, index) => `item-${index}`}
-                    renderItem={({ item, index }) => <RectangleListItem item={item} withIcon={withIcon} />}
+                    renderItem={({ item, index }) => <RectangleListItem item={item} plain={plain} withIcon={withIcon} />}
                 />
             </View>
         )

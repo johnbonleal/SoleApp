@@ -7,25 +7,43 @@ import ListItemStyles from '../styles/ListItemStyle';
 
 const ratingObj = { ratings: 3 };
 
-const RectangleListItem = ({ item, withIcon, onPressItem }) => {
+const RectangleListItem = ({ item, withIcon, plain, onPressItem }) => {
     const { attributes } = item;
     return (
         <TouchableOpacity style={ListItemStyles.container} onPress={() => NavigationService.navigate('MerchantView', item)} >
-            <ImageBackground style={ListItemStyles.thumbnailContainer} source={{ uri: attributes && attributes.merchant_banner.medium.url }}>
-                <View style={ListItemStyles.dealContainer}>
-                    {withIcon && <View style={styles.iconContainer}>
-                        <Image style={ListItemStyles.image} source={images.image2} />
-                    </View>}
-                    <Text style={ListItemStyles.deal}>{attributes && attributes.best_deal}</Text>
-                </View>
+            <ImageBackground
+                style={ListItemStyles.thumbnailContainer}
+                source={
+                    attributes ?
+                    (
+                        attributes.merchant ?
+                        {uri: attributes.merchant.merchant_banner.medium.url} :
+                        {uri: attributes.merchant_banner.medium.url}
+                    )
+                    :
+                    item.src
+                }
+            >
+                {
+                    !plain &&
+                    <View style={ListItemStyles.dealContainer}>
+                        {withIcon && <View style={styles.iconContainer}>
+                            <Image style={ListItemStyles.image} source={images.image2} />
+                        </View>}
+                        <Text style={ListItemStyles.deal}>{attributes && (attributes.merchant ? attributes.merchant.best_deal : attributes.best_deal)}</Text>
+                    </View>
+                }
             </ImageBackground>
-            <View style={ListItemStyles.bottomContainer}>
-                <Text style={ListItemStyles.merchantName}>{attributes && attributes.name}</Text>
-                <View style={{ flexDirection: 'row' }}>
-                    <Text style={ListItemStyles.subtitle}>{`${attributes && attributes.category} • BGC • `}</Text>
-                    <StarRating ratingObj={ratingObj} />
+            {
+                !plain &&
+                <View style={ListItemStyles.bottomContainer}>
+                    <Text style={ListItemStyles.merchantName}>{attributes && (attributes.merchant ? attributes.merchant.name : attributes.name)}</Text>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={ListItemStyles.subtitle}>{attributes && (`${attributes.merchant ? attributes.merchant.category : attributes.category} • BGC • `)}</Text>
+                        <StarRating ratingObj={ratingObj} />
+                    </View>
                 </View>
-            </View>
+            }
         </TouchableOpacity>
     )
 }
