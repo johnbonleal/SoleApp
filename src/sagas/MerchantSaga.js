@@ -44,7 +44,6 @@ export function* fetchMerchantByPage(action) {
 export function* fetchNewMerchant(action) {
     try {
         const response = yield call(api.FETCH_MERCHANT_NEW, action.params);
-        console.log("Response Data: ", response.data);
         yield put(MerchantActions.successFetchNewMerchant(response.data.data.data));
     } catch (error) {
         let errorMessage = '';
@@ -64,7 +63,6 @@ export function* fetchNewMerchant(action) {
 export function* fetchTopDeal(action) {
     try {
         const response = yield call(api.FETCH_TOP_DEAL, action.params);
-        console.log("Response Data: ", response.data);
         yield put(MerchantActions.successFetchTopDeal(response.data.data));
     } catch (error) {
         let errorMessage = '';

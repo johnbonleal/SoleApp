@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, Image, StatusBar, ScrollView, TouchableOpacity, Animated } from 'react-native';
+import { View, Text, Dimensions, Image, StatusBar, ScrollView, StyleSheet, Animated } from 'react-native';
 import { connect } from 'react-redux';
-import { NavigationBar, StarRating, Branch,  } from '../../components';
-import { NavigationService } from '../../configs/NavigationService';
+import { NavigationBar, StarRating, Branch, FixedButton  } from '../../components';
+import { NavigationService, Constants } from '../../configs';
 import ScanQrModal from '../ScanQR/ScanqrModal';
 import { toggleScanQrModal } from '../../actions/CameraActions';
 
 import { images, fonts } from '../../resources';
 
 const APP_HEADER_HEIGHT = 200;
-const ICON_HEIGHT = 25;
 const ratingObj = { ratings: 3 };
-
-const { width, height } = Dimensions.get('window');
-
-const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
 
 class MerchantBranches extends Component {
     constructor(props) {
@@ -57,8 +52,9 @@ class MerchantBranches extends Component {
     }
     render() {
         const { scrollY } = this.state;
+        const { navigation } = this.props;
         return (
-            <View style={{ flex: 1 }}>
+            <View style={styles.container}>
                 <StatusBar
                     backgroundColor={'transparent'}
                     translucent
@@ -72,37 +68,42 @@ class MerchantBranches extends Component {
                         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
                     )}
                 >
-                    <View style={{ height: APP_HEADER_HEIGHT, width }}>
-                        <Image style={{ flex: 1, height: null, width: null }} source={images.beach_1} />
+                    <View style={styles.header}>
+                        <Image 
+                            style={styles.image} 
+                            source={navigation.state.params.data && {uri: navigation.state.params.data.merchant_banner.medium.url} || images.beach_1} 
+                        />
                     </View>
                     <View style={{ padding: 16 }}>
                         <View style={{ marginVertical: 8 }}>
-                            <Text style={{ fontSize: 15 }}>HOTELS & RESORT</Text>
-                            <Text style={{ fontSize: 30, fontWeight: 'bold' }}>One night staycation</Text>
-                            <View style={{ flexDirection: 'row', marginVertical: 8 }}>
-                                <View style={{ height: ICON_HEIGHT, width: ICON_HEIGHT, borderRadius: ICON_HEIGHT / 2, overflow: 'hidden', marginRight: 8 }}>
-                                    <Image style={{ flex: 1, height: null, width: null }} source={images.image2} />
+                            <Text style={styles.category}>{navigation.state.params.data && navigation.state.params.data.category.toUpperCase()}</Text>
+                            <Text style={styles.deal}>{navigation.state.params.data && navigation.state.params.data.merchant_deals[0].name.toUpperCase()}</Text>
+                            <View style={styles.companyContainer}>
+                                <View style={styles.logo}>
+                                    <Image 
+                                        style={styles.image} 
+                                        source={navigation.state.params.data && {uri: navigation.state.params.data.logo.medium.url} || images.image2} 
+                                    />
                                 </View>
-                                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>BEACH HOUSE</Text>
+                                <Text style={styles.companyName}>{navigation.state.params.data && navigation.state.params.data.name.toUpperCase()}</Text>
                             </View>
                             <View style={{ flexDirection: 'row' }}>
                                 <View style={{ marginRight: 5 }}>
                                     <StarRating ratingObj={ratingObj} />
                                 </View>
-                                <Text style={{ fontSize: 12, fontWeight: 'bold' }}>70</Text>
+                                <Text style={styles.reviewCount}>70</Text>
                             </View>
                         </View>
                         <Branch
-                            data={sampleData}
+                            data={navigation.state.params.data && navigation.state.params.data.merchant_branches}
                             onPressItem={this._showLocation}
                         />
                     </View>
                 </ScrollView>
-                <View style={{ backgroundColor: '#FFFFFF', justifyContent: 'center', elevation: 10, padding: 16, shadowOffset: { width: 0, height: 1 }, shadowRadius: 2, shadowColor: 'black', shadowOpacity: 0.5 }}>
-                    <TouchableOpacity style={{ backgroundColor: '#FFA701', alignItems: 'center', borderRadius: 8, paddingVertical: 16 }} onPress={this._onPressScanQR}>
-                        <Text style={{ fontSize: fonts.MEDIUM, color: '#FFFFFF', fontWeight: 'bold', textAlign: 'center' }}>Scan QR Code</Text>
-                    </TouchableOpacity>
-                </View>
+                <FixedButton
+                    disabled={navigation.state.params.data && !navigation.state.params.data.is_qr_activated}
+                    text={"Scan QR Code"} 
+                />
                 <ScanQrModal isScanQrVisible={this.state.isScanQrVisible} toggleScanQrModal={this._toggleCameraModal} onPressScanQrProceed={this._onPressScanQrProceed} />
             </View>
         )
@@ -120,3 +121,44 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MerchantBranches);
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    header: {
+        height: APP_HEADER_HEIGHT, 
+        width: Constants.SCREEN_WIDTH
+    },
+    image: {
+        flex: 1,
+        height: null,
+        width: null
+    },
+    category: {
+        fontSize: 15
+    },
+    deal: {
+        fontSize: 30, 
+        fontWeight: 'bold'
+    },
+    companyContainer: {
+        flexDirection: 'row', 
+        marginVertical: 8
+    },
+    logo: {
+        height: Constants.MERCHANT_COMPANY_LOGO_HEIGHT, 
+        width: Constants.MERCHANT_COMPANY_LOGO_HEIGHT, 
+        borderRadius: Constants.MERCHANT_COMPANY_LOGO_HEIGHT / 2, 
+        overflow: 'hidden', 
+        marginRight: 8
+    },
+    companyName: {
+        fontSize: 18, 
+        fontWeight: 'bold'
+    },
+    reviewCount: {
+        fontSize: 12, 
+        fontWeight: 'bold'
+    }
+});

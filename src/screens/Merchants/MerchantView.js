@@ -53,10 +53,10 @@ class MerchantView extends Component {
                             navigation.state.params.attributes.merchant_galleries.length > 0
                         ) ?
                         <ImageSlideshow data={navigation.state.params.attributes} />:
-                        <ImageSlideshow data={MerchantImageData} />
+                        <ImageSlideshow isEmpty data={{...navigation.state.params.attributes, merchant_galleries: MerchantImageData.merchant_galleries}} />
                     }
-                    <DealSummary />
-                    <DealContent />
+                    <DealSummary data={navigation.state.params.attributes} />
+                    <DealContent data={navigation.state.params.attributes} />
                 </ScrollView>
                 <FixedButton
                     style={{
@@ -66,7 +66,9 @@ class MerchantView extends Component {
                             extrapolate: 'clamp'
                         })
                     }}
-                    text={"Scan QR Code"} />
+                    disabled={navigation && navigation.state.params.attributes && !navigation.state.params.attributes.is_qr_activated}
+                    text={"Scan QR Code"} 
+                />
             </View>
         )
     }

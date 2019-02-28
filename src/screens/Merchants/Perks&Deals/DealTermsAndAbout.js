@@ -2,19 +2,22 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { fonts } from '../../../resources';
 
-const DealTermsAndAbout = () => (
+const DealTermsAndAbout = ({ content }) => (
     <View style={styles.container}>
         <View style={{ marginVertical: 8 }}>
             <Text style={styles.title}>Terms & Conditions</Text>
-            <Text style={styles.description}>• Libero tempore, cum soluta nobis</Text>
-            <Text style={styles.description}>• Soluta nobis est eligendi optio</Text>
-            <Text style={styles.description}>• Optio cumque nihil impedit quo minus id</Text>
+            {
+                (content && content.merchant_terms_and_conditions.length > 0) &&
+                content.merchant_terms_and_conditions.map((item) => (
+                    <Text key={item.id} style={styles.description}>{`• ${item.terms}`}</Text>
+                ))
+            }
         </View>
         <View style={styles.separator} />
         <View style={{ marginVertical: 8 }}>
-            <Text style={styles.title}>About Beach House</Text>
+            <Text style={styles.title}>{`About ${content && content.name}`}</Text>
             <Text style={styles.description} numberOfLines={4}>
-                Excepteur qui enim deserunt commodo do. Incididunt non magna anim sit est do. Eiusmod laborum amet aliqua sunt ex excepteur aliquip sunt quis ea occaecat velit incididunt. Magna culpa laborum nulla sint laborum enim mollit elit officia excepteur sit. Proident occaecat reprehenderit non adipisicing mollit reprehenderit. Commodo excepteur ad aliquip amet magna nostrud deserunt do veniam fugiat.
+                {content && content.description}
         </Text>
         </View>
     </View>
@@ -37,8 +40,8 @@ const styles = StyleSheet.create({
         marginLeft: 8
     },
     separator: {
-        height: 1, 
-        backgroundColor: '#D8D8D8', 
+        height: 1,
+        backgroundColor: '#D8D8D8',
         marginVertical: 16
     }
 });

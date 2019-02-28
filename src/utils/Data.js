@@ -57,15 +57,6 @@ export const LoginImageData = [
 ];
 
 export const MerchantImageData = {
-    category: "Hotels and Services",
-    best_deal: "50% OFF",
-    blank_stars: 0,
-    description: "One night staycation",
-    name: "Sandpoint Gourmet Burgers",
-    average_rate: "5.0",
-    logo: {
-        url: images.image2
-    },
     merchant_galleries: [
         {
             id: 1,
@@ -125,4 +116,3 @@ export const MaritalStatusData = [
     { id: "3", name: "Widowed" },
     { id: "4", name: "Separated" },
 ];
-

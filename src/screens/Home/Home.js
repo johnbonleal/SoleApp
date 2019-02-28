@@ -76,7 +76,14 @@ class Home extends Component {
                     }),
                     top: 0
                 }}
-                headerRight={{ uri: `${auth.data && auth.data.user.avatar.url}?${moment()}` }}
+                headerRight={
+                    <View style={styles.avatar}>
+                        <ImageLoader
+                            style={styles.image}
+                            source={{ uri: `${auth.data && auth.data.user.avatar.url}?${moment()}` }}
+                        />
+                    </View>
+                }
                 headerRightStyle={{ height: 36, width: 36, borderRadius: 18, backgroundColor: 'white', overflow: 'hidden' }}
             />
         )

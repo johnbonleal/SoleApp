@@ -7,11 +7,12 @@ import { images } from '../../../resources';
 
 class DealSummary extends PureComponent {
     render() {
+        const { data } = this.props;
         return (
             <View style={styles.container}>
                 <DealDetails
                     title={"Mandaluyong, BGC, Cal..."}
-                    subtitle={<TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => NavigationService.navigate('MerchantBranch')}>
+                    subtitle={<TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => NavigationService.navigate('MerchantBranch', { data })}>
                         <Text style={{ fontSize: 12, color: 'grey', marginRight: 5 }}>SEE ALL BRANCHES</Text>
                         <Ionicons name={"ios-arrow-forward"} size={16} color={'grey'} />
                     </TouchableOpacity>}
@@ -19,7 +20,7 @@ class DealSummary extends PureComponent {
                     style={{ marginVertical: 8 }}
                 />
                 <DealDetails
-                    title={"25% OFF on published rate (room only)"}
+                    title={data && data.best_deal}
                     image={images.percentage}
                     style={{ marginVertical: 8 }}
                 />

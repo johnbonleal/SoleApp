@@ -49,12 +49,7 @@ class NavigationBar extends PureComponent {
                         <TouchableOpacity onPress={onPressHeaderRight} style={{ justifyContent: 'center' }} >
                             {_.isString(headerRight) ?
                                 <Text style={{ color: Constants.COLOR_WHITE }}>{headerRight}</Text> :
-                                <View style={[styles.imageContainer, !_.isString(headerRight) && headerRightStyle]}>
-                                    <ImageLoader
-                                        style={[styles.image, headerRightImageStyle]}
-                                        source={headerRight}
-                                    />
-                                </View>
+                                headerRight
                             }
                         </TouchableOpacity>
                     </View>
@@ -75,7 +70,8 @@ NavigationBar.propTypes = {
     ]),
     headerRight: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.number
+        PropTypes.element,
+        PropTypes.object
     ]),
     headerLeftStyle: PropTypes.object,
     headerTitleStyle: PropTypes.object,

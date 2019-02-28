@@ -12,9 +12,9 @@ const LONGITUDE = 121.0223;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-const DealContent = () => (
+const DealContent = ({ data }) => (
     <View style={{ backgroundColor: '#FFFFFF' }}>
-        <DealTermsAndAbout />
+        <DealTermsAndAbout content={data} />
         <MerchantLocation region={{ latitude: LATITUDE, longitude: LONGITUDE, latitudeDelta: LATITUDE_DELTA, longitudeDelta: LONGITUDE_DELTA }} />
         <DealContact />
     </View>

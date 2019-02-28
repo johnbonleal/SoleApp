@@ -26,8 +26,8 @@ const config = {
 export const axios = create(config);
 
 const get = (url, params) => {
-    console.log("URL: ", url);
-    console.log("Params: ", params);
+    // console.log("URL: ", url);
+    // console.log("Params: ", params);
     const customParams = removeEmpty({
         params: {
             ...params,

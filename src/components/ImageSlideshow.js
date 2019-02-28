@@ -71,22 +71,29 @@ class ImageSlideshow extends PureComponent {
     }
     render() {
         const { currentIndex } = this.state;
-        const { data } = this.props;
+        const { data, isEmpty } = this.props;
         return (
             <View style={{ height: MERCHANT_BACKGROUND_HEIGHT }}>
                 <View style={styles.container}>
                     <View style={{ ...StyleSheet.absoluteFill }} >
-                        <Image style={styles.image} source={(data && data.merchant_galleries.length > 0) && data.merchant_galleries[currentIndex].image.medium.url} />
+                        <Image
+                            style={styles.image}
+                            source={
+                                isEmpty ?
+                                    data.merchant_galleries[currentIndex].image.medium.url :
+                                    { uri: data.merchant_galleries[currentIndex].image.medium.url }
+                            }
+                        />
                     </View>
                     <View style={{ ...StyleSheet.absoluteFill }}>
                         <Image style={styles.image} source={images.gradient_3} />
                     </View>
                     <View style={styles.content}>
                         <Text style={styles.title}>{data && data.category.toUpperCase()}</Text>
-                        <Text style={styles.description}>{data && data.description.toUpperCase()}</Text>
+                        <Text style={styles.description}>{data && data.merchant_deals[0].name.toUpperCase()}</Text>
                         <View style={{ flexDirection: 'row', marginVertical: 8 }}>
                             <View style={styles.logo}>
-                                <Image style={styles.image} source={images.image2} />
+                                <Image style={styles.image} source={data && {uri: data.logo.medium.url} || images.image2} />
                             </View>
                             <Text style={styles.companyName}>{data && data.name.toUpperCase()}</Text>
                         </View>
