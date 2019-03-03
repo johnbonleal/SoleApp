@@ -10,19 +10,23 @@ import {
     CategoryModal,
     LocationModal,
     Tag,
-    TabularList
+    TabularList,
+    Loading
 } from '../../components';
 import MerchantList from './MerchantList';
 
 import { images, fonts } from '../../resources';
 import { TopCategoriesData, RecommendedDealsData } from '../../utils/Data';
 import { NavigationService, Constants } from '../../configs';
-import { requestFetchNearbyMerchant } from '../../actions/MerchantActions';
+import { requestFetchNearbyMerchant, requestFetchAllMerchant } from '../../actions/MerchantActions';
+import { removeEmpty } from '../../utils/Helper';
 
 const HEADER_MAX_HEIGHT = Constants.SCREEN_HEIGHT / 3.7;
 const HEADER_MIN_HEIGHT = Constants.SCREEN_HEIGHT / 7.5;
 
 const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
+var _ = require('lodash');
+
 class Merchants extends Component {
     constructor(props) {
         super(props);
@@ -40,11 +44,15 @@ class Merchants extends Component {
                 longitude: Constants.LONGITUDE,
                 latitudeDelta: Constants.LATITUDE_DELTA,
                 longitudeDelta: Constants.LONGITUDE_DELTA,
-            }
+            },
+            vendors: []
         };
     }
     componentDidMount() {
         const { auth } = this.props;
+        this.props.fetchAllMerchant({
+            access_token: auth && auth.data.access_token
+        })
         this.props.fetchNearbyMerchant({
             latitude: this.state.region.latitude,
             longitude: this.state.region.longitude,
@@ -63,18 +71,36 @@ class Merchants extends Component {
         //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
         // );
     }
-    _onPressCategoryItem = (item) => {
-        this.setState({ category: item });
+    _searchMerchants = filter => {
+        const { merchant } = this.props;
+        let vendors = merchant && merchant.allMerchants;
+        let newFilter = removeEmpty(filter);
+        console.log("Filter: ", newFilter);
+        if (vendors.length > 0) {
+            vendors = _.filter(vendors, item => {
+                for (var key in newFilter) {
+                    if (item.attributes[key].toLowerCase().indexOf(newFilter[key].toLowerCase()) !== -1)
+                        return item;
+                }
+            });
+        }
+        console.log("Vendors: ", vendors)
+        return vendors;
     }
-    _onPressLocationItem = (item) => {
-        this.setState({ location: item });
+    _onChangeText = searchText => {
+        const { category, location } = this.state;
+        const result = this._searchMerchants({
+            name: searchText,
+            category: category === 'Category' ? undefined : category,
+            location: location === 'Location' ? undefined : location
+        });
+        console.log("Result: ", result);
+        this.setState({ searchInput: searchText });
     }
-    _toggleCategoryModal = () => {
-        this.setState({ isCategoryModalVisible: !this.state.isCategoryModalVisible });
-    }
-    _toggleLocationModal = () => {
-        this.setState({ isLocationModalVisible: !this.state.isLocationModalVisible });
-    }
+    _onPressCategoryItem = item => this.setState({ category: item });
+    _onPressLocationItem = item => this.setState({ location: item });
+    _toggleCategoryModal = () => this.setState({ isCategoryModalVisible: !this.state.isCategoryModalVisible });
+    _toggleLocationModal = () => this.setState({ isLocationModalVisible: !this.state.isLocationModalVisible });
     _onPressModalClose = () => {
         this._toggleCategoryModal();
     }
@@ -86,10 +112,17 @@ class Merchants extends Component {
     }
     renderSearch = () => {
         const { searchInput, category, location } = this.state;
+        const { merchant } = this.props;
         return (
             <View style={{ flex: 1, backgroundColor: '#FFFFFF', padding: 16 }}>
                 {searchInput !== '' || category !== 'Category' || location !== 'Location' ?
-                    <MerchantList data={sampleData} onPressItem={this._onPressMerchantItem} /> :
+                    <MerchantList
+                        data={merchant && merchant.allMerchants}
+                        category={category}
+                        location={location}
+                        searchText={searchInput}
+                        onPressItem={this._onPressMerchantItem}
+                    /> :
                     <TabularList
                         style={{ marginTop: 16 }}
                         data={[{ title: "Search Suggestions" }, { title: "New Deals" }, { title: "Fitness & Sports" }, { title: "Beauty & Wellness" }]}
@@ -133,7 +166,7 @@ class Merchants extends Component {
                             <TextInput
                                 placeholder={"Try \"Hotels\""}
                                 placeholderTextColor={"#F5A623"}
-                                onChangeText={(searchInput) => this.setState({ searchInput })}
+                                onChangeText={this._onChangeText}
                                 maxLength={30}
                                 value={searchInput}
                                 style={styles.searchInput}
@@ -162,6 +195,10 @@ class Merchants extends Component {
         const { merchant } = this.props;
         return (
             <View style={styles.container}>
+                {
+                    (merchant && merchant.isLoading) &&
+                    <Loading />
+                }
                 <StatusBar
                     backgroundColor={'transparent'}
                     translucent
@@ -256,7 +293,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchNearbyMerchant: params => dispatch(requestFetchNearbyMerchant(params))
+        fetchNearbyMerchant: params => dispatch(requestFetchNearbyMerchant(params)),
+        fetchAllMerchant: params => dispatch(requestFetchAllMerchant(params))
     }
 };
 

@@ -51,6 +51,7 @@
 		A46EFAE253C34898A6EDF9D6 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E6E1A806D224478892B6339 /* MaterialCommunityIcons.ttf */; };
 		ABE56772339445279B53DB4A /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A360CDEAF6D4B98A4EAB7A5 /* libRNVectorIcons.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		B293C2B22229358200E3F742 /* libRNSpinkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B293C2AD2229343600E3F742 /* libRNSpinkit.a */; };
 		B8D48206527140409A7BC5B0 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C39B17213EED44EEA2E5A769 /* Feather.ttf */; };
 		BC4905A30CA469FBC0500F63 /* libPods-SoleApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 033AED2C4097E064943A70B4 /* libPods-SoleApp.a */; };
 		BCC1200E9D3F4A21B9F430D0 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6FE86690F97945628DA8B4C9 /* FontAwesome.ttf */; };
@@ -336,6 +337,20 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
+		B293C2AC2229343600E3F742 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B293C2812229343400E3F742 /* RNSpinkit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D42CB3511B2538DE00FD0AE2;
+			remoteInfo = RNSpinkit;
+		};
+		B293C2AE2229343600E3F742 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B293C2812229343400E3F742 /* RNSpinkit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 641194871EC9FD4A00D4FC03;
+			remoteInfo = "RNSpinkit-tvOS";
+		};
 		B2D51E6321AC3C20008D0F55 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 70B641B39A134B2BB5BD1AAA /* RNGestureHandler.xcodeproj */;
@@ -413,6 +428,7 @@
 		A551BB0F776A43EA9B6B2506 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		AC592B4F13178960E69ED77B /* Pods-SoleAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoleAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SoleAppTests/Pods-SoleAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		B293C2812229343400E3F742 /* RNSpinkit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSpinkit.xcodeproj; path = "../node_modules/react-native-spinkit/ios/RNSpinkit.xcodeproj"; sourceTree = "<group>"; };
 		C39B17213EED44EEA2E5A769 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		DAE5EB5832A1409FBB34F0FC /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		DAF6F5D411A1EE0BA4D94C4C /* Pods-SoleApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoleApp-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-SoleApp-tvOS/Pods-SoleApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -434,6 +450,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B293C2B22229358200E3F742 /* libRNSpinkit.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -667,6 +684,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				B293C2812229343400E3F742 /* RNSpinkit.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -727,6 +745,15 @@
 			children = (
 				ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */,
 				2D16E6721FA4F8DC00B85C8A /* libRCTBlob-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B293C2822229343400E3F742 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B293C2AD2229343600E3F742 /* libRNSpinkit.a */,
+				B293C2AF2229343600E3F742 /* libRNSpinkit.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -929,6 +956,10 @@
 				{
 					ProductGroup = B2D51E3921AC3C20008D0F55 /* Products */;
 					ProjectRef = 70B641B39A134B2BB5BD1AAA /* RNGestureHandler.xcodeproj */;
+				},
+				{
+					ProductGroup = B293C2822229343400E3F742 /* Products */;
+					ProjectRef = B293C2812229343400E3F742 /* RNSpinkit.xcodeproj */;
 				},
 				{
 					ProductGroup = B2D51E3B21AC3C20008D0F55 /* Products */;
@@ -1203,6 +1234,20 @@
 			fileType = archive.ar;
 			path = libRCTBlob.a;
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B293C2AD2229343600E3F742 /* libRNSpinkit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSpinkit.a;
+			remoteRef = B293C2AC2229343600E3F742 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B293C2AF2229343600E3F742 /* libRNSpinkit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSpinkit.a;
+			remoteRef = B293C2AE2229343600E3F742 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		B2D51E6421AC3C20008D0F55 /* libRNGestureHandler.a */ = {
