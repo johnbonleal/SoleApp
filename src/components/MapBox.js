@@ -56,7 +56,7 @@ class MapBox extends PureComponent {
         );
     }
     componentWillReceiveProps(nextProps, prevState) {
-        if (this.props.data) {
+        if (this.props.data.length > 0) {
             if (nextProps.currentIndex !== this.props.currentIndex) {
                 const merchant = nextProps.data[nextProps.currentIndex];
                 const region = {
@@ -126,7 +126,8 @@ class MapBox extends PureComponent {
                             <Image style={{ flex: 1, height: null, width: null }} source={images.current_location} />
                         </View>
                     </Marker>
-                    {this.props.data &&
+                    {
+                        this.props.data &&
                         this.props.data.length > 0 &&
                         this.props.data.map((item, index) => {
                             const dimensStyle = {
@@ -140,7 +141,12 @@ class MapBox extends PureComponent {
                                 <Marker.Animated
                                     ref={(marker) => { this.marker = marker; }}
                                     key={item.id}
-                                    coordinate={data[index].region}
+                                    coordinate={{
+                                        latitude: item.attributes.latitude,
+                                        longitude: item.attributes.longitude,
+                                        latitudeDelta: LATITUDE_DELTA,
+                                        longitudeDelta: LONGITUDE_DELTA
+                                    }}
                                 >
                                     <Animated.View style={[dimensStyle, opacityStyle]}>
                                         <Image style={{ flex: 1, height: null, width: null }} source={images.location_active} resizeMode={"contain"} />

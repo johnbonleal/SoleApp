@@ -8,7 +8,7 @@ import { images } from '../../resources';
 
 const ContentIcon = ({ icon }) => (
     <View style={styles.contentIcon}>
-        <Image style={[styles.image, { tintColor: '#9B9B9B' }]} source={icon} resizeMode={"contain"} />
+        <Image style={[styles.image, { tintColor: Constants.COLOR_LIGHT_GRAY }]} source={icon} resizeMode={"contain"} />
     </View>
 );
 
@@ -22,6 +22,9 @@ class MerchantNearby extends Component {
             isHidden: false,
             currentIndex: 0
         };
+    }
+    componentDidMount() {
+        console.log("Nearby merchants: ", this.props);
     }
     _toggleAnimation = () => {
         const { isHidden, bounceValue } = this.state;
@@ -50,26 +53,26 @@ class MerchantNearby extends Component {
         return (
             <View key={item.id} style={styles.carouselContainer}>
                 <View style={{ flex: 2 }}>
-                    <Image style={styles.image} source={item.src} />
+                    <Image style={styles.image} source={item.attributes && { uri: item.attributes.merchant.merchant_banner.medium.url } || item.src} />
                 </View>
-                <View style={[styles.container, { backgroundColor: '#FFFFFF' }]}>
+                <View style={[styles.container, { backgroundColor: Constants.COLOR_WHITE }]}>
                     <View style={styles.companyRow}>
                         <View style={styles.companyLogo}>
-                            <Image style={styles.image} source={images.sample} />
+                            <Image style={styles.image} source={item.attributes && { uri: item.attributes.merchant.logo.medium.url } || images.sample} />
                         </View>
-                        <Text style={styles.companyName}>{item.name}</Text>
+                        <Text style={styles.companyName}>{item.attributes && item.attributes.name || item.name}</Text>
                     </View>
                     <View style={styles.contentSummary}>
                         <View style={styles.contentRow}>
                             <ContentIcon icon={images.location_light} />
-                            <Text numberOfLines={1} style={{ fontSize: 13, flex: 1, flexWrap: 'wrap' }}>{item.address}</Text>
+                            <Text numberOfLines={1} style={{ fontSize: 13, flex: 1, flexWrap: 'wrap' }}>{item.attributes && item.attributes.address}</Text>
                         </View>
                         <View style={styles.contentRow}>
                             <ContentIcon icon={images.compass} />
-                            <Text style={{ fontSize: 13 }}>{`${item.distance} from you`}</Text>
+                            <Text style={{ fontSize: 13 }}>{`${item.attributes && item.attributes.distance_from ? item.attributes.distance_from.toFixed(2) : 0} km from you`}</Text>
                             <Text style={styles.dot}>•</Text>
-                            <StarRating ratingObj={item.rating} style={{ marginRight: 8 }} />
-                            <Text style={styles.reviewCount}>{item.reviewCounts}</Text>
+                            <StarRating ratingObj={{ ratings: 4 }} style={{ marginRight: 8 }} />
+                            <Text style={styles.reviewCount}>{40}</Text>
                         </View>
                     </View>
                 </View>
@@ -84,9 +87,10 @@ class MerchantNearby extends Component {
     }
     render() {
         const { bounceValue, currentIndex, scrollX, animateToUser } = this.state;
+        const { navigation } = this.props;
         return (
             <View style={[styles.container, { ...StyleSheet.absoluteFillObject }]}>
-                <MapBox data={NearbyMerchantsData} currentIndex={currentIndex} scrollX={scrollX} animateToUser={animateToUser} />
+                <MapBox data={navigation && navigation.state.params} currentIndex={currentIndex} scrollX={scrollX} animateToUser={animateToUser} />
                 <View style={styles.closeButtonContainer}>
                     <TouchableOpacity style={styles.closeButton} onPress={() => NavigationService.back()}>
                         <View style={styles.closeButtonIcon}>
@@ -102,7 +106,7 @@ class MerchantNearby extends Component {
                 <Animated.View style={[{ height: Constants.CAROUSEL_HEIGHT, position: 'absolute', left: 0, right: 0, bottom: 0 }, { transform: [{ translateY: bounceValue }] }]}>
                     <Carousel
                         ref={(c) => { this._carousel = c; }}
-                        data={NearbyMerchantsData}
+                        data={navigation && navigation.state.params}
                         renderItem={this._renderItem}
                         sliderWidth={Constants.SLIDER_WIDTH}
                         itemWidth={Constants.ITEM_WIDTH}
@@ -133,7 +137,7 @@ const styles = StyleSheet.create({
     },
     carouselContainer: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: Constants.COLOR_WHITE,
         borderRadius: 8,
         overflow: 'hidden'
     },
@@ -159,7 +163,7 @@ const styles = StyleSheet.create({
     companyName: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: '#4A4A4A'
+        color: Constants.COLOR_DARK_GRAY
     },
     contentSummary: {
         flex: 1,
@@ -198,7 +202,7 @@ const styles = StyleSheet.create({
     },
     gpsButton: {
         position: 'absolute',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: Constants.COLOR_WHITE,
         elevation: 2,
         borderRadius: 8,
         padding: 8,
@@ -232,7 +236,7 @@ const styles = StyleSheet.create({
         borderRadius: 18,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#FFFFFF'
+        backgroundColor: Constants.COLOR_WHITE
     },
     closeButtonIcon: {
         height: 15,

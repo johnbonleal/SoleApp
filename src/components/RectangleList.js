@@ -6,7 +6,11 @@ import { fonts, images } from '../resources';
 
 class RectangleList extends PureComponent {
     _onPressAllItems = data => {
-        NavigationService.navigate("MerchantList", data);
+        if (this.props.isNearby) {
+            NavigationService.navigate("MerchantNearby", data);
+        } else {
+            NavigationService.navigate("MerchantList", data);
+        }
     }
     render() {
         const {

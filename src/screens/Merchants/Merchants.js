@@ -53,23 +53,23 @@ class Merchants extends Component {
         this.props.fetchAllMerchant({
             access_token: auth && auth.data.access_token
         })
-        this.props.fetchNearbyMerchant({
-            latitude: this.state.region.latitude,
-            longitude: this.state.region.longitude,
-            access_token: auth && auth.data.access_token
-        });
-        // navigator.geolocation.getCurrentPosition(
-        //     position => {
-        //         const { latitude, longitude } = position.coords;
-        //         this.props.fetchNearbyMerchant({
-        //             latitude,
-        //             longitude,
-        //             access_token: auth && auth.data.access_token
-        //         });
-        //     },
-        //     (error) => console.log(error.message),
-        //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-        // );
+        // this.props.fetchNearbyMerchant({
+        //     latitude: this.state.region.latitude,
+        //     longitude: this.state.region.longitude,
+        //     access_token: auth && auth.data.access_token
+        // });
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const { latitude, longitude } = position.coords;
+                this.props.fetchNearbyMerchant({
+                    latitude,
+                    longitude,
+                    access_token: auth && auth.data.access_token
+                });
+            },
+            (error) => console.log(error.message),
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+        );
     }
     _searchMerchants = filter => {
         const { merchant } = this.props;
@@ -226,8 +226,6 @@ class Merchants extends Component {
                                 data={merchant && merchant.topDeals}
                                 title={"Top Deals"}
                                 isCollapsible
-                                onPressItem={this._onPressItem}
-                                onPressAll={this._onPressAllItems}
                                 style={{ backgroundColor: Constants.COLOR_WHITE, marginVertical: 6, paddingVertical: 16 }}
                             />
                             <SquareList
@@ -240,24 +238,19 @@ class Merchants extends Component {
                                 data={sampleData}
                                 title={"New Deals"}
                                 isCollapsible
-                                onPressItem={this._onPressItem}
-                                onPressAll={this._onPressAllItems}
                                 style={{ backgroundColor: Constants.COLOR_WHITE, marginVertical: 6, paddingVertical: 16 }}
                             />
                             <RectangleList
                                 data={merchant && merchant.nearbyMerchants}
                                 title={"Merchants Nearby"}
                                 isCollapsible
-                                onPressItem={this._onPressItem}
-                                onPressAll={() => NavigationService.navigate('MerchantNearby')}
+                                isNearby
                                 style={{ backgroundColor: Constants.COLOR_WHITE, marginVertical: 6, paddingVertical: 16 }}
                             />
                             <RectangleList
                                 data={sampleData}
                                 title={"All Deals"}
                                 isCollapsible
-                                onPressItem={this._onPressItem}
-                                onPressAll={this._onPressAllItems}
                                 style={{ backgroundColor: Constants.COLOR_WHITE, marginVertical: 4, paddingVertical: 16 }}
                             />
                             <CircleList

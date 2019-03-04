@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet, StatusBar, Keyboard, Animated } from 'react-native';
+import { View, Image, StyleSheet, StatusBar, Keyboard, Animated, KeyboardAvoidingView, Platform } from 'react-native';
 import { Field, reduxForm, reset } from 'redux-form';
 import { InputField, ErrorBox } from '../../components';
 import { Button, Footer } from '../../components/Login';
@@ -53,7 +53,10 @@ class Login extends Component {
         const { isDisabled, footerOpacity } = this.state;
         const { auth, handleSubmit } = this.props;
         return (
-            <View style={styles.loginContainer}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                style={styles.loginContainer}
+            >
                 <StatusBar
                     backgroundColor={'transparent'}
                     translucent
@@ -63,37 +66,39 @@ class Login extends Component {
                     <View style={{ height: Constants.SCREEN_HEIGHT / 9, width: Constants.SCREEN_WIDTH * 0.7 }}>
                         <Image style={styles.image} source={images.venteny_logo} resizeMode={'contain'} />
                     </View>
-                    <View style={{ width: '100%' }}>
-                        <Field
-                            component={InputField}
-                            name="unique_key"
-                            placeholder="Membership ID Number"
-                            icon={images.login_username}
-                            textInputStyle={styles.loginTextInput}
-                            containerStyle={styles.loginTextFieldContainer}
-                            iconStyle={styles.loginTextFieldIcon}
-                            inputStyle={styles.loginTextField}
-                            validate={uniqueKeyValidator}
-                        />
-                        <Field
-                            component={InputField}
-                            name="password"
-                            placeholder="Password"
-                            icon={images.login_password}
-                            textInputStyle={styles.loginTextInput}
-                            containerStyle={styles.loginTextFieldContainer}
-                            iconStyle={styles.loginTextFieldIcon}
-                            inputStyle={styles.loginTextField}
-                            validate={passwordValidator}
-                            secureTextEntry
-                        />
-                        <Button
-                            style={styles.loginButton}
-                            text={"Log In"}
-                            disabled={isDisabled}
-                            isLoading={auth.isLoading}
-                            onPress={handleSubmit(this._handleLogin)}
-                        />
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={{ flex: 1 }}>
+                            <Field
+                                component={InputField}
+                                name="unique_key"
+                                placeholder="Membership ID Number"
+                                icon={images.login_username}
+                                textInputStyle={styles.loginTextInput}
+                                containerStyle={styles.loginTextFieldContainer}
+                                iconStyle={styles.loginTextFieldIcon}
+                                inputStyle={styles.loginTextField}
+                                validate={uniqueKeyValidator}
+                            />
+                            <Field
+                                component={InputField}
+                                name="password"
+                                placeholder="Password"
+                                icon={images.login_password}
+                                textInputStyle={styles.loginTextInput}
+                                containerStyle={styles.loginTextFieldContainer}
+                                iconStyle={styles.loginTextFieldIcon}
+                                inputStyle={styles.loginTextField}
+                                validate={passwordValidator}
+                                secureTextEntry
+                            />
+                            <Button
+                                style={styles.loginButton}
+                                text={"Log In"}
+                                disabled={isDisabled}
+                                isLoading={auth.isLoading}
+                                onPress={handleSubmit(this._handleLogin)}
+                            />
+                        </View>
                     </View>
                 </View>
                 <Footer style={{ opacity: footerOpacity }} />
@@ -101,7 +106,7 @@ class Login extends Component {
                     auth && auth.hasError &&
                     <ErrorBox text={auth.errorMessage} />
                 }
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }
