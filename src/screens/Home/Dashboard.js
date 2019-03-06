@@ -39,12 +39,13 @@ class Dashboard extends Component {
         NavigationService.navigate('ScanQR');
     }
     render() {
+        const { auth } = this.props;
         return (
             <View style={styles.container}>
                 <View style={styles.topRowContainer}>
                     <Text style={styles.topRowTitle}>Points</Text>
                     <TouchableOpacity style={styles.topRowRightComponent} onPress={this._onPressEarnedPoints}>
-                        <Text style={[styles.topRowBody, { color: '#FFB000'}]}>1,800</Text>
+                        <Text style={[styles.topRowBody, { color: '#FFB000'}]}>{auth.data && auth.data.points}</Text>
                         <Ionicons name={"ios-arrow-forward"} size={20} color={"#FFB000"} />
                     </TouchableOpacity>
                 </View>
@@ -77,6 +78,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => {
     return {
+        auth: state.auth,
         camera: state.camera
     }
 }

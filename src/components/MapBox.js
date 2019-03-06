@@ -1,16 +1,8 @@
 import React, { PureComponent } from 'react';
 import { View, Dimensions, StyleSheet, Image, Text, Animated } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker, Circle } from 'react-native-maps';
+import { Constants } from '../configs';
 import { images } from '../resources';
-
-const { width, height } = Dimensions.get('window');
-
-const ASPECT_RATIO = width / height;
-const LATITUDE = 14.6091;
-const LONGITUDE = 121.0223;
-const LATITUDE_DELTA = 0.0922;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-const ITEM_WIDTH = width * 0.85;
 
 class MapBox extends PureComponent {
     constructor(props) {
@@ -18,10 +10,10 @@ class MapBox extends PureComponent {
 
         this.state = {
             region: {
-                latitude: LATITUDE,
-                longitude: LONGITUDE,
-                latitudeDelta: LATITUDE_DELTA,
-                longitudeDelta: LONGITUDE_DELTA,
+                latitude: Constants.LATITUDE,
+                longitude: Constants.LONGITUDE,
+                latitudeDelta: Constants.LATITUDE_DELTA,
+                longitudeDelta: Constants.LONGITUDE_DELTA,
             }
         };
     }
@@ -33,8 +25,8 @@ class MapBox extends PureComponent {
                     region: {
                         latitude,
                         longitude,
-                        latitudeDelta: LATITUDE_DELTA,
-                        longitudeDelta: LONGITUDE_DELTA,
+                        latitudeDelta: Constants.LATITUDE_DELTA,
+                        longitudeDelta: Constants.LONGITUDE_DELTA,
                     }
                 });
             },
@@ -48,8 +40,8 @@ class MapBox extends PureComponent {
                     region: {
                         latitude,
                         longitude,
-                        latitudeDelta: LATITUDE_DELTA,
-                        longitudeDelta: LONGITUDE_DELTA,
+                        latitudeDelta: Constants.LATITUDE_DELTA,
+                        longitudeDelta: Constants.LONGITUDE_DELTA,
                     }
                 });
             }
@@ -60,9 +52,10 @@ class MapBox extends PureComponent {
             if (nextProps.currentIndex !== this.props.currentIndex) {
                 const merchant = nextProps.data[nextProps.currentIndex];
                 const region = {
-                    ...merchant.region,
-                    latitudeDelta: LATITUDE_DELTA,
-                    longitudeDelta: LONGITUDE_DELTA
+                    latitude: merchant.attributes.latitude,
+                    longitude: merchant.attributes.longitude,
+                    latitudeDelta: Constants.LATITUDE_DELTA,
+                    longitudeDelta: Constants.LONGITUDE_DELTA
                 };
                 this._animateToRegion(region);
             }
@@ -87,9 +80,9 @@ class MapBox extends PureComponent {
         const { data, currentIndex, scrollX } = this.props;
         const interpolations = data.map((marker, index) => {
             const inputRange = [
-                (index - 1) * ITEM_WIDTH,
-                index * ITEM_WIDTH,
-                (index + 1) * ITEM_WIDTH,
+                (index - 1) * Constants.ITEM_WIDTH,
+                index * Constants.ITEM_WIDTH,
+                (index + 1) * Constants.ITEM_WIDTH,
             ];
             const height = scrollX.interpolate({
                 inputRange,
@@ -103,9 +96,6 @@ class MapBox extends PureComponent {
             });
             return { height, opacity };
         });
-        _onRegionChange = region => {
-
-        }
         return (
             <View style={{ ...StyleSheet.absoluteFill, flex: 1, alignItems: 'center' }}>
                 <MapView
@@ -127,9 +117,8 @@ class MapBox extends PureComponent {
                         </View>
                     </Marker>
                     {
-                        this.props.data &&
-                        this.props.data.length > 0 &&
-                        this.props.data.map((item, index) => {
+                        data.length > 0 &&
+                        data.map((item, index) => {
                             const dimensStyle = {
                                 height: interpolations[index].height,
                                 width: interpolations[index].height,
@@ -143,16 +132,13 @@ class MapBox extends PureComponent {
                                     key={item.id}
                                     coordinate={{
                                         latitude: item.attributes.latitude,
-                                        longitude: item.attributes.longitude,
-                                        latitudeDelta: LATITUDE_DELTA,
-                                        longitudeDelta: LONGITUDE_DELTA
+                                        longitude: item.attributes.longitude
                                     }}
                                 >
                                     <Animated.View style={[dimensStyle, opacityStyle]}>
                                         <Image style={{ flex: 1, height: null, width: null }} source={images.location_active} resizeMode={"contain"} />
                                     </Animated.View>
                                 </Marker.Animated>
-
                             )
                         })}
                 </MapView>
@@ -162,25 +148,3 @@ class MapBox extends PureComponent {
 }
 
 export default MapBox;
-
-const styles = StyleSheet.create({
-    markerWrap: {
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    marker: {
-        width: 8,
-        height: 8,
-        borderRadius: 4,
-        backgroundColor: "rgba(130,4,150, 0.9)",
-    },
-    ring: {
-        width: 24,
-        height: 24,
-        borderRadius: 12,
-        backgroundColor: "rgba(130,4,150, 0.3)",
-        position: "absolute",
-        borderWidth: 1,
-        borderColor: "rgba(130,4,150, 0.5)",
-    },
-});

@@ -33,14 +33,14 @@ export function* handleLogin(action) {
                     break;
                 case 'The Member you have entered is not Active':
                     errorMessage = 'The member you have entered is not active';
-                    break;
+                    break;   
                 default:
                     errorMessage = message ? message : 'Something went wrong. Please try again later.';
                     break;
             }
         } else if (error.request) {
             console.log("Login error in request: ", error.request)
-            errorMessage = "Request Error";
+            errorMessage = "Connection timed out. Please check your network.";
         } else {
             errorMessage = 'Something went wrong. Please try again later.';
         }

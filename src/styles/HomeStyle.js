@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { Constants } from '../configs';
 import { fonts } from '../resources';
 
 const TOP_CONTAINER_MAX_HEIGHT = 200;
@@ -7,17 +8,17 @@ const DASHBOARD_MAX_HEIGHT = 157;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FFFFFF'
+        backgroundColor: Constants.COLOR_WHITE
     },
     backgroundImage: {
         height: TOP_CONTAINER_MAX_HEIGHT,
         ...StyleSheet.absoluteFill,
-        backgroundColor: '#F2F2F2'
+        backgroundColor: Constants.COLOR_BACKGROUND
     },
     greetings: {
         fontSize: 30,
         fontWeight: 'bold',
-        color: '#FFFFFF',
+        color: Constants.COLOR_WHITE,
         left: 16,
         position: 'absolute',
         top: TOP_CONTAINER_MAX_HEIGHT / 3
@@ -39,16 +40,16 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         height: DASHBOARD_MAX_HEIGHT,
-        flexDirection: 'row',
-        shadowOffset: { width: 0, height: 1 },
-        shadowRadius: 1,
-        shadowColor: 'black',
-        shadowOpacity: 0.5
+        flexDirection: 'row'
     },
     button: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: Constants.COLOR_WHITE,
         elevation: 3,
+        shadowOffset: { width: 0, height: 1 },
+        shadowRadius: 1,
+        shadowColor: 'black',
+        shadowOpacity: 0.5,
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center'

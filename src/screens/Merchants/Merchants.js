@@ -75,7 +75,6 @@ class Merchants extends Component {
         const { merchant } = this.props;
         let vendors = merchant && merchant.allMerchants;
         let newFilter = removeEmpty(filter);
-        console.log("Filter: ", newFilter);
         if (vendors.length > 0) {
             vendors = _.filter(vendors, item => {
                 for (var key in newFilter) {
@@ -84,18 +83,16 @@ class Merchants extends Component {
                 }
             });
         }
-        console.log("Vendors: ", vendors)
         return vendors;
     }
     _onChangeText = searchText => {
         const { category, location } = this.state;
-        const result = this._searchMerchants({
+        const vendors = this._searchMerchants({
             name: searchText,
             category: category === 'Category' ? undefined : category,
             location: location === 'Location' ? undefined : location
         });
-        console.log("Result: ", result);
-        this.setState({ searchInput: searchText });
+        this.setState({ searchInput: searchText, vendors });
     }
     _onPressCategoryItem = item => this.setState({ category: item });
     _onPressLocationItem = item => this.setState({ location: item });
@@ -111,13 +108,13 @@ class Merchants extends Component {
         this.setState({ isSearching: !this.state.isSearching });
     }
     renderSearch = () => {
-        const { searchInput, category, location } = this.state;
+        const { searchInput, category, location, vendors } = this.state;
         const { merchant } = this.props;
         return (
-            <View style={{ flex: 1, backgroundColor: '#FFFFFF', padding: 16 }}>
+            <View style={{ flex: 1, backgroundColor: Constants.COLOR_WHITE, padding: 16 }}>
                 {searchInput !== '' || category !== 'Category' || location !== 'Location' ?
                     <MerchantList
-                        data={merchant && merchant.allMerchants}
+                        data={vendors}
                         category={category}
                         location={location}
                         searchText={searchInput}

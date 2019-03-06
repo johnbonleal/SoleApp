@@ -10,7 +10,7 @@ const ratingObj = { ratings: 3 };
 const RectangleListItem = ({ item, withIcon, plain, onPressItem }) => {
     const { attributes } = item;
     return (
-        <TouchableOpacity style={ListItemStyles.container} onPress={() => NavigationService.navigate('MerchantView', item)} >
+        <TouchableOpacity style={ListItemStyles.container} onPress={() => !plain ? NavigationService.navigate('MerchantView', item) : null} >
             <ImageBackground
                 style={ListItemStyles.thumbnailContainer}
                 source={
@@ -27,7 +27,7 @@ const RectangleListItem = ({ item, withIcon, plain, onPressItem }) => {
                 {
                     !plain &&
                     <View style={ListItemStyles.dealContainer}>
-                        {withIcon && <View style={styles.iconContainer}>
+                        {withIcon && <View style={ListItemStyles.iconContainer}>
                             <Image style={ListItemStyles.image} source={images.image2} />
                         </View>}
                         <Text style={ListItemStyles.deal}>{attributes && (attributes.merchant ? attributes.merchant.best_deal : attributes.best_deal)}</Text>
