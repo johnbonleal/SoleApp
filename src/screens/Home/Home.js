@@ -93,7 +93,7 @@ class Home extends Component {
         return (
             <Animated.View style={styles.backgroundImage}>
                 <View style={{ ...StyleSheet.absoluteFill }}>
-                    <ImageLoader style={{ flex: 1, height: null, width: null }} thumbnailSource={images.header_bg} source={images.header_bg} />
+                    <ImageLoader style={styles.image} thumbnailSource={images.header_bg} source={images.header_bg} />
                 </View>
             </Animated.View>
         );
@@ -101,81 +101,77 @@ class Home extends Component {
     render() {
         const { scrollY } = this.state;
         const { auth, merchant } = this.props;
-        let firstName = auth && auth.data.user.first_name;
         return (
-            <View style={styles.container}>
-                {
-                    (merchant && merchant.isLoading) &&
-                    <Loading />
-                }
-                <StatusBar
-                    backgroundColor={'transparent'}
-                    translucent
-                />
-                {this.renderHeader()}
-                <ScrollView
-                    ref={component => { this.scrollView = component }}
-                    contentContainerStyle={{ flexGrow: 1 }}
-                    onScroll={Animated.event(
-                        [{ nativeEvent: { contentOffset: { y: scrollY } } }]
-                    )}
-                    scrollEventThrottle={16}
-                    showsVerticalScrollIndicator={false}
-                >
-                    {this.renderBackgroundImage()}
-                    <Text style={styles.greetings}>{`Hi, ${this._getFirstName(firstName)}`}</Text>
-                    <View style={styles.dashboardContainer}>
-                        <Dashboard />
-                    </View>
-                    <View style={styles.servicesContainer}>
-                        <Text style={styles.serviceTitle}>Venteny Services</Text>
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity
-                                style={[styles.button, { marginRight: 8 }]}
-                                onPress={() => NavigationService.navigate('Merchant')}
-                            >
-                                <View style={styles.imageContainer}>
-                                    <ImageLoader style={styles.image} source={images.perks} />
-                                </View>
-                                <Text style={styles.buttonTitle}>PERKS & DEALS</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.button}
-                                onPress={this._onPressLoan}
-                            >
-                                <View style={styles.imageContainer}>
-                                    <ImageLoader style={styles.image} source={images.loan} />
-                                </View>
-                                <Text style={styles.buttonTitle}>LOAN CASH</Text>
-                            </TouchableOpacity>
+                <View style={styles.container}>
+                    {(merchant && merchant.isLoading) && <Loading />}
+                    <StatusBar
+                        backgroundColor={'transparent'}
+                        translucent
+                    />
+                    {this.renderHeader()}
+                    <ScrollView
+                        ref={component => { this.scrollView = component }}
+                        contentContainerStyle={{ flexGrow: 1 }}
+                        onScroll={Animated.event(
+                            [{ nativeEvent: { contentOffset: { y: scrollY } } }]
+                        )}
+                        scrollEventThrottle={16}
+                        showsVerticalScrollIndicator={false}
+                    >
+                        {this.renderBackgroundImage()}
+                        <Text style={styles.greetings}>{`Hi, ${this._getFirstName(auth && auth.data.user.first_name)}`}</Text>
+                        <View style={styles.dashboardContainer}>
+                            <Dashboard />
                         </View>
-                    </View>
-                    <RectangleList
-                        data={merchant && merchant.newMerchants}
-                        title={"New Merchants"}
-                        isCollapsible
-                    />
-                    <SquareList
-                        data={RecommendedDealsData}
-                        title={"Recommended Deals"}
-                        onPressCategoryItem={this._onPressCategoryItem}
-                    />
-                    <RectangleList
-                        data={merchant && merchant.topDeals}
-                        title={"Top Deals"}
-                        isCollapsible
-                        onPressItem={this._onPressItem}
-                        onPressAll={this._onPressAllItems}
-                    />
-                    <CircleList
-                        style={{ marginVertical: 16 }}
-                        listStyle={{ marginLeft: 8, marginTop: 8 }}
-                        data={sampleData}
-                        title={"Merchant Partners"}
-                        onPressItem={this._onPressMerchantItem}
-                    />
-                </ScrollView>
-            </View>
+                        <View style={styles.servicesContainer}>
+                            <Text style={styles.serviceTitle}>Venteny Services</Text>
+                            <View style={styles.buttonContainer}>
+                                <TouchableOpacity
+                                    style={[styles.button, { marginRight: 8 }]}
+                                    onPress={() => NavigationService.navigate('Merchant')}
+                                >
+                                    <View style={styles.imageContainer}>
+                                        <ImageLoader style={styles.image} source={images.perks} />
+                                    </View>
+                                    <Text style={styles.buttonTitle}>PERKS & DEALS</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={styles.button}
+                                    onPress={this._onPressLoan}
+                                >
+                                    <View style={styles.imageContainer}>
+                                        <ImageLoader style={styles.image} source={images.loan} />
+                                    </View>
+                                    <Text style={styles.buttonTitle}>LOAN CASH</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        <RectangleList
+                            data={merchant && merchant.newMerchants}
+                            title={"New Merchants"}
+                            isCollapsible
+                        />
+                        <SquareList
+                            data={RecommendedDealsData}
+                            title={"Recommended Deals"}
+                            onPressCategoryItem={this._onPressCategoryItem}
+                        />
+                        <RectangleList
+                            data={merchant && merchant.topDeals}
+                            title={"Top Deals"}
+                            isCollapsible
+                            onPressItem={this._onPressItem}
+                            onPressAll={this._onPressAllItems}
+                        />
+                        <CircleList
+                            style={{ marginVertical: 16 }}
+                            listStyle={{ marginLeft: 8, marginTop: 8 }}
+                            data={sampleData}
+                            title={"Merchant Partners"}
+                            onPressItem={this._onPressMerchantItem}
+                        />
+                    </ScrollView>
+                </View>
         )
     }
 }

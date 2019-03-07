@@ -62,12 +62,13 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         height: 120,
-        width: 120,
-        overflow: 'hidden'
+        width: 120
     },
     avatar: {
         height: 24,
-        width: 24
+        width: 24,
+        borderRadius: 12,
+        overflow: 'hidden'
     },
     image: {
         flex: 1,

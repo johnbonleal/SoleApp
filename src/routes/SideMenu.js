@@ -5,6 +5,7 @@ import { DrawerItems } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { NavigationService, Constants } from '../configs';
 import { logout } from '../actions/AuthActions';
+import { getFirstName } from '../utils/Helper';
 
 import { images, fonts } from '../resources';
 
@@ -25,16 +26,17 @@ class SideMenu extends Component {
         }
     }
     render() {
+        const { auth } = this.props;
         return (
             <View style={styles.container}>
                 <ImageBackground style={styles.headerBackground} source={images.header_bg} >
                     <TouchableOpacity style={styles.profilePictureContainer} onPress={this._onPressProfileImage}>
-                        <Image style={styles.image} source={images.profile} />
+                        <Image style={styles.image} source={auth.data.user && { uri: auth.data.user.avatar.medium.url }} />
                     </TouchableOpacity>
                     <View>
-                        <Text style={styles.name}>John Leal</Text>
+                        <Text style={styles.name}>{auth.data.user && `${getFirstName(auth.data.user.first_name)} ${auth.data.user.last_name}`}</Text>
                         <View style={styles.subtitleContainer}>
-                            <Text style={styles.subtitleText}>1,800 Available Points</Text>
+                            <Text style={styles.subtitleText}>{auth.data && `${auth.data.points} Available Points`}</Text>
                             <Ionicons name={"ios-arrow-forward"} size={13} color={Constants.COLOR_WHITE} />
                         </View>
                     </View>
@@ -54,17 +56,13 @@ class SideMenu extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        auth: state.auth
-    }
-};
+const mapStateToProps = state => ({
+    auth: state.auth
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        handleLogout: params => dispatch(logout(params))
-    }
-};
+const mapDispatchToProps = dispatch => ({
+    handleLogout: params => dispatch(logout(params))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideMenu);
 

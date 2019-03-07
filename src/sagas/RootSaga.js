@@ -10,6 +10,11 @@ import {
     FetchTopDealTypes,
     FetchNearbyMerchantTypes
 } from '../actions/MerchantActions';
+import {
+    FetchRewardTypes,
+    FetchCategoryTypes,
+    FetchMyRewardTypes
+} from '../actions/RewardActions';
 
 // Sagas
 import {
@@ -23,6 +28,11 @@ import {
     fetchTopDeal,
     fetchNearbyMerchant
 } from './MerchantSaga';
+import {
+    fetchRewards,
+    fetchCategories,
+    fetchMyRewards
+} from './RewardSaga';
 
 export function* rootSaga() {
     yield all([
@@ -33,6 +43,9 @@ export function* rootSaga() {
         takeLatest(FetchNewMerchantTypes.REQUEST, fetchNewMerchant),
         takeLatest(FetchTopDealTypes.REQUEST, fetchTopDeal),
         takeLatest(FetchNearbyMerchantTypes.REQUEST, fetchNearbyMerchant),
+        takeLatest(FetchRewardTypes.REQUEST, fetchRewards),
+        takeLatest(FetchCategoryTypes.REQUEST, fetchCategories),
+        takeLatest(FetchMyRewardTypes.REQUEST, fetchMyRewards),
         // fork(networkEventsListenerSaga, { timeout: 8000, checkConnectionInterval: 15000, }),
     ]);
 }

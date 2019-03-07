@@ -1,10 +1,11 @@
 import { compose, createStore, applyMiddleware } from 'redux';
-import { persistStore, persistReducer } from 'redux-persist';
+import { persistStore, persistReducer, persistCombineReducers } from 'redux-persist';
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import logger from 'redux-logger';
 import axiosMiddleware from 'redux-axios-middleware';
 import createSagaMiddleware from 'redux-saga';
 import storage from 'redux-persist/lib/storage';
-import rootReducers from '../reducers/RootReducer';
+import RootReducer from '../reducers/RootReducer';
 import { rootSaga } from '../sagas/RootSaga';
 import { axios } from '../services/Api';
 
@@ -22,9 +23,10 @@ export default () => {
     const persistConfig = {
         key: 'root',
         storage,
+        stateReconciler: autoMergeLevel2
     };
 
-    const persistedReducer = persistReducer(persistConfig, rootReducers);
+    const persistedReducer = persistCombineReducers(persistConfig, RootReducer);
     const store = compose(applyMiddleware(...middlewares))(createStore)(persistedReducer);
     const persistor = persistStore(store);
 

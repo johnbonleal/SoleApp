@@ -1,11 +1,32 @@
 import React, { Component } from 'react';
 import { View, ScrollView, TouchableOpacity, Text } from 'react-native';
+import { connect } from 'react-redux';
+import {
+    requestFetchRewards,
+    requestFetchCategories,
+    requestFetchMyRewards
+} from '../../actions/RewardActions';
 import { CircleList, RectangleList } from '../../components';
-import { NavigationService } from '../../configs/NavigationService';
+import { NavigationService } from '../../configs';
+import { CategoryData } from '../../utils/Data';
 
 const sampleData = ["shoe1", "shoe2", "shoe3", "shoe4", "shoe5"];
 
 class ExploreRewards extends Component {
+    componentDidMount() {
+        const { requestFetchRewards, requestFetchCategories, requestFetchMyRewards, auth } = this.props;
+        if (auth.data) {
+            requestFetchRewards({
+                access_token: auth.data.access_token
+            });
+            requestFetchCategories({
+                access_token: auth.data.access_token
+            });
+            requestFetchMyRewards({
+                access_token: auth.data.access_token
+            });
+        }
+    }
     _onPressItem = () => {
 
     }
@@ -13,12 +34,17 @@ class ExploreRewards extends Component {
         NavigationService.navigate('ViewAllRewards');
     }
     render() {
+        const { auth } = this.props;
         return (
             <View style={{ flex: 1, alignItems: 'center' }}>
-                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                <ScrollView
+                    ref={component => { this.scrollView = component }}
+                    contentContainerStyle={{ flexGrow: 1 }}
+                    scrollEventThrottle={16}
+                >
                     <View style={{ flexDirection: 'row', backgroundColor: 'white', marginTop: 16 }}>
                         <CircleList
-                            data={["1", "1", "1", "1", "1"]}
+                            data={CategoryData}
                             onPressItem={this._onPressItem}
                         />
                     </View>
@@ -69,11 +95,22 @@ class ExploreRewards extends Component {
                     </View>
                 </ScrollView>
                 <View style={{ backgroundColor: 'white', justifyContent: 'center', position: 'absolute', bottom: 0, left: 0, right: 0, elevation: 10, padding: 16 }}>
-                    <Text>1,800 Available Points</Text>
+                    <Text>{auth.data && `${auth.data.points} Available Points`}</Text>
                 </View>
             </View>
         )
     }
 }
 
-export default ExploreRewards;
+const mapStateToProps = state => ({
+    auth: state.auth,
+    reward: state.reward
+});
+
+const mapDispatchToProps = dispatch => ({
+    requestFetchRewards: params => dispatch(requestFetchRewards(params)),
+    requestFetchCategories: params => dispatch(requestFetchCategories(params)),
+    requestFetchMyRewards: params => dispatch(requestFetchMyRewards(params))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExploreRewards);

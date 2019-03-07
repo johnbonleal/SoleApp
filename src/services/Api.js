@@ -1,13 +1,6 @@
 import { create } from 'axios';
 import { Constants } from '../configs';
-
-const removeEmpty = (obj) => {
-    Object.keys(obj).forEach((key) => {
-        if (obj[key] && typeof obj[key] === 'object') removeEmpty(obj[key]);
-        else if (obj[key] == null) delete obj[key];
-    });
-    return obj;
-};
+import { removeEmpty } from '../utils/Helper';
 
 const transformParams = params => JSON.stringify(params);
 
@@ -62,7 +55,12 @@ const api = {
     FETCH_MERCHANT_BY_PAGE: params => get(`/merchant_paginated?page=${params.page}&location=${params.location}&category_id=${params.category}&limit=${params.limit}`, params),
     FETCH_MERCHANT_NEW: params => get('/new_merchants', params),
     FETCH_MERCHANT_NEARBY: params => get(`/merchant_nearby?latitude=${params.latitude}&longitude=${params.longitude}`, params),
-    FETCH_TOP_DEAL: params => get('/top_deals', params)
+    FETCH_TOP_DEAL: params => get('/top_deals', params),
+    FETCH_REWARD: params => get('/products', params),
+    FETCH_MY_REWARD: params => get('/my_rewards', params),
+    FETCH_CATEGORY: params => get('/merchant_categories', params),
+    FILTER_REWARD: params => get(`/products?merchant_category_id=${params.id}`, params),
+    REDEEM_REWARD: params => post('/point_transactions/redeem_reward', params),
 };
 
 export default api;

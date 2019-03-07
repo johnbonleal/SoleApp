@@ -2,6 +2,8 @@ import React from 'react';
 import { Animated } from 'react-native';
 import { Constants } from '../configs';
 
+var _ = require('lodash');
+
 const translateX = new Animated.Value(Constants.SCREEN_WIDTH * 2);
 const opacity = new Animated.Value(0);
 
@@ -27,6 +29,17 @@ export const dismissAnimation = () => {
             toValue: 0
         })
     ]).start();
+}
+
+export const getFirstName = name => {
+    if (_.isString(name)) {
+        const splitNameIntoArray = name.split(' ');
+        let firstName = splitNameIntoArray[0];
+        if (splitNameIntoArray[0] === 'Ma.' || splitNameIntoArray[0] === 'Ma') {
+            firstName = `${splitNameIntoArray[0]} ${splitNameIntoArray[1]}`;
+        }
+        return firstName;
+    }
 }
 
 export const removeEmpty = (obj) => {

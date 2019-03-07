@@ -5,9 +5,9 @@ import { images, fonts } from '../resources';
 const CircleListItem = ({ index, item, onPressItem }) => (
     <TouchableOpacity style={styles.container} onPress={onPressItem} >
         <View style={styles.imageContainer}>
-            <Image style={styles.image} source={images.image2} />
+            <Image style={styles.image} source={item.avatar} />
         </View>
-        <Text style={styles.merchantName}>The Big Cup</Text>
+        <Text style={styles.merchantName}>{item.title}</Text>
     </TouchableOpacity>
 );
 
@@ -20,20 +20,20 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     imageContainer: {
-        height: 70, 
-        width: 70, 
+        height: 70,
+        width: 70,
         backgroundColor: '#F2F2F2',
-        borderRadius: 35, 
+        borderRadius: 35,
         overflow: 'hidden'
     },
     image: {
-        flex: 1, 
-        height: null, 
+        flex: 1,
+        height: null,
         width: null
     },
     merchantName: {
         fontSize: fonts.SMALL,
-        marginVertical: 8, 
+        marginVertical: 8,
         color: '#4A4A4A'
     }
 });

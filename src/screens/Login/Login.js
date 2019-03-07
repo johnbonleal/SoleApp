@@ -116,17 +116,13 @@ const reduxFormConfig = {
     onSubmitSuccess: (result, dispatch) => dispatch(reset('LoginForm'))
 };
 
-const mapStateToProps = state => {
-    return {
-        auth: state.auth
-    }
-};
+const mapStateToProps = state => ({
+    auth: state.auth
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        requestLogin: params => dispatch(requestLogin(params))
-    }
-};
+const mapDispatchToProps = dispatch => ({
+    requestLogin: params => dispatch(requestLogin(params))
+});
 
 const LoginForm = reduxForm(reduxFormConfig)(Login);
 

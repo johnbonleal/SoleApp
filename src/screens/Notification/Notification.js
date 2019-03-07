@@ -72,7 +72,7 @@ class Notification extends Component {
                         Alert.alert('Modal has been closed.');
                     }}>
                     <View style={{ flex: 1 }}>
-                        <Header
+                        <NavigationBar
                             headerLeft={images.back}
                             onPressHeaderLeft={this._toggleNotificationModal}
                         />
