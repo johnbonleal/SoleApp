@@ -42,9 +42,16 @@ const COLOR_AVAILA_LIGHT      = '#E0E9E8';
 
 // Api
 
+// DEVELOPMENT
+
+const BASE_URL = 'http://192.168.1.62:3000';
+
+// STAGING
+
+
 // PRODUCTION
 
-const BASE_URL = 'http://venteny.com';
+// const BASE_URL = 'http://venteny.com';
 const API_URL  = `${BASE_URL}/api/v1`;
 const VENTENY_FORGOT_PASSWORD_KEY = 'http://www.venteny.com/users/password/new';
 

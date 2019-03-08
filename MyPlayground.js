@@ -90,3 +90,7 @@ function searchMerchants(arr, filter) {
 }
 
 console.log(searchMerchants(merchants, {name: "kama", category: "Restaurant", location: undefined}))
+
+let str1 = "Get free fries or drinks for 300 points - Eduardo's Peri-Peri Flamed Grilled Chicken"
+let arr5 = str1.split(" - ")
+console.log(arr5)

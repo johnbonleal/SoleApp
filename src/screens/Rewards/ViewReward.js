@@ -21,6 +21,9 @@ class ViewReward extends Component {
             current: 'Rewards'
         };
     }
+    componentDidMount() {
+        console.log("Data: ", this.props);
+    }
     _onPressBack = () => {
         if (this.state.current === 'Rewards') {
             NavigationService.back();

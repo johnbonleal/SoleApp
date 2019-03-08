@@ -23,6 +23,7 @@ import FloatingTextInput from './FloatingTextInput';
 import Dropdown from './Dropdown';
 import CheckBox from './CheckBox';
 import Loading from './Loading';
+import RewardList from './RewardList';
 
 export {
     NavigationBar,
@@ -49,5 +50,6 @@ export {
     FloatingTextInput,
     Dropdown,
     CheckBox,
-    Loading
+    Loading,
+    RewardList
 };

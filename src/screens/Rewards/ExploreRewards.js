@@ -6,7 +6,7 @@ import {
     requestFetchCategories,
     requestFetchMyRewards
 } from '../../actions/RewardActions';
-import { CircleList, RectangleList } from '../../components';
+import { CircleList, RectangleList, RewardList } from '../../components';
 import { NavigationService } from '../../configs';
 import { CategoryData } from '../../utils/Data';
 
@@ -27,14 +27,8 @@ class ExploreRewards extends Component {
             });
         }
     }
-    _onPressItem = () => {
-
-    }
-    _onPressViewRewards = () => {
-        NavigationService.navigate('ViewAllRewards');
-    }
     render() {
-        const { auth } = this.props;
+        const { auth, reward } = this.props;
         return (
             <View style={{ flex: 1, alignItems: 'center' }}>
                 <ScrollView
@@ -54,40 +48,21 @@ class ExploreRewards extends Component {
                             title={"Featured Deals"}
                             isCollapsible
                             withIcon
-                            onPressItem={this._onPressItem}
-                            onPressAll={this._onPressAllItems}
                         />
                     </View>
-                    <View style={{ backgroundColor: 'white', marginTop: 12 }}>
-                        <RectangleList
-                            data={sampleData}
-                            title={"Restaurants and Bars"}
-                            isCollapsible
-                            withIcon
-                            onPressItem={this._onPressItem}
-                            onPressAll={this._onPressAllItems}
-                        />
-                    </View>
-                    <View style={{ backgroundColor: 'white', marginTop: 12 }}>
-                        <RectangleList
-                            data={sampleData}
-                            title={"Travel"}
-                            isCollapsible
-                            withIcon
-                            onPressItem={this._onPressItem}
-                            onPressAll={this._onPressAllItems}
-                        />
-                    </View>
-                    <View style={{ backgroundColor: 'white', marginTop: 12 }}>
-                        <RectangleList
-                            data={sampleData}
-                            title={"Hotel and Resorts"}
-                            isCollapsible
-                            withIcon
-                            onPressItem={this._onPressItem}
-                            onPressAll={this._onPressAllItems}
-                        />
-                    </View>
+                    {
+                        (reward && reward.rewardsList.length > 0) &&
+                        reward.rewardsList.map((reward) => (
+                            <View key={`item-${reward.id}`} style={{ backgroundColor: 'white', marginTop: 12 }}>
+                                <RewardList
+                                    data={reward.items}
+                                    title={reward.name}
+                                    isCollapsible
+                                    withIcon
+                                />
+                            </View>
+                        ))
+                    }
                     <View style={{ backgroundColor: 'white', justifyContent: 'center', padding: 16, marginTop: 12, marginBottom: 50 }}>
                         <TouchableOpacity style={{ borderColor: '#DBDBDB', borderWidth: 1, borderRadius: 8, padding: 8 }} onPress={this._onPressViewRewards}>
                             <Text style={{ textAlign: 'center' }}>View All Rewards</Text>

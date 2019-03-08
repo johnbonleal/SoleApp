@@ -15,20 +15,20 @@ const RectangleListItem = ({ item, withIcon, plain, onPressItem }) => {
                 style={ListItemStyles.thumbnailContainer}
                 source={
                     attributes ?
-                    (
-                        attributes.merchant ?
-                        {uri: attributes.merchant.merchant_banner.medium.url} :
-                        {uri: attributes.merchant_banner.medium.url}
-                    )
-                    :
-                    item.src
+                        (
+                            attributes.merchant ?
+                                { uri: attributes.merchant.merchant_banner.medium.url } :
+                                { uri: attributes.merchant_banner.medium.url }
+                        )
+                        :
+                        item.src
                 }
             >
                 {
                     !plain &&
                     <View style={ListItemStyles.dealContainer}>
                         {withIcon && <View style={ListItemStyles.iconContainer}>
-                            <Image style={ListItemStyles.image} source={images.image2} />
+                            <Image style={ListItemStyles.image} source={item.merchant ? { uri: item.merchant.logo.medium.url } : images.image2} />
                         </View>}
                         <Text style={ListItemStyles.deal}>{attributes && (attributes.merchant ? attributes.merchant.best_deal : attributes.best_deal)}</Text>
                     </View>
